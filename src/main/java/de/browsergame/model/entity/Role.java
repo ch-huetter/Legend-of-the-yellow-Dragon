@@ -3,6 +3,7 @@ package de.browsergame.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Objects;
 import java.util.Set;
@@ -12,9 +13,9 @@ import java.util.Set;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Role {
+public class Role implements GrantedAuthority {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NonNull
     private String name;
@@ -38,5 +39,10 @@ public class Role {
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

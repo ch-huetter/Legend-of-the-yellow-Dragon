@@ -11,6 +11,7 @@ import lombok.*;
 public class AbilityTree {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     @ManyToOne()
     @JoinColumn(name="ability_key")

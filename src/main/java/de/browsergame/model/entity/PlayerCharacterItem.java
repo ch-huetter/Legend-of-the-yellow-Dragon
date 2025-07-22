@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class PlayerCharacterItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer quantity;
 

@@ -1,10 +1,7 @@
 package de.browsergame.model.entity;
 
 import de.browsergame.model.entity.dungeonMonster.DungeonMonster;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
@@ -17,6 +14,7 @@ import java.util.Set;
 public class Dungeon {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NonNull
