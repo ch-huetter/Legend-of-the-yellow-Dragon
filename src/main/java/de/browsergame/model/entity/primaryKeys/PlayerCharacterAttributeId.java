@@ -1,4 +1,4 @@
-package de.browsergame.model.entity.playerCharacterAttribute;
+package de.browsergame.model.entity.primaryKeys;
 
 import de.browsergame.model.entity.Attribute;
 import de.browsergame.model.entity.PlayerCharacter;

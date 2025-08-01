@@ -1,6 +1,6 @@
 package de.browsergame.model.entity;
 
-import de.browsergame.model.entity.playerCharacterAttribute.PlayerCharacterAttribute;
+import de.browsergame.model.entity.joinTable.PlayerCharacterAttribute;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

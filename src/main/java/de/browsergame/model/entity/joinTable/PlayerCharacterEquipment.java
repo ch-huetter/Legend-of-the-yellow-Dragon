@@ -1,5 +1,8 @@
-package de.browsergame.model.entity;
+package de.browsergame.model.entity.joinTable;
 
+import de.browsergame.model.entity.EquipmentSlot;
+import de.browsergame.model.entity.Item;
+import de.browsergame.model.entity.PlayerCharacter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

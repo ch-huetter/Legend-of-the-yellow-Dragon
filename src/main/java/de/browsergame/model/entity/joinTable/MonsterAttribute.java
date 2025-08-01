@@ -1,7 +1,8 @@
-package de.browsergame.model.entity.monsterAttribute;
+package de.browsergame.model.entity.joinTable;
 
 import de.browsergame.model.entity.Attribute;
 import de.browsergame.model.entity.Monster;
+import de.browsergame.model.entity.primaryKeys.MonsterAttributeId;
 import jakarta.persistence.*;
 import lombok.*;
 

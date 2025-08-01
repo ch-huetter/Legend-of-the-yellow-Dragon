@@ -1,14 +1,14 @@
 package de.browsergame.model.entity;
 
+import de.browsergame.model.entity.joinTable.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -23,17 +23,16 @@ public class User implements UserDetails, CredentialsContainer {
     @NonNull
     private String loginName;
 
-    private String password;
-    @ManyToMany
-    @JoinTable(
-            name ="user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    @ToString.Exclude
-    private Set<Role> roles;
+    @NonNull
+    private Boolean active;
 
-    @OneToMany(mappedBy="user",fetch = FetchType.LAZY)
+    private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<UserRole> userRoles;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<PlayerCharacter> playerCharacters;
 
@@ -44,11 +43,32 @@ public class User implements UserDetails, CredentialsContainer {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<Role> roles = new ArrayList<>();
+        userRoles.forEach(userRole -> {
+            roles.add(userRole.getRole());
+        });
         return roles;
     }
 
     @Override
     public String getUsername() {
         return loginName;
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        User user = (User) o;
+        return Objects.equals(this.getLoginName(), user.getLoginName()) && Objects.equals(this.getActive(), user.getActive()) &&
+                Objects.equals(this.getPassword(), user.getPassword()) && Objects.equals(this.getUserRoles().size(), user.getUserRoles().size());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

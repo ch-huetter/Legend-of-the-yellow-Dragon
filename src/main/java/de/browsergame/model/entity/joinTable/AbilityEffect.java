@@ -1,7 +1,8 @@
-package de.browsergame.model.entity.abilityEffect;
+package de.browsergame.model.entity.joinTable;
 
 import de.browsergame.model.entity.Ability;
 import de.browsergame.model.entity.Effect;
+import de.browsergame.model.entity.primaryKeys.AbilityEffectId;
 import jakarta.persistence.*;
 import lombok.*;
 

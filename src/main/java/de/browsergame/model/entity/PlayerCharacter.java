@@ -1,6 +1,8 @@
 package de.browsergame.model.entity;
 
-import de.browsergame.model.entity.playerCharacterAttribute.PlayerCharacterAttribute;
+import de.browsergame.model.entity.joinTable.PlayerCharacterAttribute;
+import de.browsergame.model.entity.joinTable.PlayerCharacterEquipment;
+import de.browsergame.model.entity.joinTable.PlayerCharacterItem;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;

@@ -1,7 +1,8 @@
-package de.browsergame.model.entity.abilityAbilityRestriction;
+package de.browsergame.model.entity.joinTable;
 
 import de.browsergame.model.entity.Ability;
 import de.browsergame.model.entity.AbilityRestriction;
+import de.browsergame.model.entity.primaryKeys.AbilityAbilityRestrictionId;
 import jakarta.persistence.*;
 import lombok.*;
 

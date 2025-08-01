@@ -1,7 +1,8 @@
-package de.browsergame.model.entity.playerCharacterAttribute;
+package de.browsergame.model.entity.joinTable;
 
 import de.browsergame.model.entity.Attribute;
 import de.browsergame.model.entity.PlayerCharacter;
+import de.browsergame.model.entity.primaryKeys.PlayerCharacterAttributeId;
 import jakarta.persistence.*;
 import lombok.*;
 

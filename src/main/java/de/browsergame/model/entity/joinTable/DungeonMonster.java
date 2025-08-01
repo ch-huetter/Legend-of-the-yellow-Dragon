@@ -1,7 +1,8 @@
-package de.browsergame.model.entity.dungeonMonster;
+package de.browsergame.model.entity.joinTable;
 
 import de.browsergame.model.entity.Dungeon;
 import de.browsergame.model.entity.Monster;
+import de.browsergame.model.entity.primaryKeys.DungeonMonsterId;
 import jakarta.persistence.*;
 import lombok.*;
 
