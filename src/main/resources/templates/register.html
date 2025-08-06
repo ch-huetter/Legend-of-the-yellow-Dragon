@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/webjars/bootstrap/5.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/bootstrap/5.3.7/js/bootstrap.bundle.min.js}" defer></script>
+    <title>Registration</title>
+</head>
+<body class="main-wrapper-fullscreen">
+<div class="content-wrapper">
+    <div class="leg-flex-row mb-3">
+        <h1 th:text="#{registration.greeting}">Willkommen</h1>
+    </div>
+    <div class="row mb-3 leg-rounded-border leg-gradient">
+        <p th:text="#{registration.greetingText}"></p>
+    </div>
+    <form th:action="@{/register/add}" th:object="${registrationDTO.user}" method="post">
+        <div class="leg-flex-row mb-3">
+            <div th:replace="~{fragments/textboxInput::inputRow('registrationDTO.user','loginName')}">
+            </div>
+            <div th:replace="~{fragments/textboxInput::inputRow('registrationDTO.user','password')}">
+            </div>
+        </div>
+        <div class="leg-flex-row mb-3">
+            <div th:replace="~{fragments/textboxInput::inputRow('registrationDTO.user','eMail')}">
+            </div>
+        </div>
+
+        <div class="leg-flex-row mb-3" th:style="'justify-content:flex-end;'">
+            <div class="leg-rounded-border leg-button-wrapper leg-transition col-3 p-1 mx-2">
+                <input type="submit" th:value="#{registration.submit}" class="leg-button "/>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

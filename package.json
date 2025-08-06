@@ -1,0 +1,17 @@
+{
+  "name": "legend-of-the-yellow-dragon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "sass src/main/frontend/scss:src/main/resources/static/css --no-source-map --style=compressed",
+    "watch:css": "sass --watch src/main/frontend/scss:src/main/resources/static/css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
+}

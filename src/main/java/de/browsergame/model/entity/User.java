@@ -26,6 +26,9 @@ public class User implements UserDetails, CredentialsContainer {
     @NonNull
     private Boolean active;
 
+    @NonNull
+    private String eMail;
+
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -37,12 +40,12 @@ public class User implements UserDetails, CredentialsContainer {
     private List<PlayerCharacter> playerCharacters;
 
     @Override
-    public void eraseCredentials(){
+    public void eraseCredentials () {
         this.password = null;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities () {
         ArrayList<Role> roles = new ArrayList<>();
         userRoles.forEach(userRole -> {
             roles.add(userRole.getRole());
@@ -51,24 +54,27 @@ public class User implements UserDetails, CredentialsContainer {
     }
 
     @Override
-    public String getUsername() {
+    public String getUsername () {
         return loginName;
     }
 
     @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+    public final boolean equals (Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        Class<?> oEffectiveClass    = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
+        if (thisEffectiveClass != oEffectiveClass)
+            return false;
         User user = (User) o;
         return Objects.equals(this.getLoginName(), user.getLoginName()) && Objects.equals(this.getActive(), user.getActive()) &&
-                Objects.equals(this.getPassword(), user.getPassword()) && Objects.equals(this.getUserRoles().size(), user.getUserRoles().size());
+               Objects.equals(this.getPassword(), user.getPassword()) && Objects.equals(this.getUserRoles().size(), user.getUserRoles().size());
     }
 
     @Override
-    public final int hashCode() {
+    public final int hashCode () {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

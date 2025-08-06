@@ -2,6 +2,7 @@ package de.browsergame.service;
 
 import de.browsergame.model.entity.User;
 import de.browsergame.model.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,10 +16,11 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     private final UserRepository userRepo;
 
+    @Transactional
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepo.findByloginName(username);
-        if(user.isEmpty()){
+    public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepo.findByloginNameWithUserRoles(username);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("Kein Benutzer mit diesem Namen gefunden");
         }
         return user.get();

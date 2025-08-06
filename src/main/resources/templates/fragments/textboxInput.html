@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<div th:fragment="inputRow(object,field)"
+     th:with="type=${type} ?: 'text', disabled=${disabled}, required=${required}"
+     class="leg-rounded-border leg-rounded-container leg-gradient p-1 mx-2">
+    <label th:text="#{__${required == true ? '*' : ''}__label.__${field}__}" th:for="${field}"
+           class="leg-rounded-border-label"></label>
+    <input th:id="${field}" th:type="${type}" th:field="*{__${field}__}" th:disabled="${disabled}"
+           class="leg-rounded-border-input">
+</div>
+</html>
