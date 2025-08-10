@@ -1,0 +1,124 @@
+body, input {
+  color: white;
+  font-family: "Lora", serif;
+  font-size: 16px;
+}
+
+.main-wrapper-fullscreen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.background-image {
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.content-wrapper {
+  width: 100%;
+  background-color: transparent;
+  min-width: 720px;
+  max-width: 960px;
+}
+
+.leg-flex-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.leg-flex-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.leg-flex-row > p {
+  text-align: center;
+}
+
+.leg-rounded-container-outer {
+  height: 42px;
+  flex-grow: 1;
+  display: flex;
+  align-content: center;
+  item-align: center;
+  box-shadow: 4px 2px black;
+}
+
+.leg-rounded-container-inner {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.leg-rounded-border {
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.leg-gradient {
+  background-image: radial-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 60%, #2ecc71 68%, rgb(40.3696, 179.0304, 99.1688) 70%, rgb(34.7392, 154.0608, 85.3376) 100%);
+}
+
+.leg-rounded-border-input {
+  border: none;
+  background: transparent;
+  flex: 1 1 auto;
+}
+
+.leg-rounded-border-input:hover {
+  border: 1.5px solid black;
+}
+
+.leg-rounded-border-label {
+  flex: 0 0 auto;
+}
+
+.leg-transition {
+  transition: 0.3s cubic-bezier(0, 0.5, 0.5, 1);
+}
+
+.leg-transition:hover {
+  scale: 1.05;
+  background-image: linear-gradient(2deg, rgb(34.7392, 154.0608, 85.3376) 14%, rgb(40.3696, 179.0304, 99.1688) 30%, #2ecc71 50%, #2ecc71 100%);
+  background-color: transparent;
+  border: 2px solid black;
+}
+
+.leg-button-wrapper {
+  background-color: #2ecc71;
+  width: 25%;
+  flex-grow: 0;
+}
+
+.leg-button-wrapper > input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+}
+
+.leg-link {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.leg-rounded-center-text {
+  margin-top: 17px;
+  margin-bottom: 17px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,128 @@
+@use 'variables' as *;
+@use 'mixins';
+@use 'sass:color';
+
+body, input{
+    color:$color-text;
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    }
+
+.main-wrapper-fullscreen{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.background-image{
+   background-repeat: no-repeat, no-repeat !important;
+   background-size: cover !important;
+   background-position: center !important;
+   }
+
+.content-wrapper{
+    width: 100%;
+    background-color:transparent;
+    min-width:720px;
+    max-width:960px;
+}
+
+.leg-flex-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    flex-flow:column;
+    }
+
+.leg-flex-row{
+    width:100%;
+    display:flex;
+    justify-content:space-evenly;
+    }
+
+.leg-flex-row > p {
+    text-align:center
+    }
+
+.leg-rounded-container-outer{
+    height: 42px;
+    flex-grow:1;
+    display:flex;
+    align-content:center;
+    item-align:center;
+    box-shadow:4px 2px black;
+    }
+
+
+.leg-rounded-container-inner{
+    display:flex;
+    align-content: center;
+    align-items:center;
+    flex-grow:1;
+    margin-left:10%;
+    margin-right:10%;
+    }
+
+.leg-rounded-border{
+    border : 1px solid black;
+    border-radius : 12px;
+}
+
+.leg-gradient{
+    background-image:radial-gradient($color-gradient-inner 0%,$color-gradient-inner 60%, $color-gradient-outer 68% , $color-gradient-outer-dark 70% , $color-gradient-outer-darker 100%);
+   }
+
+.leg-rounded-border-input{
+    border:none;
+    background:transparent;
+    flex : 1 1 auto;
+}
+
+.leg-rounded-border-input:hover{
+    border:1.5px solid black;
+    }
+
+.leg-rounded-border-label{
+    flex : 0 0 auto;
+}
+
+.leg-transition{
+    transition:.3s cubic-bezier(0,.5,.5,1);
+    }
+
+.leg-transition:hover{
+    scale:1.05;
+    background-image:linear-gradient(2deg, $color-gradient-outer-darker 14%, $color-gradient-outer-dark 30%, $color-gradient-outer 50%, $color-gradient-outer 100%);
+    background-color:transparent;
+    border:2px solid black;
+    }
+
+.leg-button-wrapper{
+    background-color:$color-gradient-outer;
+    width:25%;
+    flex-grow:0;
+    }
+
+.leg-button-wrapper > input{
+    width:100%;
+    height:100%;
+    background:transparent;
+    border:none;
+    }
+
+.leg-link{
+    text-decoration:none;
+    color:$color-text;
+    text-align:center;
+    width:100%;
+    margin-bottom:auto;
+    margin-top:auto;
+    }
+
+.leg-rounded-center-text{
+    margin-top: 17px;
+    margin-bottom: 17px;
+    text-align: center;
+    }
+

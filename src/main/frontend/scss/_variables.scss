@@ -1,0 +1,18 @@
+@use 'sass:color';
+
+// Farben
+$color-primary: #3498db;
+$color-secondary: #2ecc71;
+$color-danger: #e74c3c;
+$color-text: white;
+$color-gradient-inner:rgba(255, 255, 255, 0);
+$color-gradient-outer:#2ecc71;
+$color-gradient-outer-dark: color.adjust($color-gradient-outer, $lightness:-6%);
+$color-gradient-outer-darker: color.adjust($color-gradient-outer, $lightness:-12%);
+$color-background:#f5f4f2;
+
+$width-gradient-transition-horizontal:6px;
+$width-gradient-transition-vertical:15px;
+// Layout
+$spacing-base: 8px;
+$font-base: 16px;

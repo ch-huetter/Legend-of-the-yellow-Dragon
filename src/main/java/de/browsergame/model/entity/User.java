@@ -2,7 +2,11 @@ package de.browsergame.model.entity;
 
 import de.browsergame.model.entity.joinTable.UserRole;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,22 +18,24 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails, CredentialsContainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NonNull
+
+    @NotBlank
+
     private String loginName;
 
-    @NonNull
-    private Boolean active;
-
-    @NonNull
+    @NotBlank
     private String eMail;
 
+    @NotBlank
+    @ToString.Exclude
     private String password;
+
+    private Boolean active;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude

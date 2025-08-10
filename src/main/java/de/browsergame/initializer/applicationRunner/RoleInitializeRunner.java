@@ -1,4 +1,4 @@
-package de.browsergame.initializer;
+package de.browsergame.initializer.applicationRunner;
 
 import de.browsergame.enums.RoleEnum;
 import de.browsergame.factory.RoleFactory;
@@ -17,19 +17,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 @Order(1)
-public class RoleInitializer implements ApplicationRunner {
+public class RoleInitializeRunner implements ApplicationRunner {
 
     private final RoleRepository roleRepository;
     private final RoleFactory roleFactory;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run (ApplicationArguments args) throws Exception {
         log.info("Checking if Default Roles are present");
-        for(RoleEnum role: RoleEnum.values()){
+        for (RoleEnum role : RoleEnum.values()) {
             Optional<Role> roleFromDatabase = roleRepository.findByName(role.getName());
-            Role roleTemplate = roleFactory.getRoleForEnumEntry(role);
+            Role           roleTemplate     = roleFactory.getRoleForEnumEntry(role);
 
-            if(roleFromDatabase.isEmpty() || !roleTemplate.equals(roleFromDatabase.get())){
+            if (roleFromDatabase.isEmpty() || !roleTemplate.equals(roleFromDatabase.get())) {
                 log.info("Default Roles not found or they have changed. Creating/Updating them");
                 roleRepository.save(roleTemplate);
             }
