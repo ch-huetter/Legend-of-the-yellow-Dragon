@@ -22,7 +22,6 @@ body, input{
    }
 
 .content-wrapper{
-    width: 100%;
     background-color:transparent;
     min-width:720px;
     max-width:960px;
@@ -39,6 +38,7 @@ body, input{
     width:100%;
     display:flex;
     justify-content:space-evenly;
+    flex-flow:row;
     }
 
 .leg-flex-row > p {
@@ -46,11 +46,11 @@ body, input{
     }
 
 .leg-rounded-container-outer{
-    height: 42px;
+    min-height: 42px;
     flex-grow:1;
     display:flex;
     align-content:center;
-    item-align:center;
+    flex-direction:column;
     box-shadow:4px 2px black;
     }
 
@@ -73,6 +73,10 @@ body, input{
     background-image:radial-gradient($color-gradient-inner 0%,$color-gradient-inner 60%, $color-gradient-outer 68% , $color-gradient-outer-dark 70% , $color-gradient-outer-darker 100%);
    }
 
+.leg-gradient-danger{
+    background-image:radial-gradient($color-gradient-inner 0%,$color-gradient-inner 60%, $color-gradient-danger-outer 68% , $color-gradient-danger-outer-dark 70% , $color-gradient-danger-outer-darker 100%);
+   }
+
 .leg-rounded-border-input{
     border:none;
     background:transparent;
@@ -93,7 +97,7 @@ body, input{
 
 .leg-transition:hover{
     scale:1.05;
-    background-image:linear-gradient(2deg, $color-gradient-outer-darker 14%, $color-gradient-outer-dark 30%, $color-gradient-outer 50%, $color-gradient-outer 100%);
+    background-image:linear-gradient(2deg, $color-transition-outer-darker 14%, $color-transition-outer-dark 30%, $color-transition-outer 50%, $color-transition-outer 100%);
     background-color:transparent;
     border:2px solid black;
     }
@@ -126,3 +130,70 @@ body, input{
     text-align: center;
     }
 
+.leg-progress-bar {
+  position: relative;
+  width: 250px;
+  height: 25px;
+  background-color: #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.leg-progress-fill-health {
+  height: 100%;
+  background-color: red;
+  transition: width 0.3s ease;
+}
+
+.leg-progress-fill-energy {
+  height: 100%;
+  background-color: yellow;
+  transition: width 0.3s ease;
+}
+
+.leg-progress-fill-stamina {
+  height: 100%;
+  background-color: green;
+  transition: width 0.3s ease;
+}
+
+.leg-progress-fill-mana {
+  height: 100%;
+  background-color: blue;
+  transition: width 0.3s ease;
+}
+
+.leg-progress-fill-rage {
+  height: 100%;
+  background-color: darkred;
+  transition: width 0.3s ease;
+}
+
+input, select, textarea {
+  &:-webkit-autofill, {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: $color-text;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+input, select, textarea {
+  &:-moz-autofill, {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: $color-text;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+
+
+.leg-center-text{
+    text-align: center;
+    }
+
+.leg-text-danger{
+    color: $color-danger;
+    }

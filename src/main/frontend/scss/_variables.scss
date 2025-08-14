@@ -3,12 +3,18 @@
 // Farben
 $color-primary: #3498db;
 $color-secondary: #2ecc71;
-$color-danger: #e74c3c;
+$color-danger: #e81414;
 $color-text: white;
-$color-gradient-inner:rgba(255, 255, 255, 0);
+$color-gradient-inner:transparent;
 $color-gradient-outer:#2ecc71;
 $color-gradient-outer-dark: color.adjust($color-gradient-outer, $lightness:-6%);
-$color-gradient-outer-darker: color.adjust($color-gradient-outer, $lightness:-12%);
+$color-gradient-outer-darker: rgb(15, 15, 15);
+$color-gradient-danger-outer:$color-danger;
+$color-gradient-danger-outer-dark:rgb(179, 40, 40);
+$color-gradient-danger-outer-darker:rgb(13, 7, 7);
+$color-transition-outer:#2ecc71;
+$color-transition-outer-dark: color.adjust($color-transition-outer, $lightness:-6%);
+$color-transition-outer-darker: color.adjust($color-transition-outer, $lightness:-12%);
 $color-background:#f5f4f2;
 
 $width-gradient-transition-horizontal:6px;

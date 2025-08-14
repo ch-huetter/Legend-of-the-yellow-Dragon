@@ -1,0 +1,15 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="fieldErrors" th:object="${__${object}__}" th:remove="tag">
+    <div th:if="${#fields.hasErrors(field) || #fields.hasErrors(field + '*')}"
+         class="leg-center-text leg-rounded-border leg-gradient-danger leg-rounded-container-outer mx-2">
+        <p th:each="fieldError : ${#fields.detailedErrors(field + '*')}" class="my-auto"
+        >[[${(fieldError.fieldName != field ? fieldError.fieldName + ': ' : '') + fieldError.message}]]</p>
+    </div>
+</div>
+
+<div th:fragment="globalErrors" th:object="${__${object}__}" th:remove="tag">
+    <div th:if="${#fields.hasGlobalErrors()}" class="invalid-feedback d-block">
+        <p th:each="globalError : ${#fields.globalErrors()}" class="mb-0">[[${globalError}]]</p>
+    </div>
+</div>

@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
-<th:block th:replace="~{fragments/head::head('Registration',~{::custom})}">
-
-</th:block>
-
-<body class="main-wrapper-fullscreen background-image"
+<th:block th:replace="~{fragments/head::head('Registration',~{::custom})}"/>
+<body class="main-wrapper-fullscreen background-image" hx-boost="true"
       th:style="'background:url(' + @{/images/background/register_background.png} + ');'">
-<div class="content-wrapper background-image leg-flex-container">
+<div class="content-wrapper leg-flex-container">
     <div class="leg-flex-row mb-3">
         <h1 th:text="#{registration.greeting}">Willkommen</h1>
     </div>
     <div class="leg-flex-container" style="margin: auto;">
         <div class="leg-flex-row mb-3">
             <div class="leg-rounded-border leg-rounded-container-outer leg-gradient" style="height:auto">
-                <p class="leg-rounded-center-text" th:text="#{registration.greetingText}"></p>
+                <p class="leg-rounded-center-text leg-rounded-container-inner"
+                   th:text="#{registration.greetingText}"></p>
             </div>
         </div>
-        <form th:action="@{/registration/createUser}" th:object="${registrationDTO}" method="post"
+        <form th:action="@{/registration/createUser}" th:object="${registrationDto}" method="post"
               th:style="'width:100%;'">
             <div class="leg-flex-row mb-3">
-                <div th:replace="~{fragments/formWrapper::contentWrapper(object='registrationDTO',field='user.loginName',content=~{fragments/textboxInput::content})}">
+                <div th:replace="~{fragments/form/formWrapper::contentWrapper(object='registrationDto',field='user.loginName',content=~{fragments/form/textboxInput::content})}">
                 </div>
-                <div th:replace="~{fragments/formWrapper::contentWrapper(object='registrationDTO',field='user.password',content=~{fragments/textboxInput::content},type='password')}">
+                <div th:replace="~{fragments/form/formWrapper::contentWrapper(object='registrationDto',field='user.password',content=~{fragments/form/textboxInput::content},type='password')}">
                 </div>
             </div>
             <div class="leg-flex-row mb-3">
-                <div th:replace="~{fragments/formWrapper::contentWrapper(object='registrationDTO',field='user.eMail',content=~{fragments/textboxInput::content},type='email')}">
+                <div th:replace="~{fragments/form/formWrapper::contentWrapper(object='registrationDto',field='user.eMail',content=~{fragments/form/textboxInput::content},type='email')}">
                 </div>
             </div>
             <div class="leg-flex-row mb-3" th:style="'justify-content:center;'">
+                <th:block th:replace="~{fragments/form/href(href=@{/login}, text=#{button.backToLogin})}"/>
                 <div class="leg-rounded-border leg-button-wrapper leg-transition leg-rounded-container-outer col-3 p-1 mx-2">
-                    <a th:href="@{/login}" th:text="#{button.backToLogin}" class="leg-link"></a>
-                </div>
-                <div class="leg-rounded-border leg-button-wrapper leg-transition leg-rounded-container-outer col-3 p-1 mx-2">
-                    <input type="submit" th:value="#{registration.submit}" class=""/>
+                    <input type="submit" th:value="#{button.submit}" class=""/>
                 </div>
             </div>
         </form>

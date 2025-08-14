@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<th:block th:replace="~{fragments/head::head('Login',~{::custom})}"/>
+<body class="main-wrapper-fullscreen background-image"
+      th:style="'background:url(' + @{/images/background/login_background.png} + ');'">
+<div class="content-wrapper leg-flex-container">
+    <div class="leg-flex-row mb-3">
+        <h1 th:text="#{gameTitle}"></h1>
+    </div>
+    <div class="leg-flex-container" style="margin: auto;">
+        <form th:action="@{/login}" method="post" th:style="'width:100%;'">
+            <div class="leg-flex-row mb-3">
+                <div class="leg-rounded-border leg-rounded-container-outer leg-gradient p-1 mx-2">
+                    <div class="leg-rounded-container-inner">
+                        <label for="username" class="leg-rounded-border-label" th:text="#{label.user.loginName}">Name
+                            :</label>
+                        <input id="username" name="username" type="text" class="leg-rounded-border-input" required>
+                    </div>
+                </div>
+            </div>
+            <div class="leg-flex-row mb-3">
+                <div class="leg-flex-container">
+                    <div class="leg-rounded-border leg-rounded-container-outer leg-gradient p-1 mx-2">
+                        <div class="leg-rounded-container-inner">
+                            <label for="password" class="leg-rounded-border-label" th:text="#{label.user.password}">Password
+                                :</label>
+                            <input id="password" name="password" type="password" class="leg-rounded-border-input"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${param.error}"
+                 class="leg-center-text leg-rounded-border leg-gradient-danger leg-rounded-container-outer mx-2 mb-3">
+                <p class="my-auto" th:text="#{error.login.wrongLoginCredentials}"></p>
+            </div>
+            <div class="leg-flex-row mb-3" th:style="'justify-content:center;'">
+                <th:block th:replace="~{fragments/form/href(href=@{/registration}, text=#{button.toRegister})}"/>
+                <div class="leg-rounded-border leg-button-wrapper leg-transition leg-rounded-container-outer col-3 p-1 mx-2">
+                    <input type="submit" th:value="#{button.submit}" class=""/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

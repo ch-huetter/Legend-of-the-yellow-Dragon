@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="progressBar(object)" th:object="${object}">
+    <label th:text="*{text}"></label>
+    <div class="leg-progress-bar">
+        <div class=""
+             th:classappend="*{cssClass}"
+             th:style="'width:' + *{percent} + ';'"></div>
+        <span th:text="*{value} + '/' + *{max}" class="leg-text-center"></span>
+    </div>
+</div>
+</html>
