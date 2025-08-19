@@ -1,5 +1,6 @@
 package de.game.model.entity;
 
+import de.game.model.entity.joinTable.CharacterAbilityTree;
 import de.game.model.entity.joinTable.PlayerCharacterAttribute;
 import de.game.model.entity.joinTable.PlayerCharacterEquipment;
 import de.game.model.entity.joinTable.PlayerCharacterItem;
@@ -12,34 +13,33 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "player_character")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class PlayerCharacter {
+public class PlayerCharacter extends AbstractCharacter {
 
-    @Id
-    private String name;
+
     @NonNull
-    private Integer level;
-    @NonNull
-    private Integer experience;
+    private Integer energy;
     @NonNull
     private Integer maxEnergy;
     @NonNull
-    private Integer gold;
-    @NonNull
-    private Integer maxMana;
-    @NonNull
-    private Integer maxRage;
-    @NonNull
-    private Integer armor;
-    @NonNull
-    private Integer resistance;
-    @NonNull
     private Integer health;
+
     @NonNull
-    private Integer maxHealth;
+    private Integer attributePoints;
+    @NonNull
+    private Integer attributePointsSpend;
+    @NonNull
+    private Integer abilityPoints;
+    @NonNull
+    private Integer abilityPointsSpend;
+    @NonNull
+    private Integer abilityTreePoints;
+    @NonNull
+    private Integer abilityTreePointsSpend;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -54,9 +54,13 @@ public class PlayerCharacter {
     @ToString.Exclude
     private List<PlayerCharacterEquipment> equipmentList;
 
-    @OneToMany(mappedBy = "playerCharacter")
+    @OneToMany(mappedBy = "characterName")
     @ToString.Exclude
-    private Set<PlayerCharacterAttribute> playerAttributes;
+    private Set<PlayerCharacterAttribute> attributes;
+
+    @OneToMany(mappedBy = "character")
+    @ToString.Exclude
+    private Set<CharacterAbilityTree> abilityTrees;
 
     @Override
     public final boolean equals (Object o) {

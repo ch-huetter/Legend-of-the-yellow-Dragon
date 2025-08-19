@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<th:block th:replace="~{fragments/head::head(${Title},~{::custom})}"/>
-<body class="main-wrapper-fullscreen" hx-boost="true">
-<div class="main-content-wrapper" style="background:black">
-    <header th:unless="${layoutDto.hideHeader}" class="">
-        <div class="leg-flex-container">
-            <th:block
-                    th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.healthBar})}"/>
-            <th:block
-                    th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.energyBar})}"/>
-            <div class="leg-gradient leg-rounded-container-outer">
-                <div class="leg-rounded-container-inner">
-                    <p th:text="#{header.level(${layoutDto.level})}" class="leg-text-center"></p>
-                </div>
-            </div>
-            <th:block
-                    th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.experienceBar})}"/>
-            <div class="leg-gradient leg-rounded-container-outer">
-                <div class="leg-rounded-container-inner">
-                    <p th:text="#{header.gold(${layoutDto.gold})}" class="leg-text-center"></p>
-                </div>
-            </div>
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:fragment="shell(title, backgroundImage)">
+<th:block th:replace="~{fragments/head::head(${title},~{::custom})}"/>
+<body class="main-wrapper-fullscreen" hx-boost="true" th:attr="style=|background-image:url('${backgroundImage}');|">
+<div class="content-wrapper-wide leg-flex-row">
+    <aside class="leg-sidebar background-image"
+           th:style="'background:url(' + @{/images/background/navigation_background.png} + ');'">
+        <p th:utext="#{sidebar.headline.administration}" class="leg-text-center leg-headline"></p>
+        <a th:href="@{user}" class="leg-link" th:text="#{sidebar.user}"></a>
+        <a th:href="@{administration/character}" class="leg-link"
+           th:text="#{sidebar.characterAdministration}"></a>
+        <a th:href="@{administration/items}" class="leg-link" th:text="#{sidebar.items}"></a>
+        <p th:utext="#{sidebar.headline.character}" class="leg-text-center leg-headline"></p>
+        <a th:href="@{/home}" class="leg-link" th:text="#{sidebar.home}"></a>
+        <a th:href="@{/character}" class="leg-link" th:text="#{sidebar.character}"></a>
+    </aside>
+    <div class="leg-flex-container leg-content">
+        <div class="leg-title-container"
+             th:style="'background:url(' + @{/images/background/drachenschuppen_teppich.png} + ');'">
+            <a th:href="@{/}" class="leg-title-container-image">
+                <img th:src="@{/images/background/logo.png}"
+                     alt="Golden Dragon Logo"
+                     class="leg-title-container-image"/></a>
+            <p th:text="#{gameTitle}"></p>
         </div>
-        <div class="leg-flex-container" th:if="${layoutDto.messages.size} > 0 ">
-            <div th:each="message: ${layoutDto.messages}">
-                <p th:text="${message}"></p>
-            </div>
-        </div>
-    </header>
-    <div class="leg-main-sidebar-container">
-        <aside>
-            <div class="leg-flex-container">
-                <a th:href="@{user}" class="leg-link" th:text="#{sidebar.user}"></a>
-                <a th:href="@{administration/character}" class="leg-link"
-                   th:text="#{sidebar.characterAdministration}"></a>
-                <a th:href="@{administration/items}" class="leg-link" th:text="#{sidebar.items}"></a>
-            </div>
-            <div>
-                <a th:href="@{/home}" class="leg-link" th:text="#{sidebar.home}"></a>
-                <a th:href="@{/character}" class="leg-link" th:text="#{sidebar.character}"></a>
-            </div>
-        </aside>
-        <main layout:fragment="content">Nothing to see here</main>
-        <footer class="leg-flex-container" style="min-width:30px">
+        <main layout:fragment="content" style="flex:1 1 auto; padding:10px">Nothing to see here</main>
+        <footer class="leg-footer">
             <p>Hier könnte ihr Footer stehen</p>
         </footer>
     </div>
+    <aside class="leg-sidebar background-image"
+           th:style="'background:url(' + @{/images/background/characterOverview_background.png} + ');'">
+        <div class="leg-item">
+            <span th:text="#{header.name}" class="leg-headline">Charakter</span>
+            <span th:text="${layoutDto.characterName}">Oswald der Hässliche</span>
+        </div>
+        <div class="leg-item">
+            <span th:text="#{header.level}" class="leg-headline"></span>
+            <span th:text="${layoutDto.level}" class="leg-text-center"></span>
+        </div>
+        <div class="leg-item">
+            <span th:text="#{header.gold}" class="leg-headline"></span>
+            <span th:text="${layoutDto.level}" class="leg-text-center"></span>
+        </div>
+
+        <th:block
+                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.healthBar})}"/>
+        <th:block
+                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.energyBar})}"/>
+        <th:block
+                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.experienceBar})}"/>
+    </aside>
+
 </div>
 </body>
 </html>

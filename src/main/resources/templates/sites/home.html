@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="de"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main::shell(title='Home', backgroundImage=@{/images/background/home_background.png})}">
+<section layout:fragment="content">
+    <div class="leg-flex-container" th:if="${homeDto.messages} != null">
+        <div th:each="message: ${homeDto.messages}">
+            <span th:utext="${message}"></span>
+        </div>
+    </div>
+</section>
+</html>

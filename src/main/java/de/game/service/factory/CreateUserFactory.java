@@ -12,9 +12,8 @@ public class CreateUserFactory {
     private final UserFactory userFactory;
     private final RoleFactory roleFactory;
 
-
-    public User createAdminUser (String name, String password) {
-        User newUser = userFactory.createDefaultUser(name, password);
+    public User createAdminUser () {
+        User newUser = userFactory.createDefaultUser();
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createPlayerRole()));
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createGamemasterRole()));
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createAdminRole()));
@@ -22,15 +21,15 @@ public class CreateUserFactory {
 
     }
 
-    public User createGamemasterUser (String name, String password) {
-        User newUser = userFactory.createDefaultUser(name, password);
+    public User createGamemasterUser () {
+        User newUser = userFactory.createDefaultUser();
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createPlayerRole()));
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createGamemasterRole()));
         return newUser;
     }
 
-    public User createPlayerUser (String name, String password) {
-        User newUser = userFactory.createDefaultUser(name, password);
+    public User createPlayerUser () {
+        User newUser = userFactory.createDefaultUser();
         newUser.getUserRoles().add(new UserRole(newUser, roleFactory.createPlayerRole()));
         return newUser;
     }

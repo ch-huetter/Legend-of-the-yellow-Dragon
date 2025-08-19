@@ -50,6 +50,6 @@ public class Ability {
 
     @OneToMany(mappedBy = "ability", orphanRemoval = true)
     @ToString.Exclude
-    private Set<AbilityTree> abilityTrees;
+    private Set<AbilityAbilityTree> abilityTrees;
 
 }

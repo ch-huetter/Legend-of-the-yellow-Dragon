@@ -38,6 +38,7 @@ public class Dungeon {
     private Byte waves;
 
     @OneToMany(mappedBy = "dungeon")
+    @ToString.Exclude
     private Set<DungeonMonster> monsters;
 
 }

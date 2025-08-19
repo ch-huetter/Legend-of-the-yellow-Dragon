@@ -7,6 +7,7 @@ import de.game.util.exception.LoginNameTakenException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class CreateUserService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void createUserWithRoles (User newUser) throws LoginNameTakenException {
@@ -30,6 +32,7 @@ public class CreateUserService {
         if (userRepository.existsByloginName(newUser.getLoginName())) {
             throw new LoginNameTakenException("Username " + newUser.getLoginName() + " is already taken");
         }
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         userRepository.save(newUser);
         log.info("saved User : {}", newUser);
     }
@@ -38,7 +41,7 @@ public class CreateUserService {
      * Checks if a given User is existing. If the User does not exist it will be created. If the user exists it will be checked if it is equal to the given User
      */
     public void checkUserIntegrity (User newUser) {
-        Optional<User> userFromDatabase = userRepository.findByloginName(newUser.getLoginName());
+        Optional<User> userFromDatabase = userRepository.findByloginNameWithUserRoles(newUser.getLoginName());
 
         if (userFromDatabase.isPresent()) {
             if (userFromDatabase.get().equals(newUser)) {
@@ -48,10 +51,12 @@ public class CreateUserService {
             }
         } else {
             log.debug("User not found. Creating User {}", newUser.getLoginName());
-            userRepository.save(newUser);
+            try {
+                createUserWithRoles(newUser);
+            } catch (LoginNameTakenException e) {
+                //Unhandled. User Existence gets checked earlier so this Error cannot appear
+            }
         }
         log.debug("User found and unchanged. Doing nothing for user {}", newUser.getLoginName());
     }
-
-
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 @Order(1)
-public class RoleInitializeRunner implements ApplicationRunner {
+public class RoleIntegrityCheck implements ApplicationRunner {
 
     private final RoleRepository roleRepository;
     private final RoleFactory roleFactory;

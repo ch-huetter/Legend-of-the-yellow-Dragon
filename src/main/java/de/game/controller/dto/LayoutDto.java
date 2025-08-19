@@ -6,14 +6,12 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
 @Component
 public class LayoutDto {
-    private boolean hideHeader = false;
+    private String characterName;
 
     private Bar healthBar;
     private Bar energyBar;
@@ -21,7 +19,5 @@ public class LayoutDto {
 
     private Integer gold;
     private Integer level;
-
-    private List<String> messages;
 
 }

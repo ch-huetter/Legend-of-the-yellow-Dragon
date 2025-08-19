@@ -5,7 +5,7 @@
 body, input{
     color:$color-text;
     font-family: 'Lora', serif;
-    font-size: 16px;
+    font-size: 17px;
     }
 
 .main-wrapper-fullscreen{
@@ -25,7 +25,17 @@ body, input{
     background-color:transparent;
     min-width:720px;
     max-width:960px;
+    width:100%;
+    margin:1%;
 }
+
+.content-wrapper-wide{
+    background-color:transparent;
+    min-width:1200px;
+    max-width:1600px;
+    width:100%;
+    margin:1%;
+    }
 
 .leg-flex-container{
     width:100%;
@@ -54,6 +64,24 @@ body, input{
     box-shadow:4px 2px black;
     }
 
+.leg-title-container{
+    border-radius:28px;
+    border-bottom-right-radius:0px;
+    display:flex;
+    }
+
+.leg-title-container-image{
+    width: 50px;
+    height : 50px;
+    border-radius:28px;
+    border-bottom-left-radius:0px;
+    }
+
+.leg-title-container > p{
+    font-size:32px;
+    font-family:"Great Vibes";
+    margin: auto;
+    }
 
 .leg-rounded-container-inner{
     display:flex;
@@ -68,6 +96,13 @@ body, input{
     border : 1px solid black;
     border-radius : 12px;
 }
+
+.leg-item{
+    display:flex;
+    align-content:center;
+    flex-direction:column;
+    padding: 0px 5px;
+    }
 
 .leg-gradient{
     background-image:radial-gradient($color-gradient-inner 0%,$color-gradient-inner 60%, $color-gradient-outer 68% , $color-gradient-outer-dark 70% , $color-gradient-outer-darker 100%);
@@ -84,7 +119,7 @@ body, input{
 }
 
 .leg-rounded-border-input:hover{
-    border:1.5px solid black;
+    border:1px solid black;
     }
 
 .leg-rounded-border-label{
@@ -95,11 +130,42 @@ body, input{
     transition:.3s cubic-bezier(0,.5,.5,1);
     }
 
+.leg-sidebar{
+    display:flex;
+    max-width:240px;
+    min-width:180px;
+    flex: 1 1 auto;
+    flex-direction:column;
+    border:1px solid black;
+    height:94%;
+    padding: 10px 4px;
+    margin: auto;
+    box-shadow:4px 2px black;
+    border-radius:28px;
+    }
+
+.leg-footer{
+    display:flex;
+    min-height:40px;
+    width:100%;
+    border-top:0px;
+    padding:10px 4px;
+    }
+
+.leg-content{
+    flex: 1 1 auto;
+    display:flex;
+    border:1px solid black;
+    border-radius:28px;
+    box-shadow:4px 2px black;
+    margin:0px 7px;
+    }
+
 .leg-transition:hover{
     scale:1.05;
     background-image:linear-gradient(2deg, $color-transition-outer-darker 14%, $color-transition-outer-dark 30%, $color-transition-outer 50%, $color-transition-outer 100%);
     background-color:transparent;
-    border:2px solid black;
+    border:1px solid black;
     }
 
 .leg-button-wrapper{
@@ -115,13 +181,21 @@ body, input{
     border:none;
     }
 
+.leg-button-wrapper > a{
+    margin-bottom:auto;
+    margin-top:auto;
+    }
+
 .leg-link{
     text-decoration:none;
     color:$color-text;
     text-align:center;
     width:100%;
-    margin-bottom:auto;
-    margin-top:auto;
+
+    }
+
+.leg-headline{
+    text-decoration-line:underline;
     }
 
 .leg-rounded-center-text{
@@ -132,44 +206,49 @@ body, input{
 
 .leg-progress-bar {
   position: relative;
-  width: 250px;
+  flex-grow:1;
+  min-width: 100px;
   height: 25px;
   background-color: #ddd;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 10px;
-  font-family: sans-serif;
-  user-select: none;
+  color:black;
 }
 
-.leg-progress-fill-health {
-  height: 100%;
+.leg-center-text-100{
+    text-align:center;
+    width:100%;
+    }
+
+.leg-progress-fill{
+    height: 100%;
+    transition: width 0.3s ease;
+    position:absolute;
+    }
+
+.health {
   background-color: red;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-energy {
-  height: 100%;
+.experience {
+  background-color: red;
+}
+
+.energy {
   background-color: yellow;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-stamina {
-  height: 100%;
+.stamina {
   background-color: green;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-mana {
-  height: 100%;
+.mana {
   background-color: blue;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-rage {
-  height: 100%;
+.rage {
   background-color: darkred;
-  transition: width 0.3s ease;
 }
 
 input, select, textarea {
@@ -187,8 +266,6 @@ input, select, textarea {
     transition: background-color 5000s ease-in-out 0s;
   }
 }
-
-
 
 .leg-center-text{
     text-align: center;

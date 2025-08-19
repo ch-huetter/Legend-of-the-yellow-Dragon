@@ -7,16 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "configuration")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class Configuration {
+public class Setting {
 
     @Id
     private String parameter;
 
     private String value;
 
+    private String comment;
 }

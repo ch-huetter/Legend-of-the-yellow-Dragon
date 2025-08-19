@@ -4,16 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor
-public class AbilityAbilityRestrictionId implements Serializable {
+public class CharacterAttributeId {
 
-    private String restriction;
-
-    private String ability;
-
-    private Byte abilityTier;
+    private String characterName;
+    private String attributeKey;
 }

@@ -2,7 +2,7 @@ package de.game.model.entity.joinTable;
 
 import de.game.model.entity.Attribute;
 import de.game.model.entity.PlayerCharacter;
-import de.game.model.entity.primaryKeys.PlayerCharacterAttributeId;
+import de.game.model.entity.primaryKeys.CharacterAttributeId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,18 +11,18 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-@IdClass(PlayerCharacterAttributeId.class)
+@IdClass(CharacterAttributeId.class)
 public class PlayerCharacterAttribute {
 
     @Id
     @ManyToOne()
-    @JoinColumn(name = "player_character_name")
-    private PlayerCharacter playerCharacter;
+    @JoinColumn(name = "character_name")
+    private PlayerCharacter characterName;
 
     @Id
     @ManyToOne()
     @JoinColumn(name = "attribute_key")
-    private Attribute attribute;
+    private Attribute attributeKey;
 
     @NonNull
     private Byte value;

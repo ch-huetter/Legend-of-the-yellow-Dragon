@@ -1,7 +1,7 @@
 body, input {
   color: white;
   font-family: "Lora", serif;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .main-wrapper-fullscreen {
@@ -21,6 +21,16 @@ body, input {
   background-color: transparent;
   min-width: 720px;
   max-width: 960px;
+  width: 100%;
+  margin: 1%;
+}
+
+.content-wrapper-wide {
+  background-color: transparent;
+  min-width: 1200px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 1%;
 }
 
 .leg-flex-container {
@@ -50,6 +60,25 @@ body, input {
   box-shadow: 4px 2px black;
 }
 
+.leg-title-container {
+  border-radius: 28px;
+  border-bottom-right-radius: 0px;
+  display: flex;
+}
+
+.leg-title-container-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 28px;
+  border-bottom-left-radius: 0px;
+}
+
+.leg-title-container > p {
+  font-size: 32px;
+  font-family: "Great Vibes";
+  margin: auto;
+}
+
 .leg-rounded-container-inner {
   display: flex;
   align-content: center;
@@ -62,6 +91,13 @@ body, input {
 .leg-rounded-border {
   border: 1px solid black;
   border-radius: 12px;
+}
+
+.leg-item {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  padding: 0px 5px;
 }
 
 .leg-gradient {
@@ -79,7 +115,7 @@ body, input {
 }
 
 .leg-rounded-border-input:hover {
-  border: 1.5px solid black;
+  border: 1px solid black;
 }
 
 .leg-rounded-border-label {
@@ -90,11 +126,42 @@ body, input {
   transition: 0.3s cubic-bezier(0, 0.5, 0.5, 1);
 }
 
+.leg-sidebar {
+  display: flex;
+  max-width: 240px;
+  min-width: 180px;
+  flex: 1 1 auto;
+  flex-direction: column;
+  border: 1px solid black;
+  height: 94%;
+  padding: 10px 4px;
+  margin: auto;
+  box-shadow: 4px 2px black;
+  border-radius: 28px;
+}
+
+.leg-footer {
+  display: flex;
+  min-height: 40px;
+  width: 100%;
+  border-top: 0px;
+  padding: 10px 4px;
+}
+
+.leg-content {
+  flex: 1 1 auto;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 28px;
+  box-shadow: 4px 2px black;
+  margin: 0px 7px;
+}
+
 .leg-transition:hover {
   scale: 1.05;
   background-image: linear-gradient(2deg, rgb(34.7392, 154.0608, 85.3376) 14%, rgb(40.3696, 179.0304, 99.1688) 30%, #2ecc71 50%, #2ecc71 100%);
   background-color: transparent;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 .leg-button-wrapper {
@@ -110,13 +177,20 @@ body, input {
   border: none;
 }
 
+.leg-button-wrapper > a {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
 .leg-link {
   text-decoration: none;
   color: white;
   text-align: center;
   width: 100%;
-  margin-bottom: auto;
-  margin-top: auto;
+}
+
+.leg-headline {
+  text-decoration-line: underline;
 }
 
 .leg-rounded-center-text {
@@ -127,44 +201,49 @@ body, input {
 
 .leg-progress-bar {
   position: relative;
-  width: 250px;
+  flex-grow: 1;
+  min-width: 100px;
   height: 25px;
   background-color: #ddd;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 10px;
-  font-family: sans-serif;
-  user-select: none;
+  color: black;
 }
 
-.leg-progress-fill-health {
+.leg-center-text-100 {
+  text-align: center;
+  width: 100%;
+}
+
+.leg-progress-fill {
   height: 100%;
+  transition: width 0.3s ease;
+  position: absolute;
+}
+
+.health {
   background-color: red;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-energy {
-  height: 100%;
+.experience {
+  background-color: red;
+}
+
+.energy {
   background-color: yellow;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-stamina {
-  height: 100%;
+.stamina {
   background-color: green;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-mana {
-  height: 100%;
+.mana {
   background-color: blue;
-  transition: width 0.3s ease;
 }
 
-.leg-progress-fill-rage {
-  height: 100%;
+.rage {
   background-color: darkred;
-  transition: width 0.3s ease;
 }
 
 input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {

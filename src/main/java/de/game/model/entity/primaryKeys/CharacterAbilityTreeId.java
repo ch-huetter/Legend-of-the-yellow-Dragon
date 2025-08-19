@@ -1,16 +1,17 @@
 package de.game.model.entity.primaryKeys;
 
-import de.game.model.entity.Attribute;
-import de.game.model.entity.PlayerCharacter;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PlayerCharacterAttributeId {
+public class CharacterAbilityTreeId implements Serializable {
 
-    private PlayerCharacter playerCharacter;
-    private Attribute attribute;
+    String character;
+
+    Integer abilityTree;
 }

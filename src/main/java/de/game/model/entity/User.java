@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +34,8 @@ public class User implements UserDetails, CredentialsContainer {
     @NotBlank
     @ToString.Exclude
     private String password;
-
+    @ColumnDefault("3")
+    private Integer maxCharacters;
     private Boolean active;
 
     private String activePlayerCharacter;

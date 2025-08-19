@@ -39,7 +39,7 @@ public class RegistrationDTOConstraintValidator implements ConstraintValidator<V
 
         if (userValidator.validateEmailAddressExists(user)) {
             log.debug("Email Constraint found for email {}", user.getEMail());
-            context.buildConstraintViolationWithTemplate("{error.user.emailAdressTaken}").addPropertyNode("user.eMail").addConstraintViolation();
+            context.buildConstraintViolationWithTemplate("{error.user.emailAddressTaken}").addPropertyNode("user.eMail").addConstraintViolation();
             isValid = false;
         } else {
             log.debug("No Email Constraint found for email {}", user.getEMail());

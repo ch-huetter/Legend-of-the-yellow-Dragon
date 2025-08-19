@@ -1,25 +1,32 @@
 package de.game.model.entity;
 
-import jakarta.persistence.*;
+import de.game.model.entity.joinTable.CharacterAbilityTree;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AbilityTree {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    @ManyToOne()
-    @JoinColumn(name = "ability_key")
-    private Ability ability;
+    private Integer id;
     @NonNull
-    private Byte priority;
+    private String name;
     @NonNull
-    private Byte tier;
+    private String description;
+
+    @OneToMany(mappedBy = "abilityTree")
+    @ToString.Exclude
+    private Set<CharacterAbilityTree> abilityTrees;
 
 
 }

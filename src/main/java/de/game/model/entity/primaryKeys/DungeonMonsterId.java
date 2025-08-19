@@ -1,7 +1,5 @@
 package de.game.model.entity.primaryKeys;
 
-import de.game.model.entity.Dungeon;
-import de.game.model.entity.Monster;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DungeonMonsterId {
 
-    private Dungeon dungeon;
-    private Monster monster;
+    private Integer dungeon;
+    private String monster;
     private Byte wave;
 }
