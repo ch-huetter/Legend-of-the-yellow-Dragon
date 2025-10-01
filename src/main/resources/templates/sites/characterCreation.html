@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main::shell(title='Create Character', backgroundImage=@{/images/background/character_background.png})}">
+<th:block layout:fragment="additionalHead">
+    <script th:inline="javascript">
+        let $INIT = {
+            attrs : /*[[${characterCreationDto.playerCharacter.attributes}]]*/,
+            attributeArrowLeftPrefix : /*[[${characterCreationDto.attributeArrowLeftPrefix}]]*/,
+            attributeArrowRightPrefix : /*[[${characterCreationDto.attributeArrowRightPrefix}]]*/,
+            attributePrefix : /*[[${characterCreationDto.attributeDisplayPrefix}]]*/,
+            abilityTreeItemPrefix : /*[[${characterCreationDto.abilityTreeItemPrefix}]]*/,
+            attributeMin : /*[[${characterCreationDto.attributeMin}]]*/,
+            pointsDisplayMessageWPL : /*[[${characterCreationDto.PointsDisplayMessageWPL}]]*/,
+            abilityPoints : /*[[${characterCreationDto.playerCharacter.abilityPoints}]]*/,
+            attributePoints : /*[[${characterCreationDto.playerCharacter.attributePoints}]]*/,
+            abilitySets : /*[[${characterCreationDto.abilityTrees}]]*/
+        };
+    </script>
+    <script th:inline="javascript" th:src="@{/js/characterCreation.js}" defer></script>
+</th:block>
+<section layout:fragment="content">
+    <form th:action="@{/character/create}" th:object="${characterCreationDto}" method="post" class="leg-flex-container"
+          id="charForm">
+        <!-- Headline Greeting Text -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-rounded-border leg-rounded-container-outer leg-gradient">
+                <div class="leg-rounded-container-inner">
+                    <span th:text="#{characterCreation.introduction}" class="leg-center-text"></span>
+                </div>
+            </div>
+        </div>
+        <!-- Name Description -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-rounded-border leg-rounded-container-outer leg-gradient">
+                <div class="leg-rounded-container-inner">
+                    <span th:text="#{characterCreation.nameSelect}" class="leg-text-center-100"></span>
+                </div>
+            </div>
+        </div>
+        <!-- Input Name -->
+        <div class="leg-flex-row mb-3 px-5">
+            <th:block
+                    th:replace="~{fragments/form/formWrapper::contentWrapper(object='characterCreationDto', field='playerCharacter.name', content=~{fragments/form/textboxInput::content})}"/>
+        </div>
+        <!-- Attribute Description and Point Display -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-rounded-border leg-rounded-container-outer leg-gradient">
+                <div class="leg-rounded-container-inner flex-column">
+                    <span th:text="#{characterCreation.description.attributes}" class="leg-text-center"></span>
+                    <div>
+                        <span th:id="attributePointDisplay"
+                              th:text="#{characterCreation.pointDisplay.withPlaceholder}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Attribute List -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-flex-container px-5">
+                <div th:each="attr: *{playerCharacter.attributes.values()}" class="mb-1">
+                    <div class="leg-flex-row" style="align-items:end">
+                        <div style="height:42px; width:42px;"
+                             class="leg-button-wrapper leg-rounded-border disabled"
+                             th:id="'arrow-left-' + ${attr.attributeKey.key}">
+                            <th:block th:replace="~{fragments/icons/arrowsDouble::left}"/>
+                        </div>
+                        <div th:replace="~{fragments/form/formWrapper::contentWrapper(object='characterCreationDto',
+                                    field='playerCharacter.attributes[agility].value', content=~{fragments/form/textboxInput::content}, disabled='true',
+                                    text=#{label.playerCharacter.__${attr.attributeKey.key}__}, id='attribute-display-' + ${attr.attributeKey.key})}">
+                        </div>
+                        <div style="height:42px; width:42px;"
+                             class="leg-button-wrapper leg-rounded-border leg-transition"
+                             th:id="'arrow-right-' + ${attr.attributeKey.key}">
+                            <th:block th:replace="~{fragments/icons/arrowsDouble::right}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ability Tree Description -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-rounded-border leg-rounded-container-outer leg-gradient">
+                <div class="leg-rounded-container-inner">
+                    <span th:text="#{characterCreation.description.abilityTree}" class="leg-text-center-100"></span>
+                </div>
+            </div>
+        </div>
+        <!-- Ability Tree Carousel -->
+        <input type="hidden" th:value="*{activeAbilitySetId}"/>
+        <div class="leg-flex-row mb-3 leg-carousel px-5 align-items-center" id="abilityTreeCarousel">
+            <div style="height:42px; width:42px;"
+                 class="leg-button-wrapper leg-rounded-border leg-icon-wrapper disabled"
+                 th:id="arrow-left-abilityTree">
+                <th:block th:replace="~{fragments/icons/arrowsDouble::left}"/>
+            </div>
+            <div class="leg-flex-container leg-rounded-border leg-gradient p-3 mx-2 leg-carousel  leg-rounded-container-inner">
+                <div class="leg-carousel-item leg-center-text leg-flex-container"
+                     th:each="abilityTree, iStat : *{abilityTrees}" th:id="'ability-tree-' + ${abilityTree.id}"
+                     th:classappend="${iStat.first} ? 'active' : ''">
+                    <p th:text="${abilityTree.name}"></p>
+                    <p th:text="${abilityTree.description}"></p>
+                </div>
+            </div>
+            <div style="height:42px; width:42px;"
+                 class="leg-button-wrapper leg-rounded-border leg-transition leg-icon-wrapper"
+                 th:id="arrow-right-abilityTree">
+                <th:block th:replace="~{fragments/icons/arrowsDouble::right}"/>
+            </div>
+        </div>
+        <input type="hidden" th:id="selectedAbilityTreeId">
+        <!-- Submit Button -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-rounded-border leg-button-wrapper leg-transition leg-rounded-container-outer col-3 p-1 mx-2">
+                <input type="submit" th:value="#{characterCreation.button.submit}" class=""/>
+            </div>
+        </div>
+    </form>
+</section>
+</html>

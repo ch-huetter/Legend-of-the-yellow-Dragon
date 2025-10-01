@@ -1,7 +1,7 @@
 package de.game.service.factory;
 
 import de.game.model.entity.Role;
-import de.game.util.enums.RoleEnum;
+import de.game.model.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

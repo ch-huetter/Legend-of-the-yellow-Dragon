@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
 <div th:fragment="contentWrapper(object,field, content)"
-     th:with="type=${type} ?: 'text', disabled=${disabled}, required=${required}"
+     th:with="type=${type} ?: 'text',
+         disabled=${disabled},
+         required=${required},
+         text=(${required} ? '*' : '') + (${text} ?: #{label.__${field}__}),
+         id=${id} ?: ${field},
+         hideLabel=${hideLabel} ?: 'false'"
      class="leg-flex-container">
     <div class="leg-rounded-border leg-rounded-container-outer leg-gradient p-1 mx-2">
         <div class="leg-rounded-container-inner">

@@ -1,8 +1,10 @@
 package de.game.model.entity;
 
 import de.game.model.entity.joinTable.UserRole;
+import de.game.util.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +26,9 @@ public class User implements UserDetails, CredentialsContainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull
+    private Gender gender;
 
     @NotBlank
     private String loginName;
@@ -79,7 +84,7 @@ public class User implements UserDetails, CredentialsContainer {
             return false;
         User user = (User) o;
         return Objects.equals(this.getLoginName(), user.getLoginName()) && Objects.equals(this.getActive(), user.getActive()) &&
-               Objects.equals(this.getPassword(), user.getPassword()) && Objects.equals(this.getUserRoles().size(), user.getUserRoles().size());
+               Objects.equals(this.getUserRoles().size(), user.getUserRoles().size()) && Objects.equals(this.getGender(), user.getGender());
     }
 
     @Override

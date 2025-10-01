@@ -11,6 +11,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
+@Builder
+@AllArgsConstructor
 @IdClass(CharacterAttributeId.class)
 public class PlayerCharacterAttribute {
 
@@ -25,5 +27,5 @@ public class PlayerCharacterAttribute {
     private Attribute attributeKey;
 
     @NonNull
-    private Byte value;
+    private Short value;
 }

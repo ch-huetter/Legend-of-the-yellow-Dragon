@@ -1,9 +1,9 @@
 package de.game.service.initializer.applicationRunner;
 
 import de.game.model.entity.Role;
+import de.game.model.enums.RoleEnum;
 import de.game.model.repository.RoleRepository;
 import de.game.service.factory.RoleFactory;
-import de.game.util.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

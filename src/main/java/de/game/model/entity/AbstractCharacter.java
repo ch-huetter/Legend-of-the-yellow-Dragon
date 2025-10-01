@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * Base Class for all Character Based Entity's like PlayerCharacters and Monsters. Because they have more in common than you think
  */
@@ -15,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class AbstractCharacter {
+public abstract class AbstractCharacter implements Serializable {
     @Id
     @Column(length = 50)
     private String name;

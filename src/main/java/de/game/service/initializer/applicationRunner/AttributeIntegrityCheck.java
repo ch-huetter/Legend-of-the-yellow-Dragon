@@ -1,9 +1,9 @@
 package de.game.service.initializer.applicationRunner;
 
 import de.game.model.entity.Attribute;
+import de.game.model.enums.AttributeEnum;
+import de.game.model.enums.EnumToObjectFactory;
 import de.game.model.repository.AttributeRepository;
-import de.game.service.factory.AttributeFactory;
-import de.game.util.enums.AttributeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -20,17 +20,17 @@ import java.util.Optional;
 public class AttributeIntegrityCheck implements ApplicationRunner {
 
     private final AttributeRepository attributeRepository;
-    private final AttributeFactory attributeFactory;
+    private final EnumToObjectFactory enumToObjectFactory;
 
     @Override
     public void run (ApplicationArguments args) throws Exception {
         log.info("Running Attribute Integrity Check");
 
         for (AttributeEnum attribute : AttributeEnum.values()) {
-            Attribute           attributeFromEnum = attributeFactory.createAttribute(attribute);
+            Attribute           attributeFromEnum = enumToObjectFactory.createAttribute(attribute);
             Optional<Attribute> attrFromDatabase  = attributeRepository.findById(attribute.name());
             if (attrFromDatabase.isEmpty()) {
-                log.info("Attribute {} missing in Database. Freshly Creating it", attribute.getName());
+                log.info("Attribute {} missing in Database. Freshly Creating it", attribute.getKey());
                 attributeRepository.save(attributeFromEnum);
             }
         }

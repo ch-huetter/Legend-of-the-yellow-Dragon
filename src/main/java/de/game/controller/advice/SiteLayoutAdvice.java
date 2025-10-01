@@ -2,6 +2,7 @@ package de.game.controller.advice;
 
 import de.game.controller.dto.LayoutDto;
 import de.game.model.entity.PlayerCharacter;
+import de.game.model.repository.PlayerCharacterRepository;
 import de.game.service.FillLayoutDtoService;
 import de.game.util.enums.SessionAttributeEnum;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,14 +18,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @RequiredArgsConstructor
 public class SiteLayoutAdvice {
 
+    private final PlayerCharacterRepository playerCharacterRepository;
     private final FillLayoutDtoService fillLayoutDtoService;
 
     @ModelAttribute()
     public LayoutDto addLayout (HttpServletRequest req, HttpServletResponse res) {
-        log.debug("Preparing LayoutDto for further use");
-        LayoutDto       dto             = new LayoutDto();
-        PlayerCharacter playerCharacter = SessionAttributeEnum.PLAYER_CHARACTER.get(req.getSession());
-        log.debug("Filling layoutDto {} playerCharacter Data", playerCharacter == null ? "without" : "with");
+        LayoutDto       dto                 = new LayoutDto();
+        String          playerCharakterName = SessionAttributeEnum.PLAYER_CHARACTER_NAME.get(req.getSession());
+        PlayerCharacter playerCharacter     = null;
+        if (playerCharakterName != null) {
+            playerCharacter = playerCharacterRepository.findById(playerCharakterName).orElse(null);
+        }
 
         fillLayoutDtoService.fillLayoutDto(playerCharacter, dto);
 

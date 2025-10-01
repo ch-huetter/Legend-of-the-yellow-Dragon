@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
 <th:block th:fragment="content">
-    <label th:text="#{__${required == true ? '*' : ''}__label.__${field}__}" th:for="${field}"
+    <label th:unless="${hideLabel}" th:text="${text}" th:for="${field}" style="padding-right:1.5px;"
            class="leg-rounded-border-label"></label>
-    <input th:id="${field}" th:type="${type}" th:field="*{__${field}__}" th:disabled="${disabled}"
+    <input th:id="${id}" th:type="${type}" th:field="*{__${field}__}" th:disabled="${disabled}"
            class="leg-rounded-border-input">
 </th:block>
 </html>

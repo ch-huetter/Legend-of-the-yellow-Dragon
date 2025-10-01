@@ -42,21 +42,21 @@ public class CreateUserService {
      */
     public void checkUserIntegrity (User newUser) {
         Optional<User> userFromDatabase = userRepository.findByloginNameWithUserRoles(newUser.getLoginName());
-
         if (userFromDatabase.isPresent()) {
-            if (userFromDatabase.get().equals(newUser)) {
-                log.debug("User found but changes detected. Resetting default Values for {}", newUser.getLoginName());
+            if (!userFromDatabase.get().equals(newUser) || !passwordEncoder.matches(newUser.getPassword(), userFromDatabase.get().getPassword())) {
+                newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+                log.info("User found but changes detected. Resetting default Values for {}", newUser.getLoginName());
                 newUser.setId(userFromDatabase.get().getId());
-                userRepository.save(userRepository.save(newUser));
+                userRepository.save(newUser);
+                userRoleRepository.saveAll(newUser.getUserRoles());
             }
         } else {
-            log.debug("User not found. Creating User {}", newUser.getLoginName());
+            log.info("User not found. Creating User {}", newUser.getLoginName());
             try {
                 createUserWithRoles(newUser);
             } catch (LoginNameTakenException e) {
                 //Unhandled. User Existence gets checked earlier so this Error cannot appear
             }
         }
-        log.debug("User found and unchanged. Doing nothing for user {}", newUser.getLoginName());
     }
 }

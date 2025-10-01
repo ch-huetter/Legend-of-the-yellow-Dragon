@@ -41,10 +41,10 @@ public class AdminAccountIntegrityCheck implements ApplicationRunner {
         gmUser.setEMail("test@mail.de");
 
         final User adminUser = createUserFactory.createAdminUser();
-        adminUser.setLoginName(adminAccountPrefix);
+        adminUser.setLoginName(adminAccountPrefix + "admin");
         adminUser.setPassword(defaultPassword);
         adminUser.setEMail("test@mail.de");
-        
+
         createUserService.checkUserIntegrity(playerUser);
         createUserService.checkUserIntegrity((gmUser));
         createUserService.checkUserIntegrity((adminUser));

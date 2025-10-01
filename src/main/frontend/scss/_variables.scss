@@ -4,11 +4,13 @@
 $color-primary: #3498db;
 $color-secondary: #2ecc71;
 $color-danger: #e81414;
-$color-text: white;
+$color-text: black;
+$color-text-bright: white;
 $color-gradient-inner:transparent;
 $color-gradient-outer:#2ecc71;
 $color-gradient-outer-dark: color.adjust($color-gradient-outer, $lightness:-6%);
 $color-gradient-outer-darker: rgb(15, 15, 15);
+$color-button-selected: color.adjust($color-gradient-outer, $lightness:-20%);
 $color-gradient-danger-outer:$color-danger;
 $color-gradient-danger-outer-dark:rgb(179, 40, 40);
 $color-gradient-danger-outer-darker:rgb(13, 7, 7);

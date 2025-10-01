@@ -29,6 +29,11 @@ body, input{
     margin:1%;
 }
 
+.leg-svg{
+    height:100%;
+    width:100%;
+    }
+
 .content-wrapper-wide{
     background-color:transparent;
     min-width:1200px;
@@ -68,6 +73,7 @@ body, input{
     border-radius:28px;
     border-bottom-right-radius:0px;
     display:flex;
+    color:white;
     }
 
 .leg-title-container-image{
@@ -97,6 +103,19 @@ body, input{
     border-radius : 12px;
 }
 
+.leg-carousel{
+    }
+
+.leg-carousel-item{
+    display:none;
+    }
+
+.leg-carousel-item.active{
+    display:block;
+
+    }
+
+
 .leg-item{
     display:flex;
     align-content:center;
@@ -106,6 +125,8 @@ body, input{
 
 .leg-gradient{
     background-image:radial-gradient($color-gradient-inner 0%,$color-gradient-inner 60%, $color-gradient-outer 68% , $color-gradient-outer-dark 70% , $color-gradient-outer-darker 100%);
+    background-color: rgb(237, 227, 140);
+    color: black;
    }
 
 .leg-gradient-danger{
@@ -142,6 +163,7 @@ body, input{
     margin: auto;
     box-shadow:4px 2px black;
     border-radius:28px;
+    color:white;
     }
 
 .leg-footer{
@@ -168,10 +190,28 @@ body, input{
     border:1px solid black;
     }
 
+.leg-icon-wrapper-42{
+       height:42px;
+       width: 42px;
+    }
+
 .leg-button-wrapper{
     background-color:$color-gradient-outer;
     width:25%;
     flex-grow:0;
+    }
+
+.leg-button-wrapper.disabled{
+    background-color:gray;
+    }
+
+.leg-button-wrapper.selected{
+    background-color:$color-button-selected;
+        border: 2px solid black;
+    }
+
+.leg-button-wrapper.leg-rounded-container-outer.selected{
+    box-shadow: 2px 1px black;
     }
 
 .leg-button-wrapper > input{
@@ -179,6 +219,10 @@ body, input{
     height:100%;
     background:transparent;
     border:none;
+    }
+
+.leg-sidebar .leg-link{
+    color:$color-text-bright;
     }
 
 .leg-button-wrapper > a{
@@ -192,6 +236,13 @@ body, input{
     text-align:center;
     width:100%;
 
+    }
+
+.leg-link-bright{
+    text-decoration:none;
+        color:$color-text-bright;
+        text-align:center;
+        width:100%
     }
 
 .leg-headline{
@@ -225,6 +276,18 @@ body, input{
     height: 100%;
     transition: width 0.3s ease;
     position:absolute;
+    }
+
+.leg-w33{
+    width:33% !important;
+    }
+
+.leg-w50{
+    width:50% !important;
+    }
+
+.leg-w100{
+    width:100% !important;
     }
 
 .health {

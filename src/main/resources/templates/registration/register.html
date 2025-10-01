@@ -16,6 +16,17 @@
         </div>
         <form th:action="@{/registration/createUser}" th:object="${registrationDto}" method="post"
               th:style="'width:100%;'">
+            <input type="hidden" th:value="*{user.gender}" id="selectedGender">
+            <!-- Gender Unused. Was initially planned for more personal messages. But was scrapped due to complexity. Will maybe return
+            <div class="leg-flex-row mb-3" id="genderSelection">
+                <div th:each="gender : *{genderList}" th:value="${gender}"
+                     class="leg-rounded-border leg-flex-container leg-w33 leg-button-wrapper leg-transition leg-rounded-container-outer mx-3">
+                    <div class="leg-rounded-container-inner">
+                        <p th:text="#{${gender.name}}" class="leg-center-text-100"></p>
+                    </div>
+                </div>
+            </div>
+            -->
             <div class="leg-flex-row mb-3">
                 <div th:replace="~{fragments/form/formWrapper::contentWrapper(object='registrationDto',field='user.loginName',content=~{fragments/form/textboxInput::content})}">
                 </div>
@@ -36,4 +47,7 @@
     </div>
 </div>
 </body>
+<th:block th:fragment="custom">
+    <script th:src="@{/js/registration.js}" defer></script>
+</th:block>
 </html>

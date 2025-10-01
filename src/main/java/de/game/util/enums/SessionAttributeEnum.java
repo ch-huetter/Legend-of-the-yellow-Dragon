@@ -1,13 +1,12 @@
 package de.game.util.enums;
 
-import de.game.model.entity.PlayerCharacter;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
 @Getter
 public enum SessionAttributeEnum {
 
-    PLAYER_CHARACTER("player_character", PlayerCharacter.class);
+    PLAYER_CHARACTER_NAME("player_character_name", String.class);
 
     private final String key;
     private final Class<?> cls;

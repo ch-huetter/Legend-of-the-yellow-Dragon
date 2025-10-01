@@ -1,5 +1,5 @@
 body, input {
-  color: white;
+  color: black;
   font-family: "Lora", serif;
   font-size: 17px;
 }
@@ -23,6 +23,11 @@ body, input {
   max-width: 960px;
   width: 100%;
   margin: 1%;
+}
+
+.leg-svg {
+  height: 100%;
+  width: 100%;
 }
 
 .content-wrapper-wide {
@@ -64,6 +69,7 @@ body, input {
   border-radius: 28px;
   border-bottom-right-radius: 0px;
   display: flex;
+  color: white;
 }
 
 .leg-title-container-image {
@@ -93,6 +99,14 @@ body, input {
   border-radius: 12px;
 }
 
+.leg-carousel-item {
+  display: none;
+}
+
+.leg-carousel-item.active {
+  display: block;
+}
+
 .leg-item {
   display: flex;
   align-content: center;
@@ -102,6 +116,8 @@ body, input {
 
 .leg-gradient {
   background-image: radial-gradient(transparent 0%, transparent 60%, #2ecc71 68%, rgb(40.3696, 179.0304, 99.1688) 70%, rgb(15, 15, 15) 100%);
+  background-color: rgb(237, 227, 140);
+  color: black;
 }
 
 .leg-gradient-danger {
@@ -138,6 +154,7 @@ body, input {
   margin: auto;
   box-shadow: 4px 2px black;
   border-radius: 28px;
+  color: white;
 }
 
 .leg-footer {
@@ -164,10 +181,28 @@ body, input {
   border: 1px solid black;
 }
 
+.leg-icon-wrapper-42 {
+  height: 42px;
+  width: 42px;
+}
+
 .leg-button-wrapper {
   background-color: #2ecc71;
   width: 25%;
   flex-grow: 0;
+}
+
+.leg-button-wrapper.disabled {
+  background-color: gray;
+}
+
+.leg-button-wrapper.selected {
+  background-color: rgb(27.232, 120.768, 66.896);
+  border: 2px solid black;
+}
+
+.leg-button-wrapper.leg-rounded-container-outer.selected {
+  box-shadow: 2px 1px black;
 }
 
 .leg-button-wrapper > input {
@@ -177,12 +212,23 @@ body, input {
   border: none;
 }
 
+.leg-sidebar .leg-link {
+  color: white;
+}
+
 .leg-button-wrapper > a {
   margin-bottom: auto;
   margin-top: auto;
 }
 
 .leg-link {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  width: 100%;
+}
+
+.leg-link-bright {
   text-decoration: none;
   color: white;
   text-align: center;
@@ -222,6 +268,18 @@ body, input {
   position: absolute;
 }
 
+.leg-w33 {
+  width: 33% !important;
+}
+
+.leg-w50 {
+  width: 50% !important;
+}
+
+.leg-w100 {
+  width: 100% !important;
+}
+
 .health {
   background-color: red;
 }
@@ -248,13 +306,13 @@ body, input {
 
 input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  -webkit-text-fill-color: white;
+  -webkit-text-fill-color: black;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 input:-moz-autofill, select:-moz-autofill, textarea:-moz-autofill {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  -webkit-text-fill-color: white;
+  -webkit-text-fill-color: black;
   transition: background-color 5000s ease-in-out 0s;
 }
 

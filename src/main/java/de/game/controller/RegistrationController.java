@@ -5,17 +5,19 @@ import de.game.model.entity.User;
 import de.game.service.CreateUserService;
 import de.game.service.factory.UserFactory;
 import de.game.service.initializer.AccountInitializer;
+import de.game.util.enums.Gender;
 import de.game.util.exception.LoginNameTakenException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Arrays;
 
 @Slf4j
 @Controller
@@ -26,7 +28,6 @@ public class RegistrationController {
     private final AccountInitializer accountInitializer;
     private final CreateUserService createUserService;
     private final UserFactory userFactory;
-    private final PasswordEncoder passwordEncoder;
 
     @ModelAttribute
     private void prepareModel (RegistrationDto registrationDto) {
@@ -38,6 +39,8 @@ public class RegistrationController {
     public String showRegistration (@ModelAttribute RegistrationDto registrationDto) {
         log.info("Registration Controller called. Show Registration executed");
 
+        registrationDto.setGenderList(Arrays.stream(Gender.values()).toList());
+
         return "registration/register";
     }
 
@@ -48,13 +51,12 @@ public class RegistrationController {
             return showRegistration(registrationDto);
         }
         User newUser = registrationDto.getUser();
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         accountInitializer.initializePlayerAccount(newUser);
         log.info("Initialized User = {}", registrationDto.getUser().toString());
         try {
             createUserService.createUserWithRoles(newUser);
         } catch (LoginNameTakenException e) {
-            log.error("SShhhhtttt");
+            log.error("Login name {} is already taken", newUser.getLoginName());
         }
         return "redirect:/login";
     }

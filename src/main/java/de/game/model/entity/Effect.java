@@ -20,9 +20,5 @@ public class Effect {
 
     @Column(columnDefinition = "TEXT")
     private String description;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "ability_key", nullable = false, unique = true)
-    private Ability ability;
-
+    
 }

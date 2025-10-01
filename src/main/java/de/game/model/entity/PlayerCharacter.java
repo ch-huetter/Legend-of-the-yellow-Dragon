@@ -1,16 +1,12 @@
 package de.game.model.entity;
 
-import de.game.model.entity.joinTable.CharacterAbilityTree;
 import de.game.model.entity.joinTable.PlayerCharacterAttribute;
-import de.game.model.entity.joinTable.PlayerCharacterEquipment;
-import de.game.model.entity.joinTable.PlayerCharacterItem;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "player_character")
@@ -20,7 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class PlayerCharacter extends AbstractCharacter {
 
-
+    @NonNull
+    private String name;
     @NonNull
     private Integer energy;
     @NonNull
@@ -46,21 +43,10 @@ public class PlayerCharacter extends AbstractCharacter {
     @ToString.Exclude
     private User user;
 
-    @OneToMany(mappedBy = "playerCharacter")
-    @ToString.Exclude
-    private List<PlayerCharacterItem> inventory;
-
-    @OneToMany(mappedBy = "playerCharacter")
-    @ToString.Exclude
-    private List<PlayerCharacterEquipment> equipmentList;
-
     @OneToMany(mappedBy = "characterName")
     @ToString.Exclude
-    private Set<PlayerCharacterAttribute> attributes;
-
-    @OneToMany(mappedBy = "character")
-    @ToString.Exclude
-    private Set<CharacterAbilityTree> abilityTrees;
+    @MapKey(name = "attributeKey")
+    private Map<String, PlayerCharacterAttribute> attributes;
 
     @Override
     public final boolean equals (Object o) {

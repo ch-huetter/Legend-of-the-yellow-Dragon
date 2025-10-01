@@ -2,16 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:fragment="shell(title, backgroundImage)">
-<th:block th:replace="~{fragments/head::head(${title},~{::custom})}"/>
+<head>
+    <th:block th:replace="~{fragments/head::head(${title},~{::custom})}"/>
+    <th:block layout:fragment="additionalHead"/>
+</head>
 <body class="main-wrapper-fullscreen" hx-boost="true" th:attr="style=|background-image:url('${backgroundImage}');|">
 <div class="content-wrapper-wide leg-flex-row">
     <aside class="leg-sidebar background-image"
            th:style="'background:url(' + @{/images/background/navigation_background.png} + ');'">
-        <p th:utext="#{sidebar.headline.administration}" class="leg-text-center leg-headline"></p>
-        <a th:href="@{user}" class="leg-link" th:text="#{sidebar.user}"></a>
-        <a th:href="@{administration/character}" class="leg-link"
-           th:text="#{sidebar.characterAdministration}"></a>
-        <a th:href="@{administration/items}" class="leg-link" th:text="#{sidebar.items}"></a>
+        <th:block th:if="${#strings.contains(#authentication.principal.authorities, 'ROLE_ADMIN')}">
+            <p th:utext="#{sidebar.headline.administration}" class="leg-text-center leg-headline"></p>
+            <a th:href="@{user}" class="leg-link" th:text="#{sidebar.user}"></a>
+            <a th:href="@{administration/character}" class="leg-link"
+               th:text="#{sidebar.characterAdministration}"></a>
+            <a th:href="@{administration/items}" class="leg-link" th:text="#{sidebar.items}"></a>
+        </th:block>
         <p th:utext="#{sidebar.headline.character}" class="leg-text-center leg-headline"></p>
         <a th:href="@{/home}" class="leg-link" th:text="#{sidebar.home}"></a>
         <a th:href="@{/character}" class="leg-link" th:text="#{sidebar.character}"></a>
@@ -52,7 +57,6 @@
         <th:block
                 th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.experienceBar})}"/>
     </aside>
-
 </div>
 </body>
 </html>

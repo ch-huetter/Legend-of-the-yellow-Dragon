@@ -1,8 +1,8 @@
 package de.game.service.initializer;
 
 import de.game.model.entity.User;
+import de.game.model.enums.RoleEnum;
 import de.game.service.factory.UserRoleFactory;
-import de.game.util.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
