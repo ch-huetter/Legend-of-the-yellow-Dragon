@@ -1,7 +1,7 @@
 package de.game.controller.dto;
 
 
-import de.game.configuration.annotation.ValidRegistrationDTO;
+import de.game.configuration.constraintValidator.annotation.ValidRegistrationDTO;
 import de.game.model.entity.User;
 import de.game.util.enums.Gender;
 import jakarta.validation.Valid;

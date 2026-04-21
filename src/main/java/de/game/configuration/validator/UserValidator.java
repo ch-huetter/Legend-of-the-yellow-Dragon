@@ -12,20 +12,17 @@ public class UserValidator {
     private final UserRepository userRepository;
 
     public Boolean validateUser (User user) {
-        boolean isValid = true;
 
         if (!validateLoginName(user))
-            isValid = false;
+            return false;
 
-        if (!validatePasswordLength(user)) {
-            isValid = false;
-        }
+        if (!validatePasswordLength(user))
+            return false;
 
-        if (validateEmailAddressExists(user)) {
-            isValid = false;
-        }
+        if (validateEmailAddressExists(user))
+            return false;
 
-        return isValid;
+        return true;
     }
 
     public boolean validateLoginName (User user) {

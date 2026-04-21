@@ -7,7 +7,7 @@ public enum RoleEnum {
 
     PLAYER(0, "player", "Spieler der keinerlei Zugriff auf Administrative Funktionen hat"),
     GAMEMASTER(1, "gamemaster", "Spieler mit beschränkten Zugriff auf Administration. Darf Account und Charakter Daten von anderen Spielern bearbeiten"),
-    ADMIN(2, "Administrator", "Vollen Zugriff auf alle Funktionen und spiel Daten");
+    ADMIN(2, "administrator", "Vollen Zugriff auf alle Funktionen und spiel Daten");
 
     private final Integer id;
     private final String name;

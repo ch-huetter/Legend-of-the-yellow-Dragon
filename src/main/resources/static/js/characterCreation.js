@@ -1,43 +1,44 @@
 (() => {
-  //Initialisation with Dto Values
+  //Initialization with Dto Values
   const $attrs = $INIT.attrs;
-  const $carouselArrowLeftPrefix = $INIT.attributeArrowLeftPrefix;
-  const $carouselArrowRightPrefix = $INIT.attributeArrowRightPrefix;
-  const $carouselInputId = $INIT.attributeInputPrefix;
+  const $attributeArrowLeftPrefix = $INIT.attributeArrowLeftPrefix;
+  const $attributeArrowRightPrefix = $INIT.attributeArrowRightPrefix;
+  const $attributeInputId = $INIT.attributeInputPrefix;
   const $attributePrefix = $INIT.attributePrefix;
-  const $abilityTreeItemPrefix = $INIT.abilityTreeItemPrefix;
   const $attributeMin = $INIT.attributeMin;
   const $pointsDisplayMessageWPL = $INIT.pointsDisplayMessageWPL;
   const $attributePoints = $INIT.attributePoints;
   const $abilityPoints = $INIT.abilityPoints;
-  const $abilitySets = $INIT.abilitySets;
+  const $playerClasses = $INIT.playerClasses;
   const $pointsDisplay = document.getElementById("attributePointDisplay");
-  const $activeAbilityTreeId = document.getElementById($carouselInputId);
-  const $prev = document.getElementById("arrow-left-abilityTree");
-  const $next = document.getElementById("arrow-right-abilityTree");
-  let $carousel = document.getElementById("abilityTreeCarousel");
+  const $activePlayerClassId = document.getElementById(
+    "selectedActivePlayerClassId",
+  );
 
   const $state = {
     attrs: [],
     meta: {},
     pool: $attributePoints,
-    abilityIndex: getActiveAbilityTreeId(),
-    abilitySetsAmount: $abilitySets.length,
+    playerClassIndex: getActivePlayerClassId(),
+    playerClassesAmount: $playerClasses.length,
   };
 
-  let $abilityTreeIndexState = checkAbilityTreeIndexState();
+  let $playerClassesIndexState = checkPlayerClassIndexState();
 
   //Initialization of Gui and Attributes
   refreshPointsDisplay();
   updateCarouselArrows();
 
-  Object.entries($attrs).forEach(([$key, $attribute]) => {
+  Object.entries($attrs).forEach(([$index, $attribute]) => {
+    console.log($index);
+    console.log($attribute);
+    let $key = $attribute.attributeKey.key;
     $state.attrs[$key] = {
       value: $attribute.value,
       min: $attribute.value,
     };
     document
-      .getElementById($carouselArrowLeftPrefix + $key)
+      .getElementById($attributeArrowLeftPrefix + $key)
       .addEventListener("click", (e) => {
         let $clickedAttr = $state.attrs[$key];
         if (
@@ -52,7 +53,7 @@
         }
       });
     document
-      .getElementById($carouselArrowRightPrefix + $key)
+      .getElementById($attributeArrowRightPrefix + $key)
       .addEventListener("click", (e) => {
         let $clickedAttr = $state.attrs[$key];
         if ($state.pool > 0) {
@@ -66,13 +67,13 @@
   });
 
   $prev?.addEventListener("click", () => {
-    if ($abilityTreeIndexState == 1 || $abilityTreeIndexState == 3) return;
-    $state.abilityIndex--;
+    if ($playerClassesIndexState == 1 || $playerClassesIndexState == 3) return;
+    $state.playerClassIndex--;
     updateCarousel();
   });
   $next?.addEventListener("click", () => {
-    if ($abilityTreeIndexState == 2 || $abilityTreeIndexState == 3) return;
-    $state.abilityIndex++;
+    if ($playerClassesIndexState == 2 || $playerClassesIndexState == 3) return;
+    $state.playerClassIndex++;
     updateCarousel();
   });
 
@@ -85,13 +86,13 @@
     let $attr = $state.attrs[$key];
     let $disableLeftArrow = $attr.value <= $attr.min;
     let $attributeArrowLeft = document.getElementById(
-      $carouselArrowLeftPrefix + $key
+      $attributeArrowLeftPrefix + $key,
     );
     toggleElementDisabledClass($attributeArrowLeft, $disableLeftArrow);
     toggleElementClass(
       $attributeArrowLeft,
       "leg-transition",
-      !$disableLeftArrow
+      !$disableLeftArrow,
     );
   }
 
@@ -100,13 +101,13 @@
     let $attributePoolExhausted = $state.pool <= 0;
     Object.entries($state.attrs).forEach(([$key, $attr]) => {
       $attributeArrow = document.getElementById(
-        $carouselArrowRightPrefix + $key
+        $attributeArrowRightPrefix + $key,
       );
       toggleElementDisabledClass($attributeArrow, $attributePoolExhausted);
       toggleElementClass(
         $attributeArrow,
         "leg-transition",
-        !$attributePoolExhausted
+        !$attributePoolExhausted,
       );
     });
   }
@@ -114,9 +115,9 @@
   // ---------- Carousel ----------
   function updateCarouselArrows() {
     let $disablePrev =
-      $abilityTreeIndexState == 1 || $abilityTreeIndexState == 3;
+      $playerClassesIndexState == 1 || $playerClassesIndexState == 3;
     let $disableNext =
-      $abilityTreeIndexState == 2 || $abilityTreeIndexState == 3;
+      $playerClassesIndexState == 2 || $playerClassesIndexState == 3;
     toggleElementDisabledClass($prev, $disablePrev);
     toggleElementClass($prev, "leg-transition", !$disablePrev);
     toggleElementDisabledClass($next, $disableNext);
@@ -125,14 +126,20 @@
 
   function updateCarousel() {
     $carousel.getElementsByClassName("active")[0].classList.toggle("active");
-    const $activeAbilityTree = document.getElementById(
-      $abilityTreeItemPrefix + $state.abilityIndex
+    console.log(
+      "playerClassItemPrefix is " +
+        $playerClassItemPrefix +
+        " and state is " +
+        $state.playerClassIndex,
     );
-    $activeAbilityTree.classList.toggle("active");
-    $activeAbilityTreeId = $activeAbilityTree.getAttribute("value");
-    $abilityTreeIndexState = checkAbilityTreeIndexState();
+    const $activePlayerClass = document.getElementById(
+      $playerClassItemPrefix + $state.playerClassIndex,
+    );
+    $activePlayerClass.classList.toggle("active");
+    $activePlayerClassId.value = $activePlayerClass.getAttribute("value");
+    $playerClassesIndexState = checkPlayerClassIndexState();
     updateCarouselArrows();
-    refreshActiveAbilityTreeId();
+    refreshActivePlayerClassId();
   }
 
   // ---------- Submit: State zurück in die Gui schreiben vor Commit ----------
@@ -147,16 +154,16 @@
   */
   //_____________________Helper________________
 
-  function refreshActiveAbilityTreeId() {
-    document.getElementById("selectedAbilityTreeId").value =
-      getActiveAbilityTreeId();
+  function refreshActivePlayerClassId() {
+    document.getElementById("selectedActivePlayerClassId").value =
+      getActivePlayerClassId();
   }
 
-  function getActiveAbilityTreeId() {
+  function getActivePlayerClassId() {
     return document
-      .getElementById("abilityTreeCarousel")
+      .getElementById("playerClassCarousel")
       .getElementsByClassName("active")[0]
-      .id.replace($abilityTreeItemPrefix, "");
+      .id.replace($playerClassItemPrefix, "");
   }
 
   function toggleElementDisabledClass($element, $addOrRemove) {
@@ -178,27 +185,20 @@
     }
   }
 
-  /**Checks the ability Index for its state
+  /**Checks the Carousel Index for its state
    * If it is at first and last Index it returns 3
-   * If the AbilityTree is at its last Index returns 2
+   * If it is at its last Index returns 2
    * If the state is on its first index return 1
    * If its neither first nor last returns 0
    * */
-  function checkAbilityTreeIndexState() {
-    console.log(
-      "AbiltyIndex is at : " +
-        $state.abilityIndex +
-        ". Amount of ability sets is : " +
-        $state.abilitySetsAmount +
-        "."
-    );
+  function checkPlayerClassIndexState() {
     if (
-      $state.abilityIndex <= 0 &&
-      $state.abilityIndex >= $state.abilitySetsAmount - 1
+      $state.playerClassIndex <= 0 &&
+      $state.playerClassIndex >= $state.playerClassesAmount - 1
     )
       return 3;
-    if ($state.abilityIndex >= $state.abilitySetsAmount - 1) return 2;
-    if ($state.abilityIndex <= 0) return 1;
+    if ($state.playerClassIndex >= $state.playerClassesAmount - 1) return 2;
+    if ($state.playerClassIndex <= 0) return 1;
     return 0;
   }
 

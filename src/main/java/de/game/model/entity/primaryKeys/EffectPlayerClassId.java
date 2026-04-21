@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class EffectPlayerClassId {
 
     private Integer playerClass;
-    private Integer effect;
+    private String effect;
 
 }

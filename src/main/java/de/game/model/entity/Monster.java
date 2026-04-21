@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Monster extends AbstractCharacter {
+public class Monster extends LivingEntity {
 
 
     @OneToMany(mappedBy = "monster")

@@ -28,5 +28,4 @@ public class EffectPlayerClass {
 
     @NonNull
     private Short value;
-
 }

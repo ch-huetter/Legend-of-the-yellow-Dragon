@@ -2,7 +2,7 @@ package de.game.controller;
 
 import de.game.controller.dto.RegistrationDto;
 import de.game.model.entity.User;
-import de.game.service.CreateUserService;
+import de.game.service.UserService;
 import de.game.service.factory.UserFactory;
 import de.game.service.initializer.AccountInitializer;
 import de.game.util.enums.Gender;
@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class RegistrationController {
 
     private final AccountInitializer accountInitializer;
-    private final CreateUserService createUserService;
+    private final UserService userService;
     private final UserFactory userFactory;
 
     @ModelAttribute
@@ -38,7 +38,7 @@ public class RegistrationController {
     @GetMapping("")
     public String showRegistration (@ModelAttribute RegistrationDto registrationDto) {
         log.info("Registration Controller called. Show Registration executed");
-
+        //Unused
         registrationDto.setGenderList(Arrays.stream(Gender.values()).toList());
 
         return "registration/register";
@@ -47,14 +47,14 @@ public class RegistrationController {
     @PostMapping("/createUser")
     public String createUser (@Valid RegistrationDto registrationDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            log.info("br has errors. redirecting to register page");
+            log.debug("br has errors. redirecting to register page");
             return showRegistration(registrationDto);
         }
         User newUser = registrationDto.getUser();
         accountInitializer.initializePlayerAccount(newUser);
-        log.info("Initialized User = {}", registrationDto.getUser().toString());
+        log.debug("Initialized User = {}", registrationDto.getUser().toString());
         try {
-            createUserService.createUserWithRoles(newUser);
+            userService.createUserWithRoles(newUser);
         } catch (LoginNameTakenException e) {
             log.error("Login name {} is already taken", newUser.getLoginName());
         }

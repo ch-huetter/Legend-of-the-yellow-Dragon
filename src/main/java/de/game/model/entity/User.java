@@ -5,10 +5,7 @@ import de.game.util.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.CredentialsContainer;
@@ -20,8 +17,10 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails, CredentialsContainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

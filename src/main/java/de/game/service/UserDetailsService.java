@@ -24,6 +24,5 @@ public class UserDetailsService implements org.springframework.security.core.use
             throw new UsernameNotFoundException("Kein Benutzer mit diesem Namen gefunden");
         }
         return user.get();
-
     }
 }

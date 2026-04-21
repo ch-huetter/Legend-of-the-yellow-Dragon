@@ -1,6 +1,6 @@
 package de.game.configuration.constraintValidator;
 
-import de.game.configuration.annotation.ValidRegistrationDTO;
+import de.game.configuration.constraintValidator.annotation.ValidRegistrationDTO;
 import de.game.configuration.validator.UserValidator;
 import de.game.controller.dto.RegistrationDto;
 import de.game.model.entity.User;

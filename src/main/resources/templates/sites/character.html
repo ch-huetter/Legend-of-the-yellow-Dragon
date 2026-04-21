@@ -1,0 +1,223 @@
+<!doctype html>
+<html
+        lang="de"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/mainLayout::shell(title='Create Character', backgroundImage=@{/images/background/character_background.png})}"
+>
+<th:block layout:fragment="additionalHead">
+    <!--<script th:inline="javascript" th:src="@{/js/characterCreation.js}" defer></script>-->
+    <script
+            th:inline="javascript"
+            th:src="@{/js/fragments/carousel.js}"
+            defer
+    ></script>
+    <script
+            th:inline="javascript"
+            th:src="@{/js/fragments/multiValueArrowSelection.js}"
+            defer
+    ></script>
+</th:block>
+<section layout:fragment="content">
+    <form
+            th:action="@{/character/create}"
+            th:object="${characterDto}"
+            method="post"
+            class="leg-flex-container"
+            id="charForm"
+    >
+        <!-- Headline Greeting Text -->
+        <div class="leg-flex-row mb-3">
+            <div
+                    class="leg-rounded-border leg-rounded-container-outer leg-gradient"
+            >
+                <div class="leg-rounded-container-inner">
+            <span
+                    th:text="#{characterCreation.introduction}"
+                    class="leg-center-text"
+            ></span>
+                </div>
+            </div>
+        </div>
+        <!-- Name Description -->
+        <div class="leg-flex-row mb-3">
+            <div
+                    class="leg-rounded-border leg-rounded-container-outer leg-gradient"
+            >
+                <div class="leg-rounded-container-inner">
+            <span
+                    th:text="#{characterCreation.nameSelect}"
+                    class="leg-text-center-100"
+            ></span>
+                </div>
+            </div>
+        </div>
+        <!-- Input Name -->
+        <div class="leg-flex-row mb-3 px-5">
+            <th:block
+                    th:replace="~{fragments/form/formWrapper::contentWrapper(object='characterDto', field='name', content=~{fragments/form/textboxInput::content})}"
+            />
+        </div>
+        <!-- Attribute Description and Point Display -->
+        <div class="leg-flex-row mb-3">
+            <div class="leg-flex-column">
+                <div
+                        class="leg-rounded-border leg-rounded-container-outer leg-gradient"
+                >
+                    <div class="leg-rounded-container-inner flex-column">
+              <span
+                      th:text="#{characterCreation.description.attributes}"
+                      class="leg-text-center"
+              ></span>
+                        <div>
+                <span
+                        th:id="attributePointDisplay"
+                        th:text="#{characterCreation.pointDisplay.withPlaceholder}"
+                ></span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                        th:replace="~{fragments/form/wrapper::errorWrapper(object='characterDto',field='attributes')}"
+                ></div>
+            </div>
+        </div>
+        <!-- Attribute List -->
+        <div class="leg-flex-row mb-3">
+            <div data-multi-value-arrow-control class="leg-flex-container px-5">
+                <div
+                        data-arrow-control
+                        th:each="attr,iter: *{attributes}"
+                        class="mb-1"
+                >
+                    <div
+                            data-multi-value-arrow-control-row
+                            th:attr="data-multi-value-arrow-control-pool=__*{attributePoints}__"
+                            class="leg-flex-row"
+                            style="align-items: end"
+                            th:with="fieldName='attributes[__${iter.index}__].value',
+                                  elementId='attribute-display-' + ${attr.attributeKey.key},
+                                  extraAttr='data-multi-value-arrow-control-value=\'\''"
+                    >
+                        <div
+                                style="width: 42px; height: 42px"
+                                data-multi-value-arrow-control-dec
+                                class="leg-button-wrapper leg-rounded-border disabled"
+                        >
+                            <th:block th:replace="~{fragments/icons/arrowsDouble::left}"/>
+                        </div>
+
+                        <div
+                                th:replace="~{fragments/form/formWrapper::contentWrapper(
+                                        object='characterDto',
+                                        field=${fieldName},
+                                        content=~{fragments/form/textboxInput::content}, readonly='true',
+                                        text=#{label.__${attr.attributeKey.key}__},attr=${extraAttr} ,
+                                        id=${elementId} )}"
+                        ></div>
+
+                        <div
+                                style="width: 42px; height: 42px"
+                                data-multi-value-arrow-control-inc
+                                class="leg-button-wrapper leg-rounded-border leg-transition"
+                        >
+                            <th:block th:replace="~{fragments/icons/arrowsDouble::right}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Player Class Description -->
+        <div class="leg-flex-row mb-3">
+            <div
+                    class="leg-rounded-border leg-rounded-container-outer leg-gradient"
+            >
+                <div class="leg-rounded-container-inner">
+            <span
+                    th:text="#{characterCreation.description.playerClass}"
+                    class="leg-text-center-100"
+            ></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PlayerClass Carousel for creating a Character-->
+        <div
+                data-carousel
+                th:attr="data-carousel-start=*{activePlayerClassId},data-carousel-id='playerClassCarousel'"
+                th:if="${state eq T(de.game.util.enums.ui.CharacterState).CREATE.name()}"
+                class="leg-flex-row mb-3 leg-carousel px-5 align-items-center"
+                id="playerClassCarousel"
+        >
+            <!-- Carousel Left Arrow -->
+            <div
+                    data-carousel-arrow-prev
+                    style="height: 42px; width: 42px"
+                    class="leg-button-wrapper leg-rounded-border leg-icon-wrapper disabled"
+            >
+                <th:block th:replace="~{fragments/icons/arrowsDouble::left}"/>
+            </div>
+
+            <div
+                    class="leg-flex-container leg-rounded-border leg-gradient p-3 mx-2 leg-carousel leg-rounded-container-inner"
+            >
+                <div
+                        data-carousel-item
+                        class="leg-carousel-item leg-center-text leg-flex-container"
+                        th:each="playerClass : *{playerClasses}"
+                        th:value="${playerClass.id}"
+                        th:classappend="${playerClass.id == characterDto.activePlayerClassId} ? 'active' : ''"
+                >
+                    <p th:text="#{playerClass.__${playerClass.name}__.name}"></p>
+                    <p
+                            th:utext="#{playerClass.__${playerClass.name}__.description}"
+                    ></p>
+                </div>
+            </div>
+
+            <!-- Carousel Right Arrow -->
+            <div
+                    data-carousel-arrow-next
+                    style="height: 42px; width: 42px"
+                    class="leg-button-wrapper leg-rounded-border leg-transition leg-icon-wrapper"
+            >
+                <th:block th:replace="~{fragments/icons/arrowsDouble::right}"/>
+            </div>
+
+            <input
+                    type="hidden"
+                    th:id="selectedActivePlayerClassId"
+                    th:field="*{activePlayerClassId}"
+            />
+        </div>
+
+        <!-- Player Class Display -->
+        <div
+                th:if="${state eq T(de.game.util.enums.ui.CharacterState).VIEW or state eq T(de.game.util.enums.ui.CharacterState).LEVEL_UP}"
+                class="leg-flex-container leg-rounded-border leg-gradient p-3 mx-2 leg-rounded-container-inner"
+        >
+            <div class="leg-center-text leg-flex-container">
+                <p
+                        th:text="#{playerClass.__*{playerCharacter.playerClass.name}__.name}"
+                ></p>
+                <p
+                        th:text="#{playerClass.__*{playerCharacter.playerClass.name}__.description}"
+                ></p>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="leg-flex-row mb-3">
+            <div
+                    class="leg-rounded-border leg-button-wrapper leg-transition leg-rounded-container-outer col-3 p-1 mx-2"
+            >
+                <input
+                        type="submit"
+                        th:value="#{characterCreation.button.submit}"
+                        class=""
+                />
+            </div>
+        </div>
+    </form>
+</section>
+</html>

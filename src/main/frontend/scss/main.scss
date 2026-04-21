@@ -6,13 +6,18 @@ body, input{
     color:$color-text;
     font-family: 'Lora', serif;
     font-size: 17px;
+    margin:00px;
+    padding:00px;
     }
+
 
 .main-wrapper-fullscreen{
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
+    background-repeat: round;
+    flex-direction:column;
 }
 
 .background-image{
@@ -29,17 +34,17 @@ body, input{
     margin:1%;
 }
 
-.leg-svg{
-    height:100%;
-    width:100%;
-    }
-
 .content-wrapper-wide{
     background-color:transparent;
     min-width:1200px;
     max-width:1600px;
     width:100%;
     margin:1%;
+    }
+
+.leg-svg{
+    height:100%;
+    width:100%;
     }
 
 .leg-flex-container{
@@ -52,12 +57,21 @@ body, input{
 .leg-flex-row{
     width:100%;
     display:flex;
-    justify-content:space-evenly;
     flex-flow:row;
     }
 
 .leg-flex-row > p {
     text-align:center
+    }
+
+.leg-flex-column{
+    width:100%;
+    display:flex;
+    flex-flow:column;
+    }
+
+.leg-h100{
+    height:100% !important;
     }
 
 .leg-rounded-container-outer{
@@ -66,11 +80,11 @@ body, input{
     display:flex;
     align-content:center;
     flex-direction:column;
-    box-shadow:4px 2px black;
+    box-shadow:1px 1px black;
     }
 
 .leg-title-container{
-    border-radius:28px;
+    border-radius:$border-radius-normal;
     border-bottom-right-radius:0px;
     display:flex;
     color:white;
@@ -79,8 +93,67 @@ body, input{
 .leg-title-container-image{
     width: 50px;
     height : 50px;
-    border-radius:28px;
+    border-radius:$border-radius-normal;
     border-bottom-left-radius:0px;
+    }
+
+.leg-header{
+    border: 1px solid black;
+    background: rgb(209,209,209, 0.5);
+    border-top: none;
+    border-radius: 0px 0px $border-radius-normal $border-radius-normal;
+    box-shadow:1px 1px black;
+    height: $top-header-height;
+    width: 60%;
+    margin: auto;
+    }
+
+.leg-fancy-arrow-link{
+    text-decoration:none;
+    }
+
+.leg-fancy-arrow-link-text{
+    color:black;
+    z-index:1;
+    white-space:nowrap;
+    }
+
+.leg-fancy-arrow-link-container{
+    position:relative;
+    display:inline-flex;
+    align-items: center;
+    justify-content:center;
+    }
+
+.leg-fancy-border{
+    height:100%;
+    width:100%;
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    }
+
+.leg-fancy-arrow-right{
+    width:35px;
+    height:32px;
+    transform:scale(-1,1)
+    }
+
+.leg-fancy-arrow-left{
+    width:35px;
+    height:32px;
+    }
+
+.leg-fancy-arrow-primary{
+    fill: rgb(255, 255, 255, 0);
+    }
+
+.leg-fancy-arrow-secondary{
+    fill: rgb(255, 255, 255, 0);
+    }
+
+.leg-fancy-arrow-diamond{
+    fill: rgb(255,255 ,255, 0);
     }
 
 .leg-title-container > p{
@@ -115,12 +188,33 @@ body, input{
 
     }
 
+.leg-effekt-positive{
+    color:green;
+    }
+
+.leg-effekt-negative{
+    color:red;
+    }
 
 .leg-item{
     display:flex;
     align-content:center;
     flex-direction:column;
     padding: 0px 5px;
+    }
+
+.leg-item-half{
+    min-width: 46%;
+    max-width: 50%;
+    height: 200px;
+    padding: 14px;
+    }
+
+.leg-box{
+    background:rgba(209, 209, 209, 0.5);
+    box-shadow:1px 1px black;
+    border:1px solid black;
+    border-radius: $border-radius-normal;
     }
 
 .leg-gradient{
@@ -152,18 +246,31 @@ body, input{
     }
 
 .leg-sidebar{
+    background:$color-background-half-transparent;
     display:flex;
-    max-width:240px;
-    min-width:180px;
     flex: 1 1 auto;
     flex-direction:column;
     border:1px solid black;
-    height:94%;
+    border-left:none;
+    height:70%;
     padding: 10px 4px;
     margin: auto;
-    box-shadow:4px 2px black;
-    border-radius:28px;
+    box-shadow:1px 1px black;
+    border-radius:0px $border-radius-normal $border-radius-normal 0px;
     color:white;
+    }
+
+.leg-sidebar-size{
+    width:190px;
+    height:$top-header-height;
+    }
+
+.leg-flex-wrap{
+    flex-wrap:wrap;
+    }
+
+.leg-align-flex-start{
+    align-content: flex-start;
     }
 
 .leg-footer{
@@ -179,7 +286,7 @@ body, input{
     display:flex;
     border:1px solid black;
     border-radius:28px;
-    box-shadow:4px 2px black;
+    box-shadow:1px 1px black;
     margin:0px 7px;
     }
 
@@ -211,7 +318,7 @@ body, input{
     }
 
 .leg-button-wrapper.leg-rounded-container-outer.selected{
-    box-shadow: 2px 1px black;
+    box-shadow: 1px 1px black;
     }
 
 .leg-button-wrapper > input{

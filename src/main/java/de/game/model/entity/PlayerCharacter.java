@@ -1,23 +1,22 @@
 package de.game.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.game.model.entity.joinTable.PlayerCharacterAttribute;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "player_character")
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
-public class PlayerCharacter extends AbstractCharacter {
+public class PlayerCharacter extends LivingEntity {
 
-    @NonNull
-    private String name;
     @NonNull
     private Integer energy;
     @NonNull
@@ -29,24 +28,20 @@ public class PlayerCharacter extends AbstractCharacter {
     private Integer attributePoints;
     @NonNull
     private Integer attributePointsSpend;
-    @NonNull
-    private Integer abilityPoints;
-    @NonNull
-    private Integer abilityPointsSpend;
-    @NonNull
-    private Integer abilityTreePoints;
-    @NonNull
-    private Integer abilityTreePointsSpend;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
+    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "characterName")
-    @ToString.Exclude
+    @OneToMany(mappedBy = "characterName", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @MapKey(name = "attributeKey")
-    private Map<String, PlayerCharacterAttribute> attributes;
+    private List<PlayerCharacterAttribute> attributes;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "player_class_key")
+    private PlayerClass playerClass;
 
     @Override
     public final boolean equals (Object o) {
@@ -59,7 +54,7 @@ public class PlayerCharacter extends AbstractCharacter {
         if (thisEffectiveClass != oEffectiveClass)
             return false;
         PlayerCharacter playerCharacter = (PlayerCharacter) o;
-        return getName() != null && Objects.equals(getName(), playerCharacter.getName());
+        return Objects.equals(getName(), playerCharacter.getName());
     }
 
     @Override

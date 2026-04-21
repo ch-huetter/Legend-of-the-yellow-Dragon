@@ -1,9 +1,12 @@
 package de.game.model.enums;
 
 import de.game.model.entity.Attribute;
+import de.game.model.entity.Effect;
 import de.game.model.entity.PlayerClass;
 import de.game.model.entity.Setting;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EnumToObjectFactory {
 
     public Attribute createAttribute (AttributeEnum attrEnum) {
@@ -24,7 +27,11 @@ public class EnumToObjectFactory {
     }
 
     public PlayerClass createPlayerClass (PlayerClassEnum playerClassEnum) {
-        return PlayerClass.builder().id(playerClassEnum.getId()).name(playerClassEnum.getName()).build();
+        return PlayerClass.builder().id(playerClassEnum.getId()).name(playerClassEnum.getName()).effectsInitialized(false).build();
+    }
+
+    public Effect createEffect (EffectEnum effectEnum) {
+        return Effect.builder().id(effectEnum.getId()).name(effectEnum.getName()).build();
     }
 
 }

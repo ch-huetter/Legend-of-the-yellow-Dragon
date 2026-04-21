@@ -19,8 +19,11 @@ $color-transition-outer-dark: color.adjust($color-transition-outer, $lightness:-
 $color-transition-outer-darker: color.adjust($color-transition-outer, $lightness:-12%);
 $color-background:#f5f4f2;
 
+$color-background-half-transparent:rgb(209,209,209, 0.5);
 $width-gradient-transition-horizontal:6px;
 $width-gradient-transition-vertical:15px;
 // Layout
 $spacing-base: 8px;
 $font-base: 16px;
+$border-radius-normal:28px;
+$top-header-height:80px;

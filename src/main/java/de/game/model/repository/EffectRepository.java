@@ -4,6 +4,10 @@ import de.game.model.entity.Effect;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface EffectRepository extends CrudRepository<Effect, String> {
+public interface EffectRepository extends CrudRepository<Effect, Integer> {
+
+    public Optional<Effect> findByName (String name);
 }

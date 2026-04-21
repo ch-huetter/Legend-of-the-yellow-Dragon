@@ -5,7 +5,7 @@
     <div class="leg-progress-bar">
         <div class="leg-progress-fill"
              th:classappend="*{cssClass}"
-             th:style="'width:' + *{percent} + ';'"></div>
+             th:style="'width:' + *{percent} + '%;'"></div>
         <p th:text="*{value} + '/' + *{max}" class="leg-center-text-100" style="position:absolute"></p>
     </div>
 </div>
