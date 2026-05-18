@@ -5,6 +5,7 @@ import de.game.model.entity.PlayerCharacter;
 import de.game.model.entity.User;
 import de.game.model.repository.PlayerCharacterRepository;
 import de.game.model.repository.joinTableRepository.PlayerCharacterAttributeRepository;
+import de.game.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,16 +21,36 @@ public class PlayerCharacterGetter {
 
     private final PlayerCharacterRepository playerCharacterRepository;
     private final PlayerCharacterAttributeRepository playerCharacterAttributeRepository;
+    private final UserService userService;
 
     @Transactional
-    public PlayerCharacter getPlayerCharacterById (String Name) {
-        Optional<PlayerCharacter> playerCharacter = playerCharacterRepository.findById(Name);
+    private PlayerCharacter getPlayerCharacter (String name) {
+        Optional<PlayerCharacter> playerCharacter = playerCharacterRepository.findById(name);
         return playerCharacter.orElse(null);
     }
 
+    public PlayerCharacter getPlayerCharacterById (String name) {
+        PlayerCharacter playerCharacter = getPlayerCharacter(name);
+        if (playerCharacter == null) {
+            throw new NullPointerException("No Character found for " + name);
+        } else {
+            return playerCharacter;
+        }
+    }
+
+
     @Transactional
-    public List<PlayerCharacter> getPlayerCharacterByUser (User user) {
+    public List<PlayerCharacter> getPlayerCharactersByUser (User user) {
         return playerCharacterRepository.findByUser(user);
+    }
+
+    public PlayerCharacter getPlayerCharacterByUser (User user) {
+        return playerCharacterRepository.findById(user.getActivePlayerCharacter()).orElseThrow(NullPointerException::new);
+    }
+
+    public PlayerCharacter getActivePlayerCharacter () {
+        User user = userService.getLoggedInUserFromDb();
+        return playerCharacterRepository.findById(user.getActivePlayerCharacter()).orElseThrow(NullPointerException::new);
     }
 
 }

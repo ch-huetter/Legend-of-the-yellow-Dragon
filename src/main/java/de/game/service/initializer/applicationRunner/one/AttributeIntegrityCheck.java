@@ -2,8 +2,8 @@ package de.game.service.initializer.applicationRunner.one;
 
 import de.game.model.entity.Attribute;
 import de.game.model.enums.AttributeEnum;
-import de.game.model.enums.EnumToObjectFactory;
 import de.game.model.repository.AttributeRepository;
+import de.game.service.factory.EnumToObjectFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

@@ -1,7 +1,7 @@
 package de.game.controller.advice;
 
 import de.game.controller.dto.LayoutDto;
-import de.game.service.filler.dto.layout.LayoutDtoFiller;
+import de.game.service.filler.dto.DtoFillerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @RequiredArgsConstructor
 public class SiteLayoutAdvice {
 
-    private final LayoutDtoFiller layoutDtoFiller;
+    private final DtoFillerService dtoFillerService;
 
     @ModelAttribute()
     public LayoutDto addLayoutDto () {
         LayoutDto dto = new LayoutDto();
-        layoutDtoFiller.fillDto(dto);
+        dtoFillerService.fillDto(dto);
         return dto;
     }
 }

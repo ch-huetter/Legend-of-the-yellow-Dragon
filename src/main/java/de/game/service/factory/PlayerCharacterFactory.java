@@ -1,5 +1,6 @@
 package de.game.service.factory;
 
+import de.game.bean.ExperiencePerLevelGetter;
 import de.game.model.entity.PlayerCharacter;
 import de.game.model.enums.SettingEnum;
 import de.game.service.SettingService;
@@ -16,6 +17,7 @@ public class PlayerCharacterFactory {
     private final SettingService settingService;
     private final PlayerCharacterAttributeFactory playerCharacterAttributeFactory;
     private final UserService userService;
+    private final ExperiencePerLevelGetter experiencePerLevelGetter;
 
     public PlayerCharacter getNewPlayerCharacterForCharacterCreation () {
         PlayerCharacter playerCharacter = new PlayerCharacter();
@@ -26,6 +28,7 @@ public class PlayerCharacterFactory {
         playerCharacter.setAttributePointsSpend(0);
         playerCharacter.setLevel(Short.valueOf("1"));
         playerCharacter.setExperience(0);
+        playerCharacter.setExperienceForNextLevel(experiencePerLevelGetter.getExperienceForLevel(2));
         playerCharacter.setGold(Integer.parseInt(settingService.getValue(SettingEnum.CHARACTER_START_GOLD)));
         playerCharacter.setUser(userService.getLoggedInUserFromDb());
 

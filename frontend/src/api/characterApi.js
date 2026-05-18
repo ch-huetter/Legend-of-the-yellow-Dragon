@@ -1,10 +1,5 @@
-import {apiFetch, apiPost} from "./apiClient.js";
-
-export function fetchCharactersSortedByActiveThenLevel() {
-    return apiFetch("/api/character/getUserCharactersSortedByActiveThenLevel");
-}
+import {apiPost} from "./apiClient.js";
 
 export function postNewActiveCharacterName(name) {
-
-    return apiPost("/api/character/setNewActiveCharacterByName", {characterName: name});
+    return apiPost("/api/game/character/setNewActiveCharacterByName", {characterName: name});
 }

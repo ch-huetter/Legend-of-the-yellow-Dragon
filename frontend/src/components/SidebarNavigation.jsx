@@ -1,18 +1,44 @@
 import {Link} from "react-router-dom";
-import {useContext} from "react";
-import {useLayoutContext} from "../layout/MainContext.jsx"
-import {ArrowWrapper} from "../layout/elements/ArrowWrapper.jsx";
+import {useLayoutContext} from "../layout/MainLayout.jsx"
+import {ArrowWrapperClickable, ArrowWrapperHeadline} from "../layout/components/ArrowWrapper.jsx";
+import {ArrowFoldable} from "../layout/components/ArrowFancySvg.jsx";
+import {useState} from "react";
 
 export function SidebarNavigation() {
-    const data = useContext(useLayoutContext());
-    console.log(data);
+    const layoutContext = useLayoutContext();
+    const [visible, setVisible] = useState(true);
+    //TODO Changing sidebar from static to a dynamic Server Based Version!
+    return (
+        <div className={"leg-sidebar-wrapper " + (visible ? "visible" : "")}>
+            <aside className="leg-sidebar">
+                <ArrowWrapperHeadline>
+                    <span className="leg-fancy-arrow-text">Übersicht</span>
+                </ArrowWrapperHeadline>
+                <Link className="leg-fancy-arrow-link" to="/game/characterSelection">
+                    <ArrowWrapperClickable>
+                        <span className="leg-fancy-arrow-text">Character wechseln</span>
+                    </ArrowWrapperClickable>
+                </Link>
+                <Link className="leg-fancy-arrow-link" to="/game/tavern">
+                    <ArrowWrapperClickable>
+                        <span className="leg-fancy-arrow-text">Taverne</span>
+                    </ArrowWrapperClickable>
+                </Link>
+                <Link className="leg-fancy-arrow-link" to="/logout">
+                    <ArrowWrapperClickable>
+                        <span className="leg-fancy-arrow-text">Logout</span>
+                    </ArrowWrapperClickable>
+                </Link>
 
+            </aside>
+            <div className="leg-fancy-arrow-foldable-wrapper vert" onClick={() => setVisible(!visible)}>
+                <ArrowFoldable/>
+            </div>
+        </div>
+    )
 
-    return <aside className="leg-sidebar">
-        <Link className="leg-fancy-arrow-link" to="/characterSelection">
-            <ArrowWrapper>
-                <span className="leg-fancy-arrow-link-text">Character Selection</span>
-            </ArrowWrapper>
-        </Link>
-    </aside>
+    function changeVisibility() {
+        setVisible(!visible);
+    }
+
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/character")
+@RequestMapping("/api/game/character")
 @Slf4j
 public class CharacterApiController {
 
@@ -22,15 +22,20 @@ public class CharacterApiController {
     private final PlayerCharacterGetter playerCharacterGetter;
     private final PlayerCharacterListSorterService playerCharacterListSorterService;
 
-    @GetMapping("/getUserCharactersSortedByActiveThenLevel")
+    @GetMapping("/getSelectableCharacters")
     public List<PlayerCharacter> getCharactersSortByActiveThenLevel () {
-        return playerCharacterListSorterService.sortByActiveThenLevel();
+        return playerCharacterListSorterService.removeActiveSortByLevel();
+    }
+
+    @GetMapping("/getActiveCharacter")
+    public PlayerCharacter getActivePlayerCharakter () {
+        return playerCharacterGetter.getPlayerCharacterByUser(userService.getLoggedInUserFromDb());
     }
 
     @PostMapping("/setNewActiveCharacterByName")
-    public ResponseEntity<String> setNewActiveCharacterByName (@RequestBody NewActiveCharacterByNameRequest changeRequest) {
+    public ResponseEntity<NewActiveCharacterByNameResponse> setNewActiveCharacterByName (@RequestBody NewActiveCharacterByNameRequest changeRequest) {
 
-        log.info("characterName {}", changeRequest.characterName);
+        log.debug("characterName {}", changeRequest.characterName);
         PlayerCharacter playerCharacter = playerCharacterGetter.getPlayerCharacterById(changeRequest.characterName);
         User            user            = userService.getLoggedInUserFromDb();
 
@@ -38,9 +43,14 @@ public class CharacterApiController {
             user.setActivePlayerCharacter(changeRequest.characterName);
             userService.updateUser(user);
         }
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(new NewActiveCharacterByNameResponse(playerCharacter, playerCharacterListSorterService.removeActiveSortByLevel()));
     }
 
     public record NewActiveCharacterByNameRequest(String characterName) {
     }
+
+    public record NewActiveCharacterByNameResponse(PlayerCharacter activeCharacter, List<PlayerCharacter> sortedCharacterList) {
+    }
+
+
 }

@@ -1,7 +1,6 @@
 package de.game.service.factory;
 
 import de.game.model.entity.PlayerClass;
-import de.game.model.enums.EnumToObjectFactory;
 import de.game.model.enums.PlayerClassEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

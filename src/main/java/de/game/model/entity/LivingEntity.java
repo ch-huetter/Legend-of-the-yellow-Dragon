@@ -37,4 +37,5 @@ public abstract class LivingEntity implements Serializable {
     private Integer gold;
     @NonNull
     private Integer experience;
+
 }

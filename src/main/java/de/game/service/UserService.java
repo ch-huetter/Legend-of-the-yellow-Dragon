@@ -8,6 +8,8 @@ import de.game.util.exception.LoginNameTakenException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -77,6 +79,16 @@ public class UserService {
         }
 
         userRepository.save(userFromDb);
+    }
+
+    /**
+     * Checks the Security Context if the current User is an authenticated non anonymus User
+     *
+     * @return True if a registered User is logged in
+     */
+    public boolean isLoggedIn () {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return (securityContext.getAuthentication().isAuthenticated() && !(securityContext.getAuthentication() instanceof AnonymousAuthenticationToken));
     }
 
     /**

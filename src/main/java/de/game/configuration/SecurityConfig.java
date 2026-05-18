@@ -24,7 +24,8 @@ public class SecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                      )
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/backoffice/login", "/registration/**", "/css/**", "/webjars/**", "/images/**", "/js/**", "/api/auth/login",
-                                                                    "/api/auth/logout", "/error", "/api/game/loginInit", "api/game/csrf").permitAll()
+                                                                    "/api/auth/logout", "/error", "/api/game/loginInit", "/api/game/csrf",
+                                                                    "/api/game/globalContext/checkGlobalContext").permitAll()
                         .requestMatchers("/backoffice/**").hasAnyRole(RoleEnum.ADMIN.getName(), RoleEnum.GAMEMASTER.getName()).anyRequest().authenticated())
 
                 .formLogin(form -> form

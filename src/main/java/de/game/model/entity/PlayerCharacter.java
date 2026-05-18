@@ -29,6 +29,9 @@ public class PlayerCharacter extends LivingEntity {
     @NonNull
     private Integer attributePointsSpend;
 
+    @NonNull
+    private Integer experienceForNextLevel;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @ToString.Exclude

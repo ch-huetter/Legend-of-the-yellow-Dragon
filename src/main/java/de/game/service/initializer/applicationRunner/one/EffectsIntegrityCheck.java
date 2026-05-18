@@ -2,8 +2,8 @@ package de.game.service.initializer.applicationRunner.one;
 
 import de.game.model.entity.Effect;
 import de.game.model.enums.EffectEnum;
-import de.game.model.enums.EnumToObjectFactory;
 import de.game.model.repository.EffectRepository;
+import de.game.service.factory.EnumToObjectFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

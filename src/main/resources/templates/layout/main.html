@@ -8,7 +8,7 @@
 </head>
 <body class="main-wrapper-fullscreen" hx-boost="true" th:attr="style=|background-image:url('${backgroundImage}');|">
 <div class="content-wrapper-wide leg-flex-row">
-    <aside class="leg-sidebar background-image"
+    <aside class="leg-sidebar leg-background-image"
            th:style="'background:url(' + @{/images/background/navigation_background.png} + ');'">
         <th:block th:if="${#strings.contains(#authentication.principal.authorities, 'Administrator')}">
             <p th:utext="#{sidebar.headline.administration}" class="leg-text-center leg-headline"></p>
@@ -36,7 +36,7 @@
             <p>Hier könnte ihr Footer stehen</p>
         </footer>
     </div>
-    <aside class="leg-sidebar background-image"
+    <aside class="leg-sidebar leg-background-image"
            th:style="'background:url(' + @{/images/background/characterOverview_background.png} + ');'">
         <div class="leg-item">
             <span th:text="#{header.name}" class="leg-headline">Charakter</span>
