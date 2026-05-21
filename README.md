@@ -116,7 +116,7 @@ cd Legend-of-the-yellow-Dragon
 
 ### Datenbank einrichten
 
-Für den lokalen Start muss eine MySQL-Datenbank vorhanden sein. Du Zugangsdaten werden über eine lokale .dev gesetzt
+Für den lokalen Start muss eine MySQL-Datenbank vorhanden sein. Die Zugangsdaten werden über eine lokale .dev gesetzt
 Siehe .dev.example im Root Verzeichnis
 
 ### Backend starten
@@ -126,7 +126,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 ### Game-Frontend starten
 
-In einem seperaten Terminal:
+In einem separaten Terminal:
 
 ```bash
 cd frontend
