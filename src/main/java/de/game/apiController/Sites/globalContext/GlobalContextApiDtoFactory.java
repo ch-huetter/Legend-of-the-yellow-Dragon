@@ -1,7 +1,7 @@
 package de.game.apiController.Sites.globalContext;
 
 import de.game.apiController.AbstractApiDtoFactory;
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,9 @@ public class GlobalContextApiDtoFactory extends AbstractApiDtoFactory<GlobalCont
 
     @Override
     protected void addMessages (GlobalContextApiDto dto) {
-        List<MessageResolvable> mRRList = new ArrayList<>();
-        mRRList.add(new MessageResolvable("logout.goodbye"));
-        mRRList.add(new MessageResolvable("error.missingKey"));
+        List<MessageResolvableImpl> mRRList = new ArrayList<>();
+        mRRList.add(new MessageResolvableImpl("logout.goodbye"));
+        mRRList.add(new MessageResolvableImpl("error.missingKey"));
         dto.setMessageResolvableList(mRRList);
     }
 

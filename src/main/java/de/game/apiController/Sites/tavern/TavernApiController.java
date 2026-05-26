@@ -1,6 +1,6 @@
 package de.game.apiController.Sites.tavern;
 
-import de.game.bean.ResponseStatus;
+import de.game.bean.enums.ResponseStatus;
 import de.game.bean.RestPriceGetter;
 import de.game.model.entity.PlayerCharacter;
 import de.game.model.repository.PlayerCharacterRepository;

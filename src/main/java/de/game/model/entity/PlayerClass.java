@@ -2,10 +2,7 @@ package de.game.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.*;
-
-import java.util.Set;
 
 @Entity
 @Getter
@@ -22,10 +19,4 @@ public class PlayerClass {
     @NonNull
     private String name;
 
-    @OneToMany()
-    @ToString.Exclude
-    private Set<Effect> effectSet;
-
-    @NonNull
-    private Boolean effectsInitialized;
 }

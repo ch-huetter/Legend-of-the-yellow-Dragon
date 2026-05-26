@@ -1,5 +1,6 @@
 package de.game.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.game.model.entity.joinTable.UserRole;
 import de.game.util.enums.Gender;
 import jakarta.persistence.*;
@@ -42,7 +43,16 @@ public class User implements UserDetails, CredentialsContainer {
     private Integer maxCharacters;
     private Boolean active;
 
-    private String activePlayerCharacter;
+    @Column(name = "aktive_player_character_id")
+    private Integer activePlayerCharacterId;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aktive_player_character_id", insertable = false, updatable = false)
+    protected PlayerCharacter playerCharacter;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude

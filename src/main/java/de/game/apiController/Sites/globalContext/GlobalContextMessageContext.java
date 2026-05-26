@@ -1,6 +1,6 @@
 package de.game.apiController.Sites.globalContext;
 
-import de.game.util.basic.BasicStringCheck;
+import de.game.util.basic.BasicEmptyCheck;
 import groovy.lang.Singleton;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class GlobalContextMessageContext {
     private String messageHash;
 
     public String getMessageHash () {
-        return BasicStringCheck.isSet(messageHash) ? messageHash : "";
+        return BasicEmptyCheck.isSet(messageHash) ? messageHash : "";
     }
 
 

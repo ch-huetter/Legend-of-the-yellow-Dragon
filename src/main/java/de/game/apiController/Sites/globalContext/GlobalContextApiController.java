@@ -1,7 +1,7 @@
 package de.game.apiController.Sites.globalContext;
 
 import de.game.service.filler.dto.DtoFillerService;
-import de.game.util.basic.BasicStringCheck;
+import de.game.util.basic.BasicEmptyCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class GlobalContextApiController {
     final GlobalContextApiDtoFactory globalContextApiDtoFactory;
     final DtoFillerService dtoFillerService;
     final GlobalContextMessageContext globalContextMessageContext;
-    final BasicStringCheck basicStringCheck;
+    final BasicEmptyCheck basicEmptyCheck;
 
     @GetMapping("/getGlobalContext")
     public ResponseEntity<GlobalContextApiDto> initGlobalContext () {
@@ -38,7 +38,7 @@ public class GlobalContextApiController {
         }
         return ResponseEntity.ok(dto);
     }
-    
+
     public record checkGlobalContextRequest(String messageHash) {
     }
 }

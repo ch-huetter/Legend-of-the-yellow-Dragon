@@ -12,10 +12,12 @@ import java.util.List;
  */
 
 @Repository
-public interface PlayerCharacterRepository extends CrudRepository<PlayerCharacter, String> {
+public interface PlayerCharacterRepository extends CrudRepository<PlayerCharacter, Integer> {
     public Integer countByUser (User user);
 
     public List<PlayerCharacter> findByUser (User user);
-    
+
     public boolean existsByName (String name);
+
+    public PlayerCharacter findByName (String name);
 }

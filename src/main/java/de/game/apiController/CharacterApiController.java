@@ -36,11 +36,11 @@ public class CharacterApiController {
     public ResponseEntity<NewActiveCharacterByNameResponse> setNewActiveCharacterByName (@RequestBody NewActiveCharacterByNameRequest changeRequest) {
 
         log.debug("characterName {}", changeRequest.characterName);
-        PlayerCharacter playerCharacter = playerCharacterGetter.getPlayerCharacterById(changeRequest.characterName);
+        PlayerCharacter playerCharacter = playerCharacterGetter.getPlayerCharacterByName(changeRequest.characterName);
         User            user            = userService.getLoggedInUserFromDb();
 
         if (playerCharacter != null) {
-            user.setActivePlayerCharacter(changeRequest.characterName);
+            user.setActivePlayerCharacterId(playerCharacter.getId());
             userService.updateUser(user);
         }
         return ResponseEntity.ok(new NewActiveCharacterByNameResponse(playerCharacter, playerCharacterListSorterService.removeActiveSortByLevel()));

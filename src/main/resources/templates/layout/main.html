@@ -40,23 +40,17 @@
            th:style="'background:url(' + @{/images/background/characterOverview_background.png} + ');'">
         <div class="leg-item">
             <span th:text="#{header.name}" class="leg-headline">Charakter</span>
-            <span th:text="${layoutDto.characterName}">Oswald der Hässliche</span>
+            <span th:text="${layoutDto.playerCharacter.name}">Oswald der Hässliche</span>
         </div>
         <div class="leg-item">
             <span th:text="#{header.level}" class="leg-headline"></span>
-            <span th:text="${layoutDto.level}" class="leg-text-center"></span>
+            <span th:text="${layoutDto.playerCharacter.level}" class="leg-text-center"></span>
         </div>
         <div class="leg-item">
             <span th:text="#{header.gold}" class="leg-headline"></span>
-            <span th:text="${layoutDto.level}" class="leg-text-center"></span>
+            <span th:text="${layoutDto.playerCharacter.gold}" class="leg-text-center"></span>
         </div>
-
-        <th:block
-                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.healthBar})}"/>
-        <th:block
-                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.energyBar})}"/>
-        <th:block
-                th:replace="~{fragments/elements/progressbar::progressBar(${layoutDto.experienceBar})}"/>
+        
     </aside>
 </div>
 </body>

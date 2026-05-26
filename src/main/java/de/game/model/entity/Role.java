@@ -27,6 +27,8 @@ public class Role implements GrantedAuthority {
     @ToString.Exclude
     private Set<UserRole> users;
 
+    private Integer authorisationValue;
+
     @Override
     public final boolean equals (Object o) {
         if (this == o)
@@ -39,7 +41,8 @@ public class Role implements GrantedAuthority {
             return false;
         Role role = (Role) o;
         return getId() != null && Objects.equals(getId(), role.getId()) &&
-               Objects.equals(getName(), role.getName()) && Objects.equals(getDescription(), role.getDescription());
+               Objects.equals(getName(), role.getName()) && Objects.equals(getDescription(), role.getDescription()) && Objects.equals(getAuthorisationValue(),
+                                                                                                                                      role.getAuthorisationValue());
     }
 
     @Override

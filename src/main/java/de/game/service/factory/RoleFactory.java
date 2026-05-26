@@ -22,6 +22,7 @@ public class RoleFactory {
         adminRole.setId(RoleEnum.ADMIN.getId());
         adminRole.setName(RoleEnum.ADMIN.getName());
         adminRole.setDescription(RoleEnum.ADMIN.getDescription());
+        adminRole.setAuthorisationValue(RoleEnum.ADMIN.getAuthorisationValue());
         return adminRole;
     }
 
@@ -30,6 +31,7 @@ public class RoleFactory {
         playerRole.setId(RoleEnum.PLAYER.getId());
         playerRole.setName(RoleEnum.PLAYER.getName());
         playerRole.setDescription(RoleEnum.PLAYER.getDescription());
+        playerRole.setAuthorisationValue(RoleEnum.PLAYER.getAuthorisationValue());
         return playerRole;
     }
 
@@ -38,6 +40,7 @@ public class RoleFactory {
         gamemasterRole.setId(RoleEnum.GAMEMASTER.getId());
         gamemasterRole.setName(RoleEnum.GAMEMASTER.getName());
         gamemasterRole.setDescription(RoleEnum.GAMEMASTER.getDescription());
+        gamemasterRole.setAuthorisationValue(RoleEnum.GAMEMASTER.getAuthorisationValue());
         return gamemasterRole;
     }
 }

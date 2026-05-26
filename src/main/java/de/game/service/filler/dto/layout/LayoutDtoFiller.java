@@ -6,7 +6,7 @@ import de.game.model.entity.User;
 import de.game.service.UserService;
 import de.game.service.filler.dto.DtoFiller;
 import de.game.service.getter.PlayerCharacterGetter;
-import de.game.util.basic.BasicStringCheck;
+import de.game.util.basic.BasicEmptyCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +31,12 @@ public class LayoutDtoFiller implements DtoFiller<LayoutDto> {
 
     @Override
     public void fillDto (LayoutDto dto) {
-        User            user                      = userService.getLoggedInUserFromDb();
-        PlayerCharacter playerCharacter           = null;
-        String          activePlayerCharacterName = user.getActivePlayerCharacter();
+        User            user                    = userService.getLoggedInUserFromDb();
+        PlayerCharacter playerCharacter         = null;
+        Integer         activePlayerCharacterId = user.getActivePlayerCharacterId();
 
-        if (activePlayerCharacterName != null && BasicStringCheck.isSet(activePlayerCharacterName)) {
-            playerCharacter = playerCharacterGetter.getPlayerCharacterById(activePlayerCharacterName);
+        if (BasicEmptyCheck.isSet(activePlayerCharacterId)) {
+            playerCharacter = playerCharacterGetter.getPlayerCharacterById(activePlayerCharacterId);
         }
 
         if (playerCharacter != null) {

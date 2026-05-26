@@ -1,11 +1,12 @@
 @use 'variables' as *;
 @use 'mixins';
 @use 'sass:color';
+@use 'general';
 
 body, input{
     color:$color-text;
     font-family: 'Lora', serif;
-    font-size: 17px;
+    font-size: 19px;
     margin:00px;
     padding:00px;
     }
@@ -351,6 +352,8 @@ input, select, textarea {
 .leg-main-layout-content{
     margin:24px;
     flex-grow:1;
+    min-width:800px;
+    max-width:1200px
     }
 
 .main-wrapper-fullscreen{
@@ -455,123 +458,6 @@ input, select, textarea {
 /* Button Wrapper/ */
 /* General */
 
-.leg-white-space-pre-wrap{
-    white-space:pre-wrap;
-    }
-
-.leg-display-flex{
-    display:flex;
-    }
-
-.leg-align-content-end{
-    align-content:end;
-    }
-
-.leg-align-content-start{
-    align-content:start;
-    }
-
-.leg-align-content-center{
-    align-content:center;
-    }
-
-
-.leg-border-top-left-0{
-    border-top-left-radius:0px;
-    }
-
-.leg-border-top-right-0{
-    border-top-right-radius:0px;
-    }
-
-.leg-border-bottom-left-0{
-    border-bottom-left-radius:0px;
-    }
-
-.leg-border-bottom-right-0{
-    border-bottom-right-radius:0px;
-    }
-
-
-.leg-rounded-border{
-    border : 1px solid black;
-    border-radius : 12px;
-}
-
-.leg-headline{
-    text-decoration-line:underline;
-    }
-
-.leg-m-a{
-    margin:auto;
-    }
-
-.leg-flex-wrap{
-    flex-wrap:wrap;
-    }
-
-.leg-align-flex-start{
-    align-content: flex-start;
-    }
-
-.leg-align-center{
-    align-content:center;
-    }
-
-.leg-flex-justify-center{
-    justify-content:center;
-    }
-
-.leg-flex-justify-evenly{
-    justify-content:space-evenly;
-    }
-
-.leg-flex-justify-end{
-    justify-content:end;
-    }
-
-.leg-h100{
-    height:100% !important;
-    }
-
-.leg-center-text-100{
-    text-align:center;
-    width:100%;
-    }
-
-
-.leg-w33{
-    width:33% !important;
-    }
-
-.leg-w50{
-    width:50% !important;
-    }
-
-.leg-w100{
-    width:100% !important;
-    }
-
-.leg-p4{
-    padding:4px;
-    }
-
-.leg-p8{
-    padding:8px;
-    }
-
-.leg-p12{
-    padding:12px;
-    }
-
-
-.leg-center-text{
-    text-align: center;
-    }
-
-.leg-text-danger{
-    color: $color-danger;
-    }
 
 /* General/ */
 /* Classes for Bars */

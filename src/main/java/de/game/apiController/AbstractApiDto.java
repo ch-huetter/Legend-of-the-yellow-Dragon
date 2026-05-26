@@ -1,7 +1,7 @@
 package de.game.apiController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,5 @@ public class AbstractApiDto {
 
     private Map<String, String> messages;
     @JsonIgnore
-    private List<MessageResolvable> messageResolvableList;
-    private String backgroundUrl;
-
+    private List<MessageResolvableImpl> messageResolvableList;
 }

@@ -24,18 +24,23 @@ public class PlayerCharacterGetter {
     private final UserService userService;
 
     @Transactional
-    private PlayerCharacter getPlayerCharacter (String name) {
-        Optional<PlayerCharacter> playerCharacter = playerCharacterRepository.findById(name);
+    private PlayerCharacter getPlayerCharacter (Integer id) {
+        Optional<PlayerCharacter> playerCharacter = playerCharacterRepository.findById(id);
         return playerCharacter.orElse(null);
     }
 
-    public PlayerCharacter getPlayerCharacterById (String name) {
-        PlayerCharacter playerCharacter = getPlayerCharacter(name);
+    public PlayerCharacter getPlayerCharacterById (Integer id) {
+        PlayerCharacter playerCharacter = getPlayerCharacter(id);
         if (playerCharacter == null) {
-            throw new NullPointerException("No Character found for " + name);
+            throw new NullPointerException("No Character found for " + id);
         } else {
             return playerCharacter;
         }
+    }
+
+    @Transactional
+    public PlayerCharacter getPlayerCharacterByName (String name) {
+        return playerCharacterRepository.findByName(name);
     }
 
 
@@ -45,12 +50,12 @@ public class PlayerCharacterGetter {
     }
 
     public PlayerCharacter getPlayerCharacterByUser (User user) {
-        return playerCharacterRepository.findById(user.getActivePlayerCharacter()).orElseThrow(NullPointerException::new);
+        return playerCharacterRepository.findById(user.getActivePlayerCharacterId()).orElseThrow(NullPointerException::new);
     }
 
     public PlayerCharacter getActivePlayerCharacter () {
         User user = userService.getLoggedInUserFromDb();
-        return playerCharacterRepository.findById(user.getActivePlayerCharacter()).orElseThrow(NullPointerException::new);
+        return playerCharacterRepository.findById(user.getActivePlayerCharacterId()).orElseThrow(NullPointerException::new);
     }
 
 }

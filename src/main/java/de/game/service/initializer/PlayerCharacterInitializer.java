@@ -25,7 +25,7 @@ public class PlayerCharacterInitializer {
         playerCharacter.setName(characterDto.getName());
 
         playerCharacter.setAttributes(characterDto.getAttributes());
-        playerCharacter.getAttributes().forEach(attr -> attr.setCharacterName(playerCharacter));
+        playerCharacter.getAttributes().forEach(attr -> attr.setPlayerCharacter(playerCharacter));
 
         PlayerClassEnum playerClassEnum = Arrays.stream(PlayerClassEnum.values()).filter(e ->
                                                                                                  e.getId().equals(characterDto.getActivePlayerClassId()))

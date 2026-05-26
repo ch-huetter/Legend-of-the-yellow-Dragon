@@ -2,7 +2,6 @@ package de.game.model.entity;
 
 
 import de.game.model.entity.joinTable.DungeonMonster;
-import de.game.model.entity.joinTable.MonsterAttribute;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -21,13 +20,8 @@ import java.util.Set;
 @ToString
 public class Monster extends LivingEntity {
 
-
     @OneToMany(mappedBy = "monster")
     @ToString.Exclude
     private Set<DungeonMonster> dungeons;
-
-    @OneToMany(mappedBy = "monster")
-    @ToString.Exclude
-    private Set<MonsterAttribute> attributes;
 
 }

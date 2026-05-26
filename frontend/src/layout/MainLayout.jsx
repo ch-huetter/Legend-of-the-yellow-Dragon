@@ -2,8 +2,8 @@ import {createContext, useCallback, useContext, useEffect, useState} from "react
 import {apiFetch} from "../api/apiClient.js";
 
 import {Outlet} from "react-router-dom";
-import {SidebarNavigation} from "../components/SidebarNavigation.jsx";
-import {HeaderInformationBox} from "../components/HeaderInformationBox.jsx"
+import {SidebarNavigation} from "./components/SidebarNavigation.jsx";
+import {HeaderInformationBox} from "./components/HeaderInformationBox.jsx"
 
 
 const MainLayoutContext = createContext(null);
@@ -52,8 +52,8 @@ export function MainLayout() {
             <div className="main-wrapper-fullscreen leg-background-image"
                  style={{background: "url(" + backgroundUrl + ")"}}>
                 <SidebarNavigation/>
-                <div className="leg-flex-column leg-h100">
-                    <HeaderInformationBox/>
+                <div className="leg-flex-column leg-h100 leg-align-item-center">
+                    <HeaderInformationBox character={character} loading={loading} messages={messages}/>
                     <div className={"leg-main-layout-content"}>
                         <Outlet/>
                     </div>

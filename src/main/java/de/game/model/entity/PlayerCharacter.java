@@ -15,7 +15,13 @@ import java.util.Objects;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PlayerCharacter extends LivingEntity {
+
+    public PlayerCharacter (Integer characterId) {
+        this.id = characterId;
+    }
 
     @NonNull
     private Integer energy;
@@ -38,8 +44,8 @@ public class PlayerCharacter extends LivingEntity {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "characterName", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapKey(name = "attributeKey")
+    @OneToMany(mappedBy = "playerCharacter", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @MapKey(name = "attribute_key")
     private List<PlayerCharacterAttribute> attributes;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -52,12 +58,14 @@ public class PlayerCharacter extends LivingEntity {
             return true;
         if (o == null)
             return false;
-        Class<?> oEffectiveClass    = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass =
+                o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass =
+                this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass)
             return false;
-        PlayerCharacter playerCharacter = (PlayerCharacter) o;
-        return Objects.equals(getName(), playerCharacter.getName());
+        PlayerCharacter that = (PlayerCharacter) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

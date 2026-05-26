@@ -3,7 +3,7 @@
         lang="de"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout/mainLayout::shell(title='Create Character', backgroundImage=@{/images/background/character_background.png})}"
+        layout:decorate="~{layout/main::shell(title='Create Character', backgroundImage=@{/images/background/character_background.png})}"
 >
 <th:block layout:fragment="additionalHead">
     <!--<script th:inline="javascript" th:src="@{/js/characterCreation.js}" defer></script>-->
@@ -12,15 +12,15 @@
             th:src="@{/js/fragments/carousel.js}"
             defer
     ></script>
-    <script
-            th:inline="javascript"
-            th:src="@{/js/fragments/multiValueArrowSelection.js}"
-            defer
-    ></script>
+    <!--    <script-->
+    <!--            th:inline="javascript"-->
+    <!--            th:src="@{/js/fragments/multiValueArrowSelection.js}"-->
+    <!--            defer-->
+    <!--    ></script>-->
 </th:block>
 <section layout:fragment="content">
     <form
-            th:action="@{/character/create}"
+            th:action="@{/backoffice/character/create}"
             th:object="${characterDto}"
             method="post"
             class="leg-flex-container"

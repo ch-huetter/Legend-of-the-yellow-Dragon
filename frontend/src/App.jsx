@@ -5,6 +5,7 @@ import {Logout} from "./sites/Logout.jsx";
 import {initializeGlobalValues} from "./service/GlobalContext.js";
 import {Tavern} from "./sites/mainContext/Tavern.jsx";
 import {Login} from "./sites/Login.jsx";
+import {Dashboard} from "./sites/mainContext/Dashboard.jsx";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/game" element={<MainLayout/>}>
                     <Route path="characterSelection" element={<CharacterSelection/>}/>
                     <Route path="tavern" element={<Tavern/>}/>
+                    <Route path="dashboard" element={<Dashboard/>}></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

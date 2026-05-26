@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PlayerCharacterAttributeRepository extends CrudRepository<PlayerCharacterAttribute, PlayerCharacterAttributeId> {
-    public List<PlayerCharacterAttribute> findBycharacterName (PlayerCharacter playerCharacter);
+    public List<PlayerCharacterAttribute> findByPlayerCharacter (PlayerCharacter playerCharacter);
 }

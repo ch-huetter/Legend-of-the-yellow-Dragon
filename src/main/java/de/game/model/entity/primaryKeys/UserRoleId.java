@@ -1,11 +1,11 @@
 package de.game.model.entity.primaryKeys;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor

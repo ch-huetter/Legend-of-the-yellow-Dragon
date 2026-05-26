@@ -1,6 +1,6 @@
 package de.game.apiController;
 
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ public abstract class AbstractApiDtoFactory<T extends AbstractApiDto> {
     }
 
     protected void addMessages (T dto) {
-        List<MessageResolvable> messagesRessourceResolvableList = new ArrayList<>();
+        List<MessageResolvableImpl> messagesRessourceResolvableList = new ArrayList<>();
         dto.setMessageResolvableList(messagesRessourceResolvableList);
     }
 

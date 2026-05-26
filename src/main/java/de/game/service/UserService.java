@@ -3,7 +3,7 @@ package de.game.service;
 import de.game.model.entity.User;
 import de.game.model.repository.UserRepository;
 import de.game.model.repository.joinTableRepository.UserRoleRepository;
-import de.game.util.basic.BasicStringCheck;
+import de.game.util.basic.BasicEmptyCheck;
 import de.game.util.exception.LoginNameTakenException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -71,11 +71,11 @@ public class UserService {
         if (userToUpdate.getGender() != null) {
             userFromDb.setGender(userToUpdate.getGender());
         }
-        if (BasicStringCheck.isSet(userToUpdate.getEMail())) {
+        if (BasicEmptyCheck.isSet(userToUpdate.getEMail())) {
             userFromDb.setEMail(userToUpdate.getEMail());
         }
-        if (BasicStringCheck.isSet(userFromDb.getActivePlayerCharacter())) {
-            userFromDb.setActivePlayerCharacter(userToUpdate.getActivePlayerCharacter());
+        if (BasicEmptyCheck.isSet(userFromDb.getActivePlayerCharacterId())) {
+            userFromDb.setActivePlayerCharacterId(userToUpdate.getActivePlayerCharacterId());
         }
 
         userRepository.save(userFromDb);
@@ -84,7 +84,7 @@ public class UserService {
     /**
      * Checks the Security Context if the current User is an authenticated non anonymus User
      *
-     * @return True if a registered User is logged in
+     * @return True if a registered User is logged in an anonymus
      */
     public boolean isLoggedIn () {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -95,6 +95,7 @@ public class UserService {
      * Checks if a given User is existing. If the User does not exist it will be created. If the user exists it will be checked if it is equal to the given User
      */
     public void checkUserIntegrity (User newUser) {
+        //TODO Doesnt work when User exists with wrong Values
         Optional<User> userFromDatabase = userRepository.findByloginNameWithUserRoles(newUser.getLoginName());
         if (userFromDatabase.isPresent()) {
             if (!userFromDatabase.get().equals(newUser) || !passwordEncoder.matches(newUser.getPassword(), userFromDatabase.get().getPassword())) {

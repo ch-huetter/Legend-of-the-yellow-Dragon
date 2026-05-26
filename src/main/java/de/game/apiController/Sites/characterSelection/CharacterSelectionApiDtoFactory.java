@@ -1,7 +1,7 @@
 package de.game.apiController.Sites.characterSelection;
 
 import de.game.apiController.AbstractApiDtoFactory;
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import de.game.util.AddMessageBundleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ public class CharacterSelectionApiDtoFactory extends AbstractApiDtoFactory<Chara
 
     @Override
     protected void addMessages (CharacterSelectionApiDto dto) {
-        ArrayList<MessageResolvable> messages = new ArrayList<>();
-        messages.add(new MessageResolvable("characterSelection.card.button.select"));
-        messages.add(new MessageResolvable("health"));
-        messages.add(new MessageResolvable("experience"));
-        messages.add(new MessageResolvable("gold"));
-        messages.add(new MessageResolvable("class"));
+        ArrayList<MessageResolvableImpl> messages = new ArrayList<>();
+        messages.add(new MessageResolvableImpl("characterSelection.card.button.select"));
+        messages.add(new MessageResolvableImpl("health"));
+        messages.add(new MessageResolvableImpl("experience"));
+        messages.add(new MessageResolvableImpl("gold"));
+        messages.add(new MessageResolvableImpl("class"));
         addMessageBundleService.addPlayerClassNames(messages);
         dto.setMessageResolvableList(messages);
     }

@@ -1,8 +1,6 @@
 package de.game.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,25 +15,29 @@ import java.io.Serializable;
 @ToString
 public abstract class LivingEntity implements Serializable {
     @Id
-    @Column(length = 50)
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    protected Integer id;
+
+    @Column(length = 30)
+    protected String name;
 
     @NonNull
-    private Integer armor;
+    protected Integer armor;
     @NonNull
-    private Integer resistance;
+    protected Integer resistance;
     @NonNull
-    private Integer maxMana;
+    protected Integer maxMana;
     @NonNull
-    private Integer maxStamina;
+    protected Integer maxStamina;
     @NonNull
-    private Integer maxHealth;
+    protected Integer maxHealth;
 
     @NonNull
-    private Short level;
+    protected Short level;
     @NonNull
-    private Integer gold;
+    protected Integer gold;
     @NonNull
-    private Integer experience;
+    protected Integer experience;
 
 }

@@ -1,5 +1,6 @@
 package de.game.model;
 
+import de.game.bean.MessageResolvable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +12,16 @@ import org.springframework.stereotype.Component;
 @Setter
 @Builder
 @NoArgsConstructor
-public class MessageResolvable {
+public class MessageResolvableImpl implements MessageResolvable {
 
     /**
      * Resolvable MessageRessource Entry with a key and params to retrieve a Message.
      */
-    public MessageResolvable (String key) {
+    public MessageResolvableImpl (String key) {
         this.key = key;
     }
 
-    public MessageResolvable (String key, String... params) {
+    public MessageResolvableImpl (String key, String... params) {
         this.key = key;
         this.params = params;
     }

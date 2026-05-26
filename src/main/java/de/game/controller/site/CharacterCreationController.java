@@ -40,7 +40,7 @@ public class CharacterCreationController {
                                                HttpServletRequest request, Model model) {
         User activeUser = userService.getLoggedInUserFromDb();
         if (playerCharacterRepository.countByUser(activeUser) >= activeUser.getMaxCharacters()) {
-            return "redirect:/home";
+            return "redirect:/backoffice/home";
         }
 
         characterDtoFillerService.fillDto(characterCreationDto);
@@ -61,15 +61,13 @@ public class CharacterCreationController {
         playerCharacterRepository.save(playerCharacter);
 
         User user = userService.getLoggedInUserFromDb();
-        userService.updateUser(User.builder().id(user.getId()).activePlayerCharacter(characterCreationDto.getName()).build());
+        userService.updateUser(User.builder().id(user.getId()).activePlayerCharacterId(playerCharacter.getId()).build());
         return "redirect:/home";
     }
 
     @RolesAllowed("Administrator, Gamemaster")
     @GetMapping("showCharacter/{id}")
     public String showCharacterView (@ModelAttribute("characterDto") CharacterViewDto characterViewDto, @PathVariable String characterName, Model model) {
-        //TODO Charakter aus Datenbank holen. Erst machbar wenn Charakter speichern funktioniert. Wird später für Administratoren über eine Charakter Liste verfügbar sein.
-        //TODO Nur für Gamemaster/Administrator Role verfügbar machen
         model.addAttribute("state", CharacterState.VIEW);
         return "sites/character";
     }

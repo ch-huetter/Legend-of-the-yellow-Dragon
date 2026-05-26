@@ -33,7 +33,7 @@ public class PlayerCharacterAttributeFactory {
     private void addPCA (List<PlayerCharacterAttribute> attributes, AttributeEnum attributeEnum, SettingEnum setting) {
         Attribute                a              = Attribute.builder().key(attributeEnum.getKey()).build();
         Short                    attributeValue = Short.parseShort(settingService.getValue(setting));
-        PlayerCharacterAttribute pCA            = PlayerCharacterAttribute.builder().attributeKey(a).value(attributeValue).build();
+        PlayerCharacterAttribute pCA            = PlayerCharacterAttribute.builder().attribute(a).value(attributeValue).build();
         attributes.add(pCA);
 
     }

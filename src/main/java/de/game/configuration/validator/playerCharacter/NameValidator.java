@@ -4,7 +4,7 @@ import de.game.model.entity.PlayerCharacter;
 import de.game.model.enums.SettingEnum;
 import de.game.model.repository.PlayerCharacterRepository;
 import de.game.service.SettingService;
-import de.game.util.basic.BasicStringCheck;
+import de.game.util.basic.BasicEmptyCheck;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class NameValidator {
         String name      = playerCharacter.getName();
         int    minLength = Integer.parseInt(settingService.getValue(SettingEnum.CHARACTER_NAME_LENGTH_MIN));
 
-        if (!BasicStringCheck.isSet(name)) {
+        if (!BasicEmptyCheck.isSet(name)) {
             log.info("Name not set");
             return false;
         }

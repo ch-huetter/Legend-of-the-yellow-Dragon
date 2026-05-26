@@ -2,7 +2,7 @@ package de.game.apiController.Sites.tavern;
 
 import de.game.apiController.AbstractApiDtoFactory;
 import de.game.bean.RestPriceGetter;
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ public class TavernApiDtoFactory extends AbstractApiDtoFactory<TavernApiDto> {
 
     @Override
     protected void addMessages (TavernApiDto dto) {
-        List<MessageResolvable> messagesRessourceResolvableList = new ArrayList<>();
-        messagesRessourceResolvableList.add(new MessageResolvable("tavern.description"));
-        messagesRessourceResolvableList.add(new MessageResolvable("tavern.restButton", String.valueOf(restPriceGetter.getRestPrice())));
-        messagesRessourceResolvableList.add(new MessageResolvable("error.tavern.insufficientGold", String.valueOf(restPriceGetter.getRestPrice())));
-        messagesRessourceResolvableList.add(new MessageResolvable("error.tavern.fullHealth"));
+        List<MessageResolvableImpl> messagesRessourceResolvableList = new ArrayList<>();
+        messagesRessourceResolvableList.add(new MessageResolvableImpl("tavern.description"));
+        messagesRessourceResolvableList.add(new MessageResolvableImpl("tavern.restButton", String.valueOf(restPriceGetter.getRestPrice())));
+        messagesRessourceResolvableList.add(new MessageResolvableImpl("error.tavern.insufficientGold", String.valueOf(restPriceGetter.getRestPrice())));
+        messagesRessourceResolvableList.add(new MessageResolvableImpl("error.tavern.fullHealth"));
         dto.setMessageResolvableList(messagesRessourceResolvableList);
     }
 

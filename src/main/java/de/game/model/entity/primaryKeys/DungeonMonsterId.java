@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class DungeonMonsterId {
 
     private Integer dungeon;
-    private String monster;
+    private Integer monster;
     private Byte wave;
 }

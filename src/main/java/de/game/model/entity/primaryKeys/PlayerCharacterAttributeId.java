@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PlayerCharacterAttributeId {
 
-    private String characterName;
-    private String attributeKey;
+    private Integer playerCharacter;
+    private String attribute;
 }

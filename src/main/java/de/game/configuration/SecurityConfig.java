@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/backoffice/login", "/registration/**", "/css/**", "/webjars/**", "/images/**", "/js/**", "/api/auth/login",
                                                                     "/api/auth/logout", "/error", "/api/game/loginInit", "/api/game/csrf",
                                                                     "/api/game/globalContext/checkGlobalContext").permitAll()
-                        .requestMatchers("/backoffice/**").hasAnyRole(RoleEnum.ADMIN.getName(), RoleEnum.GAMEMASTER.getName()).anyRequest().authenticated())
+                        .requestMatchers("/backoffice/**").hasAnyAuthority(RoleEnum.ADMIN.getName(), RoleEnum.GAMEMASTER.getName()).anyRequest().authenticated())
 
                 .formLogin(form -> form
                                    .loginPage("/backoffice/login")

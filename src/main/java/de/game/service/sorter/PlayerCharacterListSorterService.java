@@ -23,12 +23,14 @@ public class PlayerCharacterListSorterService {
         User                  user         = userService.getLoggedInUserFromDb();
         List<PlayerCharacter> unsortedList = playerCharacterGetter.getPlayerCharactersByUser(user);
         List<PlayerCharacter> sortedList   = new ArrayList<>();
-        
-        PlayerCharacter activePlayerCharacter =
-                unsortedList.stream().filter(playerCharacter -> playerCharacter.getName().equals(user.getActivePlayerCharacter())).findFirst()
-                        .orElseThrow(NullPointerException::new);
+        PlayerCharacter       activePlayerCharacter;
+        if (user.getActivePlayerCharacterId() != null) {
+            activePlayerCharacter =
+                    unsortedList.stream().filter(playerCharacter -> playerCharacter.getId().equals(user.getActivePlayerCharacterId())).findFirst()
+                            .orElseThrow(NullPointerException::new);
+            unsortedList.remove(activePlayerCharacter);
+        }
 
-        unsortedList.remove(activePlayerCharacter);
 
         PlayerCharacter unsortedCharacter = null;
         int             currentLevel      = -1;
@@ -47,6 +49,4 @@ public class PlayerCharacterListSorterService {
 
         return sortedList;
     }
-
-
 }

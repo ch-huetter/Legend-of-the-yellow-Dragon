@@ -8,16 +8,17 @@ export function Logout() {
     const globalMessages = JSON.parse(localStorage.getItem("messages"));
 
     useEffect(() => {
-        logout().then((response) => {
-            setTimeout(() => {
+
+        setTimeout(() => {
+            logout().then((response) => {
                 window.location.href = "/";
-            }, 3000)
-        })
+            })
+        }, 3000)
     }, []);
 
 
     return (<div className={"main-wrapper-fullscreen leg-background-image"}
-                 style={{background: "url(/images/background/login_background.png)"}}>
+                 style={{background: "url(/images/background/logout_background.png)"}}>
         <div className={"leg-flex-column leg-h100 leg-flex-justify-center"}>
             <div className={"leg-display-flex leg-flex-justify-center"}>
                 <div className={"leg-box leg-p8"}>

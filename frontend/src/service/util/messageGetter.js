@@ -13,7 +13,7 @@ export function getMessageFromDto(dto, key) {
 
 export function getMessageFromMap(map, key) {
     if (map[key] === undefined) {
-        return globalMessages["error.missingKey"] + key;
+        return globalMessages["error.missingKey"] + "  \"" + key + "\"";
     } else {
         return map[key];
     }

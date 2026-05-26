@@ -18,7 +18,7 @@ public class PlayerCharacterAttributeHelper {
     private final SettingService settingService;
 
     public PlayerCharacterAttribute findAttributeFromList (List<PlayerCharacterAttribute> attributeList, AttributeEnum searchAttribute) throws IllegalArgumentException {
-        return attributeList.stream().filter(attribute -> attribute.getAttributeKey().getKey().equals(searchAttribute.getKey())).findFirst()
+        return attributeList.stream().filter(attribute -> attribute.getAttribute().getKey().equals(searchAttribute.getKey())).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Attribut " + searchAttribute.getKey() + " nicht gefunden"));
 
     }
@@ -38,7 +38,7 @@ public class PlayerCharacterAttributeHelper {
 
     public Integer calculateSpendAttributePointsForAttribute (PlayerCharacterAttribute characterAttribute) {
         return characterAttribute.getValue() -
-               Integer.parseInt(settingService.getValue(SettingAttributeMapper.getStartSettingForAttribute(characterAttribute.getAttributeKey().getKey())));
+               Integer.parseInt(settingService.getValue(SettingAttributeMapper.getStartSettingForAttribute(characterAttribute.getAttribute().getKey())));
     }
 
     public Integer getAttributePointsForLevel (Integer level) {

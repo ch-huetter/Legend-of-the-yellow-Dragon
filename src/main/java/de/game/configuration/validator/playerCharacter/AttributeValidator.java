@@ -24,7 +24,7 @@ public class AttributeValidator {
     }
 
     public boolean validateMinAttributePointLimit (PlayerCharacter playerCharacter) {
-        PlayerCharacter playerCharacterFromDb = playerCharacterGetter.getPlayerCharacterById(playerCharacter.getName());
+        PlayerCharacter playerCharacterFromDb = playerCharacterGetter.getPlayerCharacterById(playerCharacter.getId());
 
         if (playerCharacterFromDb == null) {
             final int attributeMin = Integer.parseInt(settingsService.getValue(SettingEnum.CHARACTER_ATTRIBUTE_MIN));
@@ -36,7 +36,7 @@ public class AttributeValidator {
             for (PlayerCharacterAttribute attribute : playerCharacter.getAttributes()) {
                 PlayerCharacterAttribute attributeFromDbCharacter =
                         playerCharacterFromDb.getAttributes().stream()
-                                .filter(attrFromDbCharacter -> attrFromDbCharacter.getAttributeKey().getKey().equals(attribute.getAttributeKey().getKey())).findFirst()
+                                .filter(attrFromDbCharacter -> attrFromDbCharacter.getAttribute().getKey().equals(attribute.getAttribute().getKey())).findFirst()
                                 .orElseThrow();
                 if (attribute.getValue() < attributeFromDbCharacter.getValue())
                     return false;

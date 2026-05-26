@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,8 +25,14 @@ public class HomeController {
     private final UserService userService;
     private final DtoFillerService dtoFillerService;
 
-    @GetMapping(value = {"/home", "/"})
+    @GetMapping(value = "/home")
     public String showLandingPage (@ModelAttribute HomeDto homeDto, @ModelAttribute LayoutDto layoutDto, HttpServletRequest request) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        log.info("Authentication Name is : {}", auth.getName());
+        log.info("Authentication authorities : {}", auth.getAuthorities());
+
         return "sites/home";
     }
 }

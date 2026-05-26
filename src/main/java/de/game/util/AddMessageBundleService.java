@@ -1,6 +1,6 @@
 package de.game.util;
 
-import de.game.model.MessageResolvable;
+import de.game.model.MessageResolvableImpl;
 import jakarta.validation.UnexpectedTypeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,26 +27,26 @@ public class AddMessageBundleService {
 
     }
 
-    private List<MessageResolvable> getPlayerClassNames () {
-        ArrayList<MessageResolvable> mRRList = new ArrayList<>();
-        mRRList.add(new MessageResolvable("playerClass.duelist.name"));
-        mRRList.add(new MessageResolvable("playerClass.warrior.name"));
-        mRRList.add(new MessageResolvable("playerClass.mage.name"));
-        mRRList.add(new MessageResolvable("playerClass.monk.name"));
+    private List<MessageResolvableImpl> getPlayerClassNames () {
+        ArrayList<MessageResolvableImpl> mRRList = new ArrayList<>();
+        mRRList.add(new MessageResolvableImpl("playerClass.duelist.name"));
+        mRRList.add(new MessageResolvableImpl("playerClass.warrior.name"));
+        mRRList.add(new MessageResolvableImpl("playerClass.mage.name"));
+        mRRList.add(new MessageResolvableImpl("playerClass.monk.name"));
         return mRRList;
     }
 
-    private List<MessageResolvable> getPlayerClassDescriptions () {
-        ArrayList<MessageResolvable> mRRList = new ArrayList<>();
-        mRRList.add(new MessageResolvable("playerClass.duelist.description"));
-        mRRList.add(new MessageResolvable("playerClass.warrior.description"));
-        mRRList.add(new MessageResolvable("playerClass.mage.description"));
-        mRRList.add(new MessageResolvable("playerClass.monk.description"));
+    private List<MessageResolvableImpl> getPlayerClassDescriptions () {
+        ArrayList<MessageResolvableImpl> mRRList = new ArrayList<>();
+        mRRList.add(new MessageResolvableImpl("playerClass.duelist.description"));
+        mRRList.add(new MessageResolvableImpl("playerClass.warrior.description"));
+        mRRList.add(new MessageResolvableImpl("playerClass.mage.description"));
+        mRRList.add(new MessageResolvableImpl("playerClass.monk.description"));
         return mRRList;
     }
 
     @SuppressWarnings("all")
-    private void fill (Object obj, List<MessageResolvable> message) {
+    private void fill (Object obj, List<MessageResolvableImpl> message) {
         if (obj instanceof ArrayList) {
             fillList((List) obj, message);
         } else if (obj instanceof Map) {
@@ -56,11 +56,11 @@ public class AddMessageBundleService {
         }
     }
 
-    private void fillList (List<MessageResolvable> toFill, List<MessageResolvable> messages) {
+    private void fillList (List<MessageResolvableImpl> toFill, List<MessageResolvableImpl> messages) {
         toFill.addAll(messages);
     }
 
-    private void fillMap (Map<String, MessageResolvable> toFill, List<MessageResolvable> messages) {
+    private void fillMap (Map<String, MessageResolvableImpl> toFill, List<MessageResolvableImpl> messages) {
         messages.forEach(msg -> toFill.put(msg.getKey(), msg));
     }
 

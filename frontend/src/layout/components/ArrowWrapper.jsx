@@ -13,13 +13,13 @@ export function ArrowWrapperText({children}) {
     )
 }
 
-export function ArrowWrapperHeadline({children}) {
+export function ArrowWrapperHeadline(props) {
     return (
-        <div className="leg-flex-row leg-fancy-arrow-headline headline leg-w100">
+        <div className={"leg-flex-row leg-fancy-arrow-headline headline leg-w100 " + props.className}>
             <ArrowFancyLeft showDiamond={true}/>
             <div className="leg-fancy-arrow-container ">
                 <BorderFancy/>
-                {children}
+                {props.children}
             </div>
             <ArrowFancyRight showDiamond={true}/>
         </div>

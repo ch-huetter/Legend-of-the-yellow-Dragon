@@ -19,15 +19,15 @@ public class PlayerCharacterAttribute {
 
     @Id
     @ManyToOne()
-    @JoinColumn(name = "character_name")
+    @JoinColumn(name = "character_id")
     @ToString.Exclude
     @JsonBackReference
-    private PlayerCharacter characterName;
+    private PlayerCharacter playerCharacter;
 
     @Id
     @ManyToOne()
     @JoinColumn(name = "attribute_key")
-    private Attribute attributeKey;
+    private Attribute attribute;
 
     @NonNull
     private Short value;
