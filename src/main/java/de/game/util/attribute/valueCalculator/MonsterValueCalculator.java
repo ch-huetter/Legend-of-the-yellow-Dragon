@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MonsterValueCalculator implements AttributeValueCalculator<Monster> {
+public class MonsterValueCalculator {
     //TODO richtige Formeln hier einfügen.
     //TODO System erarbeiten für Monster Skalierung und unterschiedliche Monsterstärken, Bosse besondere Monster etc
 
-    @Override
+
     public void calculateEntityValues (Monster entity) {
 
     }
 
-    @Override
+
     public Class<Monster> getSupportedClass () {
         return null;
     }

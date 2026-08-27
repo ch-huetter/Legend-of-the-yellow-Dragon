@@ -7,7 +7,6 @@ import de.game.controller.dto.character.CharacterCreationDto;
 import de.game.model.entity.PlayerCharacter;
 import de.game.model.enums.SettingEnum;
 import de.game.service.SettingService;
-import de.game.service.initializer.PlayerCharacterInitializer;
 import de.game.util.helper.ValidationMessageHelper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -23,7 +22,6 @@ public class CharacterCreationDtoValidator implements ConstraintValidator<ValidC
 
     private final AttributeValidator attributeValidator;
     private final NameValidator nameValidator;
-    private final PlayerCharacterInitializer playerCharacterInitializer;
     @Value("${application.custom.default.adminAccountPrefix}")
     private String adminPrefix;
     private final SettingService settingService;
@@ -33,7 +31,7 @@ public class CharacterCreationDtoValidator implements ConstraintValidator<ValidC
     public boolean isValid (CharacterCreationDto dto, ConstraintValidatorContext context) {
         boolean         isValid               = true;
         boolean         isNameValid           = true;
-        PlayerCharacter filledPlayerCharacter = playerCharacterInitializer.initAfterCreation(dto);
+        PlayerCharacter filledPlayerCharacter = new PlayerCharacter();
 
         if (!nameValidator.checkLength(filledPlayerCharacter)) {
             validationMessageHelper.addFieldError(context, "name", "error.playerCharacter.name.empty",

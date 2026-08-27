@@ -15,15 +15,17 @@ import org.springframework.stereotype.Component;
 public class PlayerCharacterFactory {
 
     private final SettingService settingService;
-    private final PlayerCharacterAttributeFactory playerCharacterAttributeFactory;
     private final UserService userService;
     private final ExperiencePerLevelGetter experiencePerLevelGetter;
 
     public PlayerCharacter getNewPlayerCharacterForCharacterCreation () {
         PlayerCharacter playerCharacter = new PlayerCharacter();
 
-        playerCharacter.setAttributes(playerCharacterAttributeFactory.createDefaultPlayerAttributes());
         playerCharacter.setAttributePoints(Integer.parseInt(settingService.getValue(SettingEnum.CHARACTER_START_ATTRIBUTE_POINTS)));
+
+        playerCharacter.setAgility(Short.parseShort(settingService.getValue(SettingEnum.CHARACTER_START_ATTRIBUTE_VALUE_AGILITY)));
+        playerCharacter.setDexterity(Short.parseShort(settingService.getValue(SettingEnum.CHARACTER_START_ATTRIBUTE_VALUE_DEXTERITY)));
+        playerCharacter.setEndurance(Short.parseShort(settingService.getValue(SettingEnum.CHARACTER_START_ATTRIBUTE_VALUE_DEXTERITY)));
 
         playerCharacter.setAttributePointsSpend(0);
         playerCharacter.setLevel(Short.valueOf("1"));

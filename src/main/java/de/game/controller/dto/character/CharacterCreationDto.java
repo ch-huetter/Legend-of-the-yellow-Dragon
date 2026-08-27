@@ -1,7 +1,7 @@
 package de.game.controller.dto.character;
 
 import de.game.configuration.constraintValidator.annotation.ValidCharacterCreationDto;
-import de.game.model.entity.PlayerClass;
+import de.game.model.enums.PlayerClassEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.List;
 @ValidCharacterCreationDto
 public class CharacterCreationDto extends AbstractCharacterDto {
 
-    private List<PlayerClass> playerClasses;
+    private List<PlayerClassEnum> playerClasses;
 
     //Create Charakter Attributes
     private Integer attributeMin;

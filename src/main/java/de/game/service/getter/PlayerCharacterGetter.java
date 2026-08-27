@@ -4,7 +4,6 @@ package de.game.service.getter;
 import de.game.model.entity.PlayerCharacter;
 import de.game.model.entity.User;
 import de.game.model.repository.PlayerCharacterRepository;
-import de.game.model.repository.joinTableRepository.PlayerCharacterAttributeRepository;
 import de.game.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import java.util.Optional;
 public class PlayerCharacterGetter {
 
     private final PlayerCharacterRepository playerCharacterRepository;
-    private final PlayerCharacterAttributeRepository playerCharacterAttributeRepository;
     private final UserService userService;
 
     @Transactional
