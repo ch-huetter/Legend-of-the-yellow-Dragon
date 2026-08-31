@@ -57,15 +57,13 @@ public class Bleed extends Effect {
 
     private EffectResult evokePastAction (PastActionContext pastActionContext) {
         double bluntDamage = getBluntDamagePerActivation();
-
         durationActions--;
-        return EffectResult.builder().bluntDamage(bluntDamage).baseBluntDamage(bluntDamage).build();
+        return EffectResult.builder(source, target).bluntDamage(bluntDamage, 0).build();
     }
 
     private EffectResult evokePastTurn (PastTurnContext pastTurnContext) {
-
         durationTurns--;
-        return new EffectResult();
+        return null;
     }
 
     private double getBluntDamagePerActivation () {

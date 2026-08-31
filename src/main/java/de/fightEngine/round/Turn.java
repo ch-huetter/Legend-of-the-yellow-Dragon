@@ -1,4 +1,4 @@
-package de.fightEngine.turnOrder;
+package de.fightEngine.round;
 
 import de.fightEngine.CombatantEntry;
 import lombok.AllArgsConstructor;

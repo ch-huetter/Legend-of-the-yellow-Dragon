@@ -27,7 +27,7 @@ public class LightAttack extends Action {
 
         double bluntDamage = Math.round(source.getCombatant().getStrength() * 1.5);
 
-        return ActionResult.builder().source(source).target(selectedTarget.combatantEntry()).bluntDamage(bluntDamage).baseBluntDamage(bluntDamage).build();
+        return ActionResult.builder(source, selectedTarget.getTarget()).bluntDamage(bluntDamage, 0).build();
     }
 
     @Override

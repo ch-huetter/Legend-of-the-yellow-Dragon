@@ -22,7 +22,7 @@ public abstract class LivingEntity implements Serializable {
 
     @Column(length = 30)
     protected String name;
-    
+
     @NonNull
     protected Integer armor;
     @Nonnull
@@ -68,5 +68,5 @@ public abstract class LivingEntity implements Serializable {
     @NonNull
     protected Integer experience;
     @Nonnull
-    protected Short activationsPerTurn;
+    protected Short actionsPerTurn;
 }

@@ -52,15 +52,14 @@ public class Poison extends Effect {
             throw new IllegalArgumentException("PoisonTier not within allowed Levels");
         }
 
-        EffectResult result = new EffectResult();
+        double magicDamage = 0;
+        double trueDamage  = 0;
         if (poisonTier < 4) {
-            result.setMagicDamage(damageBrackets[poisonTier]);
-            result.setBaseMagicDamage(damageBrackets[poisonTier]);
+            magicDamage = damageBrackets[poisonTier];
         } else {
-            result.setTrueDamage(damageBrackets[poisonTier]);
-            result.setBaseTrueDamage(damageBrackets[poisonTier]);
+            trueDamage = damageBrackets[poisonTier];
         }
         durationTurns--;
-        return result;
+        return EffectResult.builder(source, target).magicDamage(magicDamage, 0).trueDamage(trueDamage).build();
     }
 }

@@ -7,6 +7,7 @@ import de.fightEngine.effect.EffectEvokationContext.PastEffectEvocationContext;
 import de.fightEngine.effect.EffectEvokationContext.PreEffectEvocationContext;
 import de.fightEngine.effect.implementation.Effect;
 import de.fightEngine.io.IOManager;
+import de.fightEngine.io.IOPrinter;
 
 import java.util.*;
 
@@ -14,12 +15,12 @@ import java.util.*;
 public class EffectManager {
 
     private final Map<CombatantEntry, Map<EffectEvocationPoint, List<Effect>>> registeredEffectList;
-    private final IOManager ioManager;
+    private final IOPrinter ioPrinter;
     private final FightContext fightContext;
 
-    public EffectManager (List<CombatantEntry> combatantList, IOManager ioManager, FightContext fightContext) {
+    public EffectManager (List<CombatantEntry> combatantList, IOManager ioPrinter, FightContext fightContext) {
         registeredEffectList = new HashMap<>();
-        this.ioManager = ioManager;
+        this.ioPrinter = ioPrinter.getIOPrinterInstance();
         this.fightContext = fightContext;
 
         for (CombatantEntry combatantEntry : combatantList) {
@@ -38,11 +39,18 @@ public class EffectManager {
      */
     public void evokeEffects (EffectEvocationContext effectEvocationContext) {
         ArrayList<Effect> effectsToDismiss = new ArrayList<>();
-
+        ioPrinter.printDebugMsg("Evoking Effect evocation Point " + effectEvocationContext.getEvocationPoint() + " for " +
+                                effectEvocationContext.getCombatantToEvokeEffects().getCombatant().getName());
         registeredEffectList.get(effectEvocationContext.getCombatantToEvokeEffects()).get(effectEvocationContext.getEvocationPoint())
                 .forEach(effect -> {
-                    applyEffect(effect.evokeEffect(effectEvocationContext), effectEvocationContext, effect);
+                    ioPrinter.printTraceMsg("Evoking Effect " + effect.getEffectKeyEnum());
+                    EffectResult effectResult = effect.evokeEffect(effectEvocationContext);
+                    if (effectResult != null) {
+                        ioPrinter.printTraceMsg("Effect produced a result. Applying it");
+                        applyEffect(effectResult, effectEvocationContext, effect);
+                    }
                     if (effect.isDismissable()) {
+                        ioPrinter.printTraceMsg("Effect is Dismissable. Adding it to dismissable list");
                         effectsToDismiss.add(effect);
                     }
                 });
@@ -51,9 +59,7 @@ public class EffectManager {
     }
 
     private void applyEffect (EffectResult effectResult, EffectEvocationContext effectEvocationContext, Effect evokedEffect) {
-        if (effectResult.equals(new EffectResult())) {
-            return;
-        }
+
         this.evokeEffects(new PreEffectEvocationContext(EffectEvocationPoint.PRE_EFFECT_EVOCATION, effectEvocationContext.getCombatantToEvokeEffects(), evokedEffect));
 
         fightContext.applyResult(effectResult);
@@ -63,10 +69,13 @@ public class EffectManager {
     }
 
     public void registerEffect (Effect effectToRegister) {
+        ioPrinter.printDebugMsg("Registering Effect " + effectToRegister.getEffectKeyEnum().getName() + " to " + effectToRegister.getEvocationPoints().length + " Evocation " +
+                                "Points");
         Arrays.stream(effectToRegister.getEvocationPoints()).forEach(evocationPoint -> {
+            ioPrinter.printTraceMsg("Registering Effect " + effectToRegister.getEffectKeyEnum() + " to EvocationPoint " + evocationPoint.toString());
             registeredEffectList.get(effectToRegister.getTarget()).get(evocationPoint).add(effectToRegister);
         });
-        System.out.println(effectToRegister.getRegistrationMsg());
+        ioPrinter.printMsg(effectToRegister.getRegistrationMsg());
     }
 
     public void removeRegisteredEffect (Effect effectToRemove) {

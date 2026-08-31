@@ -23,8 +23,7 @@ public class HeavyAttack extends Action {
 
         double bluntDamage = Math.round(source.getCombatant().getStrength() * 2.5);
 
-        return ActionResult.builder().source(source).target(selectedTarget.combatantEntry()).bluntDamage(bluntDamage).baseBluntDamage(bluntDamage).bluntPenetration(20)
-                .baseBluntPenetration(20)
+        return ActionResult.builder(source, selectedTarget.getTarget()).bluntDamage(bluntDamage, 20)
                 .build();
     }
 

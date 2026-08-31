@@ -1,11 +1,14 @@
-package de.fightEngine.helper;
+package de.fightEngine.io.konsoleIOManager;
 
 import de.fightEngine.CombatantEntry;
 import de.fightEngine.action.Action;
+import de.fightEngine.round.Turn;
+import de.fightEngine.targetSelector.SelectableTarget;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PrototypeCombatTextCreator {
+public class UIStateToKonsolePrinter {
     private final int lineLength = 30;
     private final char placeholder = '#';
     private final String placeholderCharacters = "   ";
@@ -66,7 +69,45 @@ public class PrototypeCombatTextCreator {
         System.out.println(stringBuilder.toString());
     }
 
-    public void printCombatantStatus (List<CombatantEntry> combatantList) {
+    public void printTurnList (List<List<Turn>> roundList) {
+        List<Turn>    turnList      = roundList.getFirst();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int x = 0; x < turnList.size(); x++) {
+            stringBuilder.append(placeholderLine());
+            if ((x + 1) < turnList.size())
+                stringBuilder.append(placeholderCharacters);
+        }
+        stringBuilder.append("\n");
+
+        for (int x = 0; x < turnList.size(); x++) {
+            stringBuilder.append(combatantNameAsLine(turnList.get(x).getCombatantEntry()));
+            if ((x + 1) < turnList.size())
+                stringBuilder.append(placeholderCharacters);
+        }
+        stringBuilder.append("\n");
+
+        for (int x = 0; x < turnList.size(); x++) {
+            stringBuilder.append(placeholderLine());
+            if ((x + 1) < turnList.size())
+                stringBuilder.append(placeholderCharacters);
+        }
+        stringBuilder.append("\n");
+
+        System.out.println(stringBuilder.toString());
+    }
+
+    /**
+     * Converts the given target list into a Combatant List and calls printCombatantList with it
+     *
+     * @param targetList to convert
+     */
+    public void printSelectableTargetListAsCombatantList (List<SelectableTarget> targetList) {
+        List<CombatantEntry> combatantEntries = new ArrayList<>();
+        targetList.forEach(selectableTarget -> combatantEntries.add(selectableTarget.getTarget()));
+        printCombatantList(combatantEntries);
+    }
+
+    public void printCombatantList (List<CombatantEntry> combatantList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int x = 0; x < combatantList.size(); x++) {
             stringBuilder.append(placeholderLine());

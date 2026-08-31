@@ -2,14 +2,18 @@ package de.fightEngine.result;
 
 import de.fightEngine.calculator.DamageReductionCalculator;
 import de.fightEngine.io.IOManager;
+import de.fightEngine.io.IOPrinter;
 import de.game.model.entity.LivingEntity;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class ResultDamagerReducer {
 
     private final DamageReductionCalculator damageReductionCalculator;
-    private final IOManager ioManager;
+    private final IOPrinter ioPrinter;
+
+    public ResultDamagerReducer (DamageReductionCalculator damageReductionCalculator, IOManager ioPrinter) {
+        this.damageReductionCalculator = damageReductionCalculator;
+        this.ioPrinter = ioPrinter.getIOPrinterInstance();
+    }
 
     /**
      * @param abstractResult of an Action or Effect. Reduces damage values of the given Result
@@ -28,7 +32,7 @@ public class ResultDamagerReducer {
             double bluntBR = bluntDamage;
             bluntDamage = Math.max(0, bluntDamage - (Math.round(Math.min(80, armorReduction + dexterityReduction - abstractResult.getBluntPenetration()) / 100 * bluntDamage)));
             abstractResult.setBluntDamage(bluntDamage);
-            ioManager.printMsg("Blunt Damage before/after Reduction (" + bluntBR + "/" + bluntDamage + ")");
+            ioPrinter.printMsg("Blunt Damage before/after Reduction (" + bluntBR + "/" + bluntDamage + ")");
         }
 
         double piercingDamage = abstractResult.getPiercingDamage();
@@ -37,7 +41,7 @@ public class ResultDamagerReducer {
             double piercingDamageReduction = Math.max(dexterityReduction, armorReduction + dexterityReduction - agilityPenetration - abstractResult.getPiercingPenetration());
             piercingDamage = Math.max(0, piercingDamage - (Math.round(Math.min(80, piercingDamageReduction) / 100 * piercingDamage)));
             abstractResult.setPiercingDamage(piercingDamage);
-            ioManager.printMsg("Piercing Damage before/after Reduction (" + piercingDamageBR + "/" + piercingDamage + ")" + " with " + piercingDamageReduction + "% Reduction");
+            ioPrinter.printMsg("Piercing Damage before/after Reduction (" + piercingDamageBR + "/" + piercingDamage + ")" + " with " + piercingDamageReduction + "% Reduction");
         }
 
         double magicDamage = abstractResult.getMagicDamage();
@@ -46,7 +50,7 @@ public class ResultDamagerReducer {
             double magicDamageReduction = Math.min(80, Math.max(0, magicReduction - abstractResult.getMagicPenetration()));
             magicDamage = Math.max(0, Math.round(magicDamage - magicDamageReduction / 100 * magicDamage));
             abstractResult.setMagicDamage(magicDamage);
-            ioManager.printMsg("Magic Damage before/after Reduction (" + magicDamageBR + "/" + magicDamage + ") with " + magicDamageReduction + "% Reduction");
+            ioPrinter.printMsg("Magic Damage before/after Reduction (" + magicDamageBR + "/" + magicDamage + ") with " + magicDamageReduction + "% Reduction");
         }
 
     }

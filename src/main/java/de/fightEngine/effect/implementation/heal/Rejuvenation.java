@@ -48,11 +48,11 @@ public class Rejuvenation extends Effect {
     }
 
     private EffectResult evokePreTurn (PreActionContext preTurnContext) {
-        double healAmount = Math.round((float) source.getCombatant().getMaxHealth() / 100 * 10);
+        double healAmount = Math.round((float) source.getCombatant().getMaxHealth() / 100 * healPercent);
 
         durationTurns--;
 
-        return EffectResult.builder().healthHealAmount(healAmount).build();
+        return EffectResult.builder(source, target).healthHeal(healAmount).build();
     }
 
 }

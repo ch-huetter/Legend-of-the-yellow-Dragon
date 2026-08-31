@@ -59,8 +59,8 @@ public class Exhaustion extends Effect {
         actionResult.setBluntDamage(Math.max(actionResult.getBluntDamage() - bluntDamageReduction, 0));
         actionResult.setPiercingDamage(Math.max(actionResult.getPiercingDamage() - piercingDamageReduction, 0));
         actionResult.setMagicDamage(Math.max(actionResult.getMagicDamage() - magicDamageReduction, 0));
-        
-        return new EffectResult();
+
+        return null;
     }
 
 }

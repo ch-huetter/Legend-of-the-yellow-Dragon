@@ -62,11 +62,11 @@ public class GreaterBluntDamage extends Effect {
 
         actionResult.setBluntDamage(bluntDamage + additionalBluntDamage);
 
-        return new EffectResult();
+        return null;
     }
 
     private EffectResult evokePastTurn (PastTurnContext pastTurnContext) {
         durationTurns--;
-        return new EffectResult();
+        return null;
     }
 }

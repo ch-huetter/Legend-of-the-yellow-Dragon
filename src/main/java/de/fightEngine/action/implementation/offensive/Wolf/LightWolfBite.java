@@ -10,7 +10,7 @@ public class LightWolfBite extends Action {
     public LightWolfBite () {
         this.actionName = "Leichter Wolfs Biss";
 
-        this.staminaCost = 40;
+        this.staminaCost = 20;
 
         this.targetEnemy = true;
     }
@@ -18,13 +18,10 @@ public class LightWolfBite extends Action {
 
     @Override
     public ActionResult evoke (CombatantEntry source, Target selectedTarget) {
-        ActionResult result = new ActionResult();
-        result.setSource(source);
-        result.setTarget(selectedTarget.combatantEntry());
-        result.setBluntDamage(source.getCombatant().getStrength() * 2);
-        result.setBluntPenetration(0);
 
-        return result;
+        int bluntDamage = source.getCombatant().getStrength() * 2;
+
+        return ActionResult.builder(source, selectedTarget.getTarget()).bluntDamage(bluntDamage, 0).build();
     }
 
     @Override

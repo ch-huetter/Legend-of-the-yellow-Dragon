@@ -18,7 +18,7 @@ public class Rest extends Action {
 
     @Override
     public ActionResult evoke (CombatantEntry source, Target selectedTarget) {
-        return ActionResult.builder().staminaHealAmount(75).target(selectedTarget.combatantEntry()).source(source).build();
+        return ActionResult.builder(source, selectedTarget.getTarget()).staminaHeal(75).build();
     }
 
     @Override

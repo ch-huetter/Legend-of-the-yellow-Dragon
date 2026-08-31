@@ -2,6 +2,7 @@ package de.fightEngine;
 
 import de.fightEngine.io.IOLevel;
 import de.fightEngine.io.IOManager;
+import de.fightEngine.io.IOPrinter;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 public class CombatantManager {
 
     private final IOManager ioManager;
+    private final IOPrinter ioPrinter;
     private final EventBus eventBus;
 
     private List<CombatantEntry> combatantList;
@@ -24,15 +26,18 @@ public class CombatantManager {
         this.isCombatantDead = false;
         this.teamsAlive = new ArrayList<>();
         this.ioManager = ioManager;
+        this.ioPrinter = ioManager.getIOPrinterInstance();
 
         if (combatantList.isEmpty()) {
             throw new IllegalArgumentException("Combatant List cannot be empty");
         }
+        this.refreshTeamsAlive();
+        eventBus.registerOnRoundEnd(this::onRoundEnd);
 
     }
 
     public void combatantIsDead () {
-        ioManager.printDebugMsg("Combatant has died. Setting isCombatantDead true");
+        ioPrinter.printDebugMsg("Combatant has died. Setting isCombatantDead true");
         this.isCombatantDead = true;
     }
 
@@ -42,23 +47,23 @@ public class CombatantManager {
             if (combatantEntry.getStatus().equals(CombatantStatus.NORMAL))
                 newCombatantList.add(combatantEntry);
         }
-        ioManager.printDebugMsg("Removed " + (combatantList.size() - newCombatantList.size()) + " Dead Combatants from CombatantList.");
+        ioPrinter.printDebugMsg("Removed " + (combatantList.size() - newCombatantList.size()) + " Dead Combatants from CombatantList.");
 
         if (ioManager.getMessageIOLevel().getValue() >= IOLevel.TRACE.getValue()) {
             StringBuilder stringBuilder = new StringBuilder();
             newCombatantList.forEach(combatantEntry -> stringBuilder.append(combatantEntry.getCombatant().getName()).append(" ,"));
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length() - 1);
-            ioManager.printTraceMsg("new Combatant List is containing " + stringBuilder);
+            ioPrinter.printTraceMsg("new Combatant List is containing " + stringBuilder);
         }
 
         combatantList = newCombatantList;
         isCombatantDead = false;
-        ioManager.printTraceMsg("IsCombatantDead set to false");
+        ioPrinter.printTraceMsg("IsCombatantDead set to false");
         refreshTeamsAlive();
         eventBus.onCombatantListChange(combatantList);
     }
 
-    public void onNewRound () {
+    public void onRoundEnd () {
         if (isCombatantDead) {
             removeDead();
         }
@@ -71,13 +76,13 @@ public class CombatantManager {
     private void refreshTeamsAlive () {
         if (!teamsAlive.isEmpty()) {
             teamsAlive.clear();
-            ioManager.printTraceMsg("Cleared teamsAlive");
+            ioPrinter.printTraceMsg("Cleared teamsAlive");
         }
 
         combatantList.forEach(combatantEntry -> {
             if (!teamsAlive.contains(combatantEntry.getTeam())) {
                 teamsAlive.add(combatantEntry.getTeam());
-                ioManager.printTraceMsg("Added " + combatantEntry.getTeam() + " to teamsAlive ");
+                ioPrinter.printTraceMsg("Added " + combatantEntry.getTeam() + " to teamsAlive ");
             }
 
         });
@@ -85,7 +90,7 @@ public class CombatantManager {
             StringBuilder stringBuilder = new StringBuilder();
             teamsAlive.forEach(teamName -> stringBuilder.append(teamName).append(" ,"));
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length() - 1);
-            ioManager.printDebugMsg(teamsAlive.size() + " Teams alive (" + stringBuilder + ")");
+            ioPrinter.printDebugMsg(teamsAlive.size() + " Teams alive (" + stringBuilder + ")");
         }
 
     }

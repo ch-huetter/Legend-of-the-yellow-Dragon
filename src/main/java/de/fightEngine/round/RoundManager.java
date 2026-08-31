@@ -1,4 +1,4 @@
-package de.fightEngine.turnOrder;
+package de.fightEngine.round;
 
 import de.fightEngine.CombatantEntry;
 import de.fightEngine.EventBus;
@@ -7,20 +7,21 @@ import de.fightEngine.flag.Flag;
 import de.fightEngine.flag.FlagKey;
 import de.fightEngine.flag.implementation.InitiativeModifier;
 import de.fightEngine.io.IOManager;
+import de.fightEngine.io.IOPrinter;
+import de.game.model.entity.LivingEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@Service
-public class TurnOrderManager {
+public class RoundManager {
 
     private final List<List<Turn>> rounds;
     private final FightContext fightContext;
-    private final IOManager ioManager;
+    private final IOPrinter ioPrinter;
+    private final EventBus eventBus;
     private final int shownRounds;
 
     @Setter
@@ -30,27 +31,21 @@ public class TurnOrderManager {
     private int roundIndex;
     private int combatantIndex;
 
-
-    public TurnOrderManager (FightContext fightContext, EventBus eventBus, IOManager ioManager, List<CombatantEntry> combatantList) {
-
+    public RoundManager (FightContext fightContext, EventBus eventBus, IOManager ioManager, List<CombatantEntry> combatantList) {
         this.rounds = new ArrayList<>();
-        this.shownRounds = 3;
         this.fightContext = fightContext;
-        this.ioManager = ioManager;
+        this.ioPrinter = ioManager.getIOPrinterInstance();
+        this.eventBus = eventBus;
+        this.shownRounds = 3;
 
         eventBus.registerOnCombatantListChange(this::buildRounds);
         eventBus.registerOnInitiativeChange(this::initiativeChanged);
-        eventBus.registerOnTurnEnd(() -> {
-            combatantIndex++;
-            if ((combatantIndex) >= rounds.get(roundIndex).size()) {
-                eventBus.onRoundEnd();
-                combatantIndex = 0;
-                roundIndex++;
-            }
-        });
+        eventBus.registerOnTurnEnd(this::onTurnEnd);
+        eventBus.registerOnRoundEnd(this::onRoundEnd);
 
         this.combatantIndex = 0;
         this.roundIndex = 0;
+
         buildRounds(combatantList);
     }
 
@@ -60,7 +55,7 @@ public class TurnOrderManager {
     public List<List<Turn>> getDisplayedOrder () {
         List<List<Turn>> turnList = new ArrayList<>();
         for (int i = roundIndex; i < roundIndex + shownRounds; i++) {
-            turnList.add(rounds.get(roundIndex + i));
+            turnList.add(rounds.get(i));
         }
         return turnList;
     }
@@ -83,43 +78,45 @@ public class TurnOrderManager {
                 }
                 newTurnOrder.add(newTurn);
             }
+            sortCombatantListForTurnOrder(newTurnOrder);
             rounds.add(newTurnOrder);
         }
+        ioPrinter.printDebugMsg("Finished Building Rounds. Round count is now " + rounds.size());
     }
 
     private void initiativeChanged (CombatantEntry combatantInitiativeChanged) {
-        ioManager.printDebugMsg("initiative Changed for " + combatantInitiativeChanged.getCombatant().getName());
-        ioManager.printTraceMsg(this.getTurnOrderStringBuilderRepresentation().toString());
+        ioPrinter.printDebugMsg("initiative Changed for " + combatantInitiativeChanged.getCombatant().getName());
+        ioPrinter.printTraceMsg(this.getTurnOrderStringBuilderRepresentation().toString());
         for (int loopRoundIndex = roundIndex; loopRoundIndex < roundIndex + shownRounds; loopRoundIndex++) {
             for (int turnIndex = 0; turnIndex < rounds.get(loopRoundIndex).size(); turnIndex++) {
-                ioManager.printTraceMsg("Round " + loopRoundIndex + " turn " + turnIndex + " is Combatants " +
+                ioPrinter.printTraceMsg("Round " + loopRoundIndex + " turn " + turnIndex + " is Combatants " +
                                         rounds.get(loopRoundIndex).get(turnIndex).getCombatantEntry().getCombatant().getName() +
                                         " Turn.");
                 if (rounds.get(loopRoundIndex).get(turnIndex).getCombatantEntry().equals(combatantInitiativeChanged)) {
-                    ioManager.printTraceMsg("Found changed Combatant");
+                    ioPrinter.printTraceMsg("Found changed Combatant");
                     //Check if round is actualRound we need to check if the changed CombatantEntry did his action this round and if there are 2 or more turns left that
                     // did not do their action this round we need to refresh initiative and sort those.
                     if (loopRoundIndex == roundIndex && (turnIndex <= combatantIndex || rounds.get(loopRoundIndex).size() <= turnIndex + 1)) {
                         StringBuilder stringBuilder = getInitiativeChangedDebugMsg(turnIndex, loopRoundIndex);
-                        ioManager.printDebugMsg(stringBuilder.toString());
+                        ioPrinter.printDebugMsg(stringBuilder.toString());
                         continue;
                     }
                     //Actual Round. We only change the positions for Combatants that did not do their turn this round.
                     if (loopRoundIndex == roundIndex) {
-                        ioManager.printDebugMsg("It is the actual Round so we change only Combatants that did not do their turn ");
+                        ioPrinter.printDebugMsg("It is the actual Round so we change only Combatants that did not do their turn ");
                         ArrayList<Turn> unactivatedTurns = new ArrayList<>();
                         while (rounds.get(loopRoundIndex).size() - 1 > combatantIndex) {
                             unactivatedTurns.add(rounds.get(loopRoundIndex).getLast());
                             rounds.get(loopRoundIndex).removeLast();
                         }
-                        ioManager.printTraceMsg(unactivatedTurns.size() + " turns are remaining in the actual Round");
+                        ioPrinter.printTraceMsg(unactivatedTurns.size() + " turns are remaining in the actual Round");
                         combatantInitiativeChanged.setInitiative(calculateTurnInitiative(combatantInitiativeChanged, 0, true));
                         sortCombatantListForTurnOrder(unactivatedTurns);
                         rounds.get(loopRoundIndex).addAll(unactivatedTurns);
                     }
                     //Future Rounds. We refresh the combatants initiative for that turn and check if initiative changing effects are still aktive on this turn!
                     else {
-                        ioManager.printDebugMsg("It is a future Round so we refresh the changedCombatants Initiative and resort the Order.");
+                        ioPrinter.printDebugMsg("It is a future Round so we refresh the changedCombatants Initiative and resort the Order.");
                         rounds.get(loopRoundIndex).get(turnIndex).setInitiativeThisTurn(calculateTurnInitiative(combatantInitiativeChanged, loopRoundIndex - roundIndex,
                                                                                                                 false));
                         sortCombatantListForTurnOrder(rounds.get(loopRoundIndex));
@@ -133,29 +130,62 @@ public class TurnOrderManager {
     private int calculateTurnInitiative (CombatantEntry combatantEntry, int roundsInFuture, boolean wasActiveInActualRound) {
         //We use baseInitiative. This can Conflict with things that change initiative without using Flags
         int turnInitiative = combatantEntry.getBaseInitiative();
-        ioManager.printTraceMsg("Initial turnInitiative is " + turnInitiative);
+        ioPrinter.printTraceMsg("Initial turnInitiative is " + turnInitiative);
         List<InitiativeModifier> initiativeModifiers = new ArrayList<>();
         for (Flag flag : combatantEntry.getSetFlags()) {
             if (flag.getFlagKey().equals(FlagKey.INITIATIVE_MODIFIED) && flag.getDuration() > roundsInFuture + (wasActiveInActualRound ? 1 : 0)) {
                 initiativeModifiers.add((InitiativeModifier) flag);
             }
         }
-        ioManager.printTraceMsg("Found " + initiativeModifiers.size() + " InitiativeModifier Flags");
+        ioPrinter.printTraceMsg("Found " + initiativeModifiers.size() + " InitiativeModifier Flags");
         if (!initiativeModifiers.isEmpty()) {
             for (InitiativeModifier initiativeModifier : initiativeModifiers) {
                 if (initiativeModifier.getDuration() - roundsInFuture + (wasActiveInActualRound ? 1 : 0) > 0) {
-                    ioManager.printTraceMsg("Modified turnInitiative by " + initiativeModifier.getValue());
+                    ioPrinter.printTraceMsg("Modified turnInitiative by " + initiativeModifier.getValue());
                     turnInitiative += initiativeModifier.getValue();
                 }
             }
         }
-        ioManager.printDebugMsg("calculated new initiative Value for " + combatantEntry.getCombatant().getName() + ". Previous value is " + combatantEntry.getBaseInitiative() +
+        ioPrinter.printTraceMsg("calculated new initiative Value for " + combatantEntry.getCombatant().getName() + ". Previous value is " + combatantEntry.getBaseInitiative() +
                                 " new value is " + turnInitiative);
         return turnInitiative;
     }
 
+    private void onTurnEnd () {
+        combatantIndex++;
+        if ((combatantIndex) >= rounds.get(roundIndex).size()) {
+            ioPrinter.printDebugMsg("Combatant Index is" + combatantIndex + " reached Round End");
+            combatantIndex = 0;
+            roundIndex++;
+            eventBus.onRoundEnd();
+        }
+    }
+
+    private void onRoundEnd () {
+        ioPrinter.printMsg("Entering Round " + roundIndex);
+        for (CombatantEntry combatantEntry : fightContext.getCombatantList()) {
+            LivingEntity entity = combatantEntry.getCombatant();
+
+
+            int regeneratedStamina       = Math.round((float) entity.getMaxStamina() / 3);
+            int combatantActionsThisTurn = combatantEntry.getCombatant().getActionsPerTurn();
+            //New Action Value is maximal CombatantsActionsPerTurn and minimal -CombatantsActionsPerTurn
+            int combatantNewActionValue = Math.max(Math.min(combatantEntry.getCombatantActions() + combatantActionsThisTurn,
+                                                            combatantActionsThisTurn), -combatantActionsThisTurn);
+            RoundEndResult roundEndResult =
+                    RoundEndResult.builder(combatantEntry, combatantEntry).staminaHeal(regeneratedStamina).actionValue(combatantNewActionValue).build();
+            //EvocationPoint NewRound
+
+            fightContext.applyResult(roundEndResult);
+
+            ioPrinter.printDebugMsg("Combatant " + entity.getName() + " regenerated " + regeneratedStamina + " Stamina and regenerated" +
+                                    combatantActionsThisTurn + " Actions to new Value of " + combatantNewActionValue +
+                                    "actions");
+        }
+    }
+
     private void sortCombatantListForTurnOrder (List<Turn> combatantList) {
-        combatantList.sort(Comparator.comparingInt(Turn::getInitiativeThisTurn));
+        combatantList.sort(Comparator.comparingInt(Turn::getInitiativeThisTurn).reversed());
     }
 
     public CombatantEntry getCurrentCombatant () {
